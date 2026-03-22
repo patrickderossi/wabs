@@ -1523,8 +1523,6 @@ export default function App() {
     setFormSent(true);
     setTimeout(() => setFormSent(false), 5000);
   };
-  const HERO_PLAYLIST = ['/hero2.mp4', '/hero.mp4'];
-  const [heroVidIdx, setHeroVidIdx] = useState(0);
   const heroBgRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const heroWordsRef = useRef<HTMLSpanElement[]>([]);
@@ -1732,16 +1730,12 @@ export default function App() {
 
       {/* ── HERO ── */}
       <section id="hero">
-        <video
+        <img
           id="hero-bg"
-          ref={heroBgRef as React.RefObject<HTMLVideoElement & HTMLElement>}
-          key={heroVidIdx}
-          src={HERO_PLAYLIST[heroVidIdx]}
-          poster="https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2Fa30a969b7eec4e6883563ee4cd4697cd?format=webp&width=1600"
-          autoPlay
-          muted
-          playsInline
-          onEnded={() => setHeroVidIdx(i => (i + 1) % HERO_PLAYLIST.length)}
+          ref={heroBgRef as React.RefObject<HTMLImageElement & HTMLElement>}
+          src="/hero-bg.jpg"
+          alt=""
+          aria-hidden="true"
         />
         <div id="hero-overlay" />
         <div className="hero-grid" />
