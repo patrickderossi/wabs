@@ -1730,12 +1730,15 @@ export default function App() {
 
       {/* ── HERO ── */}
       <section id="hero">
-        <img
+        <video
           id="hero-bg"
-          ref={heroBgRef as React.RefObject<HTMLImageElement & HTMLElement>}
-          src="/hero-bg.jpg"
-          alt=""
-          aria-hidden="true"
+          ref={heroBgRef as React.RefObject<HTMLVideoElement & HTMLElement>}
+          src="/hero-new.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/hero-bg.jpg"
         />
         <div id="hero-overlay" />
         <div className="hero-grid" />
