@@ -1520,6 +1520,8 @@ export default function App() {
     setFormSent(true);
     setTimeout(() => setFormSent(false), 5000);
   };
+  const HERO_PLAYLIST = ['/hero2.mp4', '/hero.mp4'];
+  const [heroVidIdx, setHeroVidIdx] = useState(0);
   const heroBgRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const heroWordsRef = useRef<HTMLSpanElement[]>([]);
@@ -1725,11 +1727,12 @@ export default function App() {
         <video
           id="hero-bg"
           ref={heroBgRef as React.RefObject<HTMLVideoElement & HTMLElement>}
-          src="/hero.mp4"
+          key={heroVidIdx}
+          src={HERO_PLAYLIST[heroVidIdx]}
           autoPlay
           muted
-          loop
           playsInline
+          onEnded={() => setHeroVidIdx(i => (i + 1) % HERO_PLAYLIST.length)}
         />
         <div id="hero-overlay" />
         <div className="hero-grid" />
