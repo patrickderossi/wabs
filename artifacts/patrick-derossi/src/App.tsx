@@ -1584,7 +1584,7 @@ export default function App() {
           <img
             src="/logo.webp"
             alt="Patrick De Rossi Design & Drafting"
-            style={{ height: '38px', width: 'auto', display: 'block' }}
+            style={{ height: '72px', width: 'auto', display: 'block' }}
           />
         </div>
         <div className="nav-links">
