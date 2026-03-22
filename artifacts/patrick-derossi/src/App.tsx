@@ -1581,7 +1581,7 @@ export default function App() {
         const max = document.body.scrollHeight - window.innerHeight;
         progressRef.current.style.transform = `scaleX(${y / max})`;
       }
-      const sections = ['hero', 'services', 'about', 'work', 'testimonials', 'process', 'contact'];
+      const sections = ['hero', 'services', 'about', 'testimonials', 'work', 'process', 'contact'];
       for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top < window.innerHeight / 2) {
@@ -1920,6 +1920,37 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── TESTIMONIALS ── */}
+      <section id="testimonials">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 0 }}
+          >
+            <div>
+              <span className="section-eyebrow">Client Stories</span>
+              <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+                What Our Clients Say
+              </h2>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
+              {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="#c9a84c" color="#c9a84c" />)}
+              <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--gold)', letterSpacing: '-0.02em' }}>5.0</span>
+              <span style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gray)' }}>Google Rating</span>
+            </div>
+          </motion.div>
+
+          <div className="testi-columns-wrap">
+            <TestimonialsColumn testimonials={TESTIMONIALS.slice(0, 3)} duration={18} />
+            <TestimonialsColumn testimonials={TESTIMONIALS.slice(3, 6)} duration={22} />
+            <TestimonialsColumn testimonials={TESTIMONIALS.slice(6, 9)} duration={20} />
+          </div>
+        </div>
+      </section>
+
       {/* ── PROJECTS ── */}
       <section id="work">
         <div className="container">
@@ -1974,37 +2005,6 @@ export default function App() {
           </div>
         </div>
         <div className="cta-band-rule" />
-      </section>
-
-      {/* ── TESTIMONIALS ── */}
-      <section id="testimonials">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 0 }}
-          >
-            <div>
-              <span className="section-eyebrow">Client Stories</span>
-              <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-                What Our Clients Say
-              </h2>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
-              {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="#c9a84c" color="#c9a84c" />)}
-              <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--gold)', letterSpacing: '-0.02em' }}>5.0</span>
-              <span style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gray)' }}>Google Rating</span>
-            </div>
-          </motion.div>
-
-          <div className="testi-columns-wrap">
-            <TestimonialsColumn testimonials={TESTIMONIALS.slice(0, 3)} duration={18} />
-            <TestimonialsColumn testimonials={TESTIMONIALS.slice(3, 6)} duration={22} />
-            <TestimonialsColumn testimonials={TESTIMONIALS.slice(6, 9)} duration={20} />
-          </div>
-        </div>
       </section>
 
       {/* ── PROCESS ── */}
@@ -2198,8 +2198,8 @@ export default function App() {
                 {[
                   { href: '#services', label: 'Services' },
                   { href: '#about', label: 'About Patrick' },
-                  { href: '#work', label: 'Our Work' },
                   { href: '#testimonials', label: 'Client Stories' },
+                  { href: '#work', label: 'Our Work' },
                   { href: '#process', label: 'Our Process' },
                   { href: '#contact', label: 'Get a Quote' },
                 ].map(l => (
