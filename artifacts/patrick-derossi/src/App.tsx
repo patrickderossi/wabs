@@ -1043,6 +1043,9 @@ const CSS = `
     opacity: 0;
     transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease;
     pointer-events: none;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
   }
   #sticky-cta.visible {
     transform: translateY(0);
@@ -1362,12 +1365,12 @@ const SERVICES = [
 ];
 
 const PROJECTS = [
-  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2Fa30a969b7eec4e6883563ee4cd4697cd?format=webp&width=900', name: 'Ultra-Modern Double Storey', type: 'Custom Home Design' },
-  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F52c209f0e0d24770bd2ca845dda8bdeb?format=webp&width=900', name: 'Contemporary Residence', type: 'Custom Home Design' },
-  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F6049763deb68490486b31b8246cd37d6?format=webp&width=900', name: 'Modern Single Storey', type: 'Custom Home Design' },
-  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F83cae82e0ee742dda2d6173e8479c294?format=webp&width=900', name: 'Hampton-Style Home', type: 'Custom Home Design' },
-  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F33c2aa76642549618267469fa5e26c21?format=webp&width=900', name: 'Contemporary Single Storey', type: 'Custom Home Design' },
-  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2Feb0d938ec5b44e65a8095a02be6d9637?format=webp&width=900', name: 'Modern New Build', type: 'Custom Home Design' },
+  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2Fa30a969b7eec4e6883563ee4cd4697cd?format=webp&width=900', name: 'Ultra-Modern Double Storey', type: 'Residential Design' },
+  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F52c209f0e0d24770bd2ca845dda8bdeb?format=webp&width=900', name: 'Contemporary Duplex', type: 'Multi-Unit Development' },
+  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F6049763deb68490486b31b8246cd37d6?format=webp&width=900', name: 'Modern Single Storey', type: 'Residential Design' },
+  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F83cae82e0ee742dda2d6173e8479c294?format=webp&width=900', name: 'Rear Extension & Alfresco', type: 'Renovation & Extension' },
+  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F33c2aa76642549618267469fa5e26c21?format=webp&width=900', name: 'Contemporary Single Storey', type: 'Construction Drawings' },
+  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2Feb0d938ec5b44e65a8095a02be6d9637?format=webp&width=900', name: 'Ancillary Dwelling', type: 'Granny Flat' },
 ];
 
 const PROCESS = [
@@ -1661,6 +1664,7 @@ export default function App() {
   const navLinks = [
     { href: '#services', label: 'Services', id: 'services' },
     { href: '#about', label: 'About', id: 'about' },
+    { href: '#testimonials', label: 'Reviews', id: 'testimonials' },
     { href: '#work', label: 'Work', id: 'work' },
     { href: '#contact', label: 'Contact', id: 'contact' },
   ];
@@ -1674,10 +1678,14 @@ export default function App() {
 
       {/* ── STICKY CTA ── */}
       <div id="sticky-cta" className={showSticky ? 'visible' : ''}>
+        <a href="tel:+61423231515" className="sticky-cta-btn" style={{ background: 'transparent', border: '1px solid var(--gold-border)', color: 'rgba(255,255,255,0.75)', gap: '0.5rem' }}>
+          <Phone size={13} style={{ color: 'var(--gold)' }} />
+          0423 231 515
+        </a>
         <a href="#contact" className="sticky-cta-btn">
           <div className="sticky-cta-pulse" />
           Get a Quote
-          <Phone size={14} />
+          <ArrowUpRight size={14} />
         </a>
       </div>
 
@@ -1729,6 +1737,7 @@ export default function App() {
           ref={heroBgRef as React.RefObject<HTMLVideoElement & HTMLElement>}
           key={heroVidIdx}
           src={HERO_PLAYLIST[heroVidIdx]}
+          poster="https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2Fa30a969b7eec4e6883563ee4cd4697cd?format=webp&width=1600"
           autoPlay
           muted
           playsInline
