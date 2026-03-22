@@ -1227,7 +1227,7 @@ function useCounter(target: number, duration = 1800, started = false) {
 /* ─── DATA ───────────────────────────────────────────────────────── */
 const SERVICES = [
   {
-    img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80',
+    img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F6049763deb68490486b31b8246cd37d6?format=webp&width=700',
     title: 'Residential Design',
     desc: 'Full home design from initial concept sketches through to council-approved documentation. We work closely with you to translate your vision into precise, buildable drawings that meet all WA R-Code requirements.',
     num: '01',
@@ -1239,25 +1239,25 @@ const SERVICES = [
     num: '02',
   },
   {
-    img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80',
     title: 'Multi-Unit Development',
     desc: 'Duplex, triplex, grouped dwelling and apartments designed to maximise yield within your site\'s development potential. We navigate WAPC and local planning policy to make your investment work harder.',
     num: '03',
   },
   {
-    img: 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=80',
     title: 'Renovation & Extension',
     desc: 'Thoughtful alterations and additions that respect your home\'s existing character while delivering the space you need. From rear extensions to full internal reconfigurations and second-storey additions.',
     num: '04',
   },
   {
-    img: 'https://images.unsplash.com/photo-1600047508788-786f3865b87c?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=700&q=80',
     title: 'Granny Flats',
     desc: 'Ancillary dwelling designs that comply with Perth\'s R-Codes and maximise liveable space within the allowable footprint. An efficient solution for extended family accommodation or additional rental income.',
     num: '05',
   },
   {
-    img: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80',
     title: 'C.A.F.S',
     desc: 'Permit-ready drawings for carports, alfresco entertainment areas, fencing and garden sheds. We handle the documentation so your builder can get on site without delays or council back-and-forth.',
     num: '06',
