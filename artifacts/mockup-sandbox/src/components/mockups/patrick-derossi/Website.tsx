@@ -858,7 +858,252 @@ const CSS = `
     background-size: 180px 180px;
   }
 
+  /* ── Typed text ── */
+  .typed-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: var(--gold);
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* ── Sticky CTA ── */
+  #sticky-cta {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 800;
+    transform: translateY(120px);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease;
+    pointer-events: none;
+  }
+  #sticky-cta.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+  .sticky-cta-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--gold);
+    color: var(--dark);
+    text-decoration: none;
+    padding: 0.9rem 1.6rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    box-shadow: 0 8px 32px rgba(201,168,76,0.35);
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  .sticky-cta-btn:hover {
+    background: #b89440;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(201,168,76,0.5);
+  }
+  .sticky-cta-pulse {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--dark);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .sticky-cta-pulse::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1.5px solid var(--dark);
+    animation: pulseRing 1.5s ease-out infinite;
+    opacity: 0;
+  }
+  @keyframes pulseRing {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+
+  /* ── Testimonials ── */
+  #testimonials { padding: 8rem 0; background: var(--dark2); overflow: hidden; }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+  @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+  .testi-card {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s ease, transform 0.4s ease;
+  }
+  .testi-card:hover { border-color: var(--gold-border); transform: translateY(-4px); }
+  .testi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--gold);
+    transition: height 0.5s cubic-bezier(0.77,0,0.18,1);
+  }
+  .testi-card:hover::before { height: 100%; }
+  .testi-quote-mark {
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.25;
+    font-family: Georgia, serif;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .testi-text {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .testi-stars { display: flex; gap: 3px; color: var(--gold); margin-bottom: 1.25rem; }
+  .testi-divider {
+    width: 2rem; height: 1px;
+    background: var(--gold-border);
+    margin-bottom: 1.25rem;
+  }
+  .testi-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .testi-meta { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+
+  /* ── Suburbs ── */
+  #suburbs { padding: 8rem 0; background: var(--dark); }
+  .suburbs-inner {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  @media (max-width: 900px) { .suburbs-inner { grid-template-columns: 1fr; gap: 3rem; } }
+  .suburbs-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .suburb-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+  .suburb-tag:hover { border-color: var(--gold-border); color: var(--gold); }
+  .suburb-tag-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+  .suburbs-radius-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid var(--gold-border);
+    padding: 0.8rem 1.5rem;
+    margin-top: 1.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── Footer 3-col ── */
+  #footer {
+    background: #050505;
+    border-top: 1px solid var(--gold-border);
+    padding: 5rem 0 3rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.2fr;
+    gap: 4rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+  .footer-brand-name { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 0.5rem; }
+  .footer-brand-tag { font-size: 0.8rem; color: var(--gray); font-weight: 300; line-height: 1.7; max-width: 260px; margin-bottom: 1.75rem; }
+  .footer-social-row { display: flex; gap: 0.75rem; }
+  .footer-col-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .footer-col-title::before {
+    content: '';
+    display: inline-block;
+    width: 1.2rem; height: 1px;
+    background: var(--gold);
+  }
+  .footer-nav-links { display: flex; flex-direction: column; gap: 0.85rem; }
+  .footer-nav-link {
+    font-size: 0.85rem;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .footer-nav-link:hover { color: #fff; }
+  .footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+  .footer-contact-item svg { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+  .footer-contact-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.25rem; }
+  .footer-contact-value { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
+  .footer-contact-value a { color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.3s ease; }
+  .footer-contact-value a:hover { color: var(--gold); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-copy { font-size: 0.65rem; color: rgba(255,255,255,0.2); letter-spacing: 0.1em; }
+  .footer-back-top {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+  }
+  .footer-back-top:hover { color: var(--gold); }
+
 `;
+
 
 /* ─── COUNTER HOOK ───────────────────────────────────────────────── */
 function useCounter(target: number, duration = 1800, started = false) {
@@ -905,6 +1150,40 @@ const PROCESS = [
   { num: '04', title: 'Delivery', desc: 'Lodgement support through to approval.' },
 ];
 
+const TESTIMONIALS = [
+  {
+    text: "Patrick was outstanding to work with throughout our entire home build. His drawings were incredibly detailed and the council approval process was completely stress-free. I'd recommend him to anyone building in Perth.",
+    name: 'Sarah & David M.',
+    meta: 'Custom Home — Nedlands',
+  },
+  {
+    text: "We had a complex dual-occupancy project and Patrick navigated the R-Code requirements with absolute precision. Professional, responsive, and delivered exactly what we needed on time.",
+    name: 'James K.',
+    meta: 'Dual Occupancy — Como',
+  },
+  {
+    text: "After dealing with another draftsman who couldn't get our extension approved, Patrick sorted everything within weeks. His local knowledge of the planning requirements is second to none.",
+    name: 'Michelle T.',
+    meta: 'Renovation & Extension — Applecross',
+  },
+];
+
+const SUBURBS = [
+  'South Perth', 'Como', 'Applecross', 'Nedlands', 'Fremantle', 'Cottesloe',
+  'Subiaco', 'Claremont', 'Dalkeith', 'Peppermint Grove', 'Mt Lawley', 'Leederville',
+  'Shenton Park', 'Floreat', 'Wembley', 'Victoria Park', 'Burswood', 'Rivervale',
+  'Canning Vale', 'Willetton', 'Booragoon', 'Murdoch', 'Joondalup', 'Osborne Park',
+];
+
+const TYPED_PHRASES = [
+  'Custom Home Design',
+  'Dual Occupancy',
+  'Renovation & Extension',
+  'Granny Flat Design',
+  'Construction Drawings',
+  'Council Approvals',
+];
+
 /* ─── MAIN COMPONENT ─────────────────────────────────────────────── */
 export function Website() {
   const [loaded, setLoaded] = useState(false);
@@ -913,17 +1192,53 @@ export function Website() {
   const [activeSection, setActiveSection] = useState('');
   const [statsVisible, setStatsVisible] = useState(false);
   const [processVisible, setProcessVisible] = useState(false);
+  const [showSticky, setShowSticky] = useState(false);
+  const [typedText, setTypedText] = useState('');
   const heroRef = useRef<HTMLDivElement>(null);
   const heroBgRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const heroWordsRef = useRef<HTMLSpanElement[]>([]);
   const mousePos = useRef({ x: 0, y: 0 });
+  const typedPhrase = useRef(0);
+  const typedChar = useRef(0);
+  const typedDeleting = useRef(false);
 
   /* ── Loader ── */
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 1000);
     return () => clearTimeout(t);
   }, []);
+
+  /* ── Typewriter ── */
+  useEffect(() => {
+    if (!loaded) return;
+    let timer: ReturnType<typeof setTimeout>;
+    const tick = () => {
+      const phrase = TYPED_PHRASES[typedPhrase.current];
+      if (typedDeleting.current) {
+        typedChar.current -= 1;
+        setTypedText(phrase.slice(0, typedChar.current));
+        if (typedChar.current === 0) {
+          typedDeleting.current = false;
+          typedPhrase.current = (typedPhrase.current + 1) % TYPED_PHRASES.length;
+          timer = setTimeout(tick, 400);
+        } else {
+          timer = setTimeout(tick, 38);
+        }
+      } else {
+        typedChar.current += 1;
+        setTypedText(phrase.slice(0, typedChar.current));
+        if (typedChar.current === phrase.length) {
+          typedDeleting.current = true;
+          timer = setTimeout(tick, 2200);
+        } else {
+          timer = setTimeout(tick, 68);
+        }
+      }
+    };
+    timer = setTimeout(tick, 1200);
+    return () => clearTimeout(timer);
+  }, [loaded]);
 
   /* ── Hero word animation after load ── */
   useEffect(() => {
@@ -938,12 +1253,13 @@ export function Website() {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 60);
+      setShowSticky(y > window.innerHeight * 0.7);
       if (progressRef.current) {
         const max = document.body.scrollHeight - window.innerHeight;
         progressRef.current.style.transform = `scaleX(${y / max})`;
       }
       // Active section
-      const sections = ['hero', 'services', 'work', 'why', 'process', 'about', 'contact'];
+      const sections = ['hero', 'services', 'work', 'testimonials', 'why', 'process', 'about', 'contact'];
       for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top < window.innerHeight / 2) {
@@ -1040,6 +1356,15 @@ export function Website() {
       {/* Noise overlay */}
       <div id="noise" />
 
+      {/* ── STICKY CTA ── */}
+      <div id="sticky-cta" className={showSticky ? 'visible' : ''}>
+        <a href="#contact" className="sticky-cta-btn">
+          <div className="sticky-cta-pulse" />
+          Get a Quote
+          <Phone size={14} />
+        </a>
+      </div>
+
 
       {/* Scroll progress */}
       <div id="scroll-progress" ref={progressRef} />
@@ -1121,8 +1446,9 @@ export function Website() {
             ))}
           </h1>
 
-          <p className="hero-sub" style={{ marginBottom: '2.5rem' }}>
-            Residential Design & Construction Drafting — Perth, Western Australia
+          <p className="hero-sub" style={{ marginBottom: '2.5rem', minHeight: '1.4em' }}>
+            <span>{typedText}</span>
+            <span className="typed-cursor" />
           </p>
 
           <div className="hero-btn-wrap">
@@ -1237,6 +1563,39 @@ export function Website() {
                   <span className="project-tile-type">{p.type}</span>
                   <span className="project-tile-name">{p.name}</span>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ── */}
+      <section id="testimonials">
+        <div className="container">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }} className="reveal">
+            <div>
+              <span className="section-eyebrow">Client Stories</span>
+              <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+                What Our Clients Say
+              </h2>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
+              {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" color="var(--gold)" />)}
+              <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--gold)', letterSpacing: '-0.02em' }}>5.0</span>
+              <span style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gray)' }}>Google Rating</span>
+            </div>
+          </div>
+          <div className="testimonials-grid">
+            {TESTIMONIALS.map((t, i) => (
+              <div key={i} className="testi-card reveal" style={{ transitionDelay: `${i * 120}ms` }}>
+                <span className="testi-quote-mark">&ldquo;</span>
+                <p className="testi-text">{t.text}</p>
+                <div className="testi-stars">
+                  {[...Array(5)].map((_, j) => <Star key={j} size={12} fill="currentColor" />)}
+                </div>
+                <div className="testi-divider" />
+                <div className="testi-name">{t.name}</div>
+                <div className="testi-meta">{t.meta}</div>
               </div>
             ))}
           </div>
@@ -1461,25 +1820,114 @@ export function Website() {
         </div>
       </section>
 
+      {/* ── SERVICE AREAS ── */}
+      <section id="suburbs">
+        <div className="container">
+          <div className="suburbs-inner">
+            <div className="reveal-left">
+              <span className="section-eyebrow">Service Area</span>
+              <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: '1.5rem' }}>
+                Serving Greater Perth
+              </h2>
+              <p style={{ fontSize: '0.88rem', color: 'var(--gray)', lineHeight: 1.9, fontWeight: 300, maxWidth: '320px', marginBottom: '1.75rem' }}>
+                Based in South Perth, we design for residential clients across the entire Perth metropolitan area — from Joondalup to Fremantle.
+              </p>
+              <div className="suburbs-radius-badge">
+                <MapPin size={14} />
+                50km Service Radius from South Perth
+              </div>
+            </div>
+            <div className="reveal-right">
+              <div className="suburbs-grid">
+                {SUBURBS.map((s, i) => (
+                  <span key={i} className="suburb-tag">
+                    <span className="suburb-tag-dot" />
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── FOOTER ── */}
       <footer id="footer">
         <div className="container">
-          <div className="footer-inner">
+          <div className="footer-grid">
+            {/* Col 1 — Brand */}
             <div>
-              <div className="footer-name">Patrick De Rossi Design & Drafting</div>
-              <div className="footer-loc">South Perth WA 6151</div>
+              <div className="footer-brand-name">Patrick De Rossi</div>
+              <div style={{ fontSize: '0.6rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '1rem' }}>Design & Drafting</div>
+              <p className="footer-brand-tag">
+                South Perth's trusted residential design and drafting practice since 2007. Precision drawings. Seamless approvals.
+              </p>
+              <div className="footer-social-row">
+                <a href="#" className="social-btn"><Facebook size={15} /></a>
+                <a href="#" className="social-btn"><Linkedin size={15} /></a>
+              </div>
             </div>
-            <div className="footer-contact">
-              <a href="tel:+61423231515">+61 423 231 515</a>
-              <a href="mailto:info@patrickderossi.com.au">info@patrickderossi.com.au</a>
+            {/* Col 2 — Navigation */}
+            <div>
+              <div className="footer-col-title">Quick Links</div>
+              <nav className="footer-nav-links">
+                {[
+                  { href: '#work', label: 'Our Work' },
+                  { href: '#services', label: 'Services' },
+                  { href: '#testimonials', label: 'Client Stories' },
+                  { href: '#process', label: 'Our Process' },
+                  { href: '#about', label: 'About Patrick' },
+                  { href: '#contact', label: 'Get a Quote' },
+                ].map(l => (
+                  <a key={l.href} href={l.href} className="footer-nav-link">
+                    <ArrowRight size={12} style={{ color: 'var(--gold)', opacity: 0.6 }} />
+                    {l.label}
+                  </a>
+                ))}
+              </nav>
             </div>
-            <div className="footer-socials">
-              <a href="#" className="social-btn"><Facebook size={16} /></a>
-              <a href="#" className="social-btn"><Linkedin size={16} /></a>
+            {/* Col 3 — Contact */}
+            <div>
+              <div className="footer-col-title">Contact</div>
+              <div className="footer-contact-item">
+                <Phone size={15} strokeWidth={1.5} />
+                <div>
+                  <div className="footer-contact-label">Phone</div>
+                  <div className="footer-contact-value"><a href="tel:+61423231515">+61 423 231 515</a></div>
+                </div>
+              </div>
+              <div className="footer-contact-item">
+                <Mail size={15} strokeWidth={1.5} />
+                <div>
+                  <div className="footer-contact-label">Email</div>
+                  <div className="footer-contact-value" style={{ fontSize: '0.8rem' }}>
+                    <a href="mailto:info@patrickderossi.com.au">info@patrickderossi.com.au</a>
+                  </div>
+                </div>
+              </div>
+              <div className="footer-contact-item">
+                <MapPin size={15} strokeWidth={1.5} />
+                <div>
+                  <div className="footer-contact-label">Location</div>
+                  <div className="footer-contact-value">3 Mends St, South Perth WA 6151</div>
+                </div>
+              </div>
+              <div className="footer-contact-item">
+                <Clock size={15} strokeWidth={1.5} />
+                <div>
+                  <div className="footer-contact-label">Hours</div>
+                  <div className="footer-contact-value">Mon – Fri, 8:00 AM – 5:00 PM</div>
+                </div>
+              </div>
             </div>
+          </div>
+          <div className="footer-bottom">
             <div className="footer-copy">
-              © {new Date().getFullYear()} Patrick De Rossi Design & Drafting. All rights reserved.
+              © {new Date().getFullYear()} Patrick De Rossi Design & Drafting. All rights reserved. — ABN registered, WA
             </div>
+            <a href="#hero" className="footer-back-top" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+              Back to top <ArrowRight size={12} style={{ transform: 'rotate(-90deg)' }} />
+            </a>
           </div>
         </div>
       </footer>
