@@ -1899,7 +1899,7 @@ export default function App() {
             <div className="about-img-wrap reveal-right">
               <div className="about-img-frame">
                 <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F25f6db68907b4e7f9b55020c56198d0d?format=webp&width=800"
+                  src="/patrick.jpg"
                   alt="Patrick De Rossi"
                   loading="lazy"
                 />
