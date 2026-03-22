@@ -1,0 +1,111 @@
+Replit Design Prompt — Patrick De Rossi Design & Drafting
+Build a visually stunning, world-class single-page website for Patrick De Rossi Design & Drafting — a professional building design and drafting firm based in South Perth, Western Australia, established in 2007. The design should feel premium and confident, on par with leading international architectural practices like BIG (Bjarke Ingels Group), Selldorf Architects, and Zaha Hadid. This is NOT a generic template — it should feel bespoke, bold, and beautiful.
+
+Tech Stack
+HTML, CSS, and vanilla JavaScript. Clean, hand-crafted code. Use GSAP for animations if available, otherwise CSS keyframes.
+
+Real Business Details to Use
+
+Firm name: Patrick De Rossi Design & Drafting
+Tagline: Expert Residential Design & Construction Drafting — Perth, Western Australia
+Phone: +61 423 231 515
+Email: info@patrickderossi.com.au
+Address: 3 Mends St, South Perth WA 6151
+Hours: Monday – Friday, 8:00 AM – 5:00 PM
+Founded: 2007
+Star rating: 5.0 stars across 50 reviews
+
+
+Visual Direction
+
+Dark, high-contrast aesthetic — deep charcoal background (#0d0d0d) with crisp white text and a warm gold accent (#c9a84c) throughout
+Full-screen cinematic hero — large, high-resolution parallax image of a stunning Perth residential home. Overlay a bold minimal headline in white
+Blueprint-inspired accents — subtle faint grid lines and fine technical crosshair marks as background decoration on some sections. Elegant, not literal
+Premium typography — use 'DM Sans' or 'Inter' from Google Fonts. Large, confident headings. Light weight body copy. Small-caps section labels with wide letter-spacing
+Smooth scroll + scroll-reveal animations — sections fade up as they enter the viewport using Intersection Observer
+Generous whitespace — let the work breathe
+
+
+Page Sections (in order)
+1. Navigation
+
+Fixed top nav, transparent → solid dark on scroll
+Left: "Patrick De Rossi" wordmark
+Right links: Work, Services, About, Contact
+Mobile: full-screen hamburger menu
+
+2. Hero
+
+Full viewport height (100vh)
+Background: high-res residential architecture image (use Unsplash — search "modern Perth house", "luxury residential home Australia")
+Dark gradient overlay
+Headline: "Designing Homes. Delivering Precision."
+Sub-headline: "Residential Design & Construction Drafting — Perth, WA — Est. 2007"
+CTA button: "View Our Work" — gold outlined button with fill-sweep hover
+Animated scroll indicator at bottom
+
+3. Services
+Six service cards in a responsive grid (3 cols desktop, 2 tablet, 1 mobile):
+ServiceDescriptionResidential DesignCustom home design from concept to council approvalConstruction DrawingsTechnical documentation and building permitsMulti-Unit DevelopmentDesign for duplex, triplex and grouped dwellingsRenovation & ExtensionAlterations and additions to existing homesGranny FlatsAncillary dwelling design within Perth regulationsC.A.F.SCarports, alfresco areas, fencing and sheds
+Cards: dark background, thin gold border, line-art icon, heading, short description. Gold border glow on hover.
+4. Featured Projects (Portfolio)
+
+Asymmetric masonry grid — at least 6 project image tiles
+Use Unsplash placeholders: "modern residential Perth", "home extension", "duplex design", "luxury renovation"
+Hover: image scales slightly + overlay shows project name and type
+"View All Projects" gold text link below grid
+
+5. Why Patrick
+
+5-star rating badge: "5.0 Stars — 50 Client Reviews"
+3 key value pillars with icons:
+
+18+ Years Experience — Established in Perth since 2007
+Council-Ready Documentation — Drawings built for smooth approval
+Local Perth Knowledge — Deep understanding of WA building codes and WAPC requirements
+
+
+
+6. Process
+4-step horizontal timeline (vertical on mobile):
+
+Brief — We listen to your vision and site requirements
+Design — Concept drawings and design development
+Documentation — Full construction drawings and permit sets
+Delivery — Lodgement support through to approval
+
+7. About Patrick
+
+Bold quote: "Over 18 years delivering design and drafting solutions across the Perth metro area."
+Short bio paragraph about the firm, founded 2007, registered building designer, focused on residential projects across Perth's 50km metro area
+Grayscale headshot placeholder with name and title below
+
+8. Contact
+
+Dark full-width section
+Headline: "Ready to Start Your Project?"
+Left side: large clickable phone and email, address, trading hours (Mon–Fri 8am–5pm)
+Right side: minimal contact form — Name, Email, Service (dropdown with all 6 services), Message, Submit
+Gold submit button
+
+9. Footer
+
+"Patrick De Rossi Design & Drafting" — South Perth WA 6151
+Phone and email inline
+Facebook + LinkedIn icon links
+Copyright line: © 2026 Patrick De Rossi Design & Drafting. All rights reserved.
+
+
+Animation Details
+
+Hero headline: word-by-word fade-in on load
+Service cards: stagger fade-up on scroll
+Process steps: slide in left-to-right sequentially
+Nav links: gold underline slides in on hover
+
+
+Responsive
+
+Mobile-first, breakpoints at 768px and 1200px
+Fluid typography with clamp()
+All sections stack cleanly on mobile
