@@ -1,642 +1,1484 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Menu, X, ChevronDown, 
-  Home, FileText, Building2, Paintbrush, Trees, Fence,
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import {
+  Menu, X, ChevronDown, ArrowRight, ArrowUpRight,
+  Home, FileText, Building2, Wrench, Trees, Fence,
   Star, Clock, FileCheck, MapPin, Phone, Mail,
-  Facebook, Linkedin, ArrowRight
+  Facebook, Linkedin
 } from 'lucide-react';
 
-const customStyles = `
-  .font-dm-sans {
-    font-family: 'DM Sans', sans-serif;
-  }
-  
-  body, html {
-    margin: 0;
-    padding: 0;
-    background-color: #0d0d0d;
-    color: #ffffff;
-    scroll-behavior: smooth;
+/* ─── STYLES ──────────────────────────────────────────────────────── */
+const CSS = `
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #c9a84c;
+    --gold-dim: rgba(201,168,76,0.15);
+    --gold-border: rgba(201,168,76,0.3);
+    --dark: #0d0d0d;
+    --dark2: #111111;
+    --dark3: #141414;
+    --dark4: #1a1a1a;
+    --gray: rgba(255,255,255,0.45);
+    --font: 'DM Sans', sans-serif;
   }
 
-  /* Typography */
-  .text-gold { color: #c9a84c; }
-  .bg-gold { background-color: #c9a84c; }
-  .border-gold { border-color: #c9a84c; }
-  
-  .section-label {
-    font-size: 0.75rem;
-    font-weight: 300;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgba(201, 168, 76, 0.8);
-    margin-bottom: 1rem;
-    display: block;
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: #fff;
+    font-family: var(--font);
+    cursor: none !important;
+    overflow-x: hidden;
   }
 
-  /* Animations */
-  @keyframes fadeInUp { 
-    from { opacity: 0; transform: translateY(30px); } 
-    to { opacity: 1; transform: translateY(0); } 
+  /* ── Custom cursor ── */
+  #pdr-cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 40px; height: 40px;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s ease, opacity 0.3s ease;
+    mix-blend-mode: difference;
   }
-  @keyframes fadeIn { 
-    from { opacity: 0; } 
-    to { opacity: 1; } 
+  #pdr-cursor-dot {
+    position: fixed;
+    top: 0; left: 0;
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: transform 0.04s ease;
   }
-  @keyframes bounce { 
-    0%,100% { transform: translateY(0); } 
-    50% { transform: translateY(-8px); } 
-  }
-  
-  .animate-fade-in {
-    animation: fadeIn 1.5s ease-out forwards;
-  }
-  
-  .animate-bounce-slow {
-    animation: bounce 2s infinite;
+  #pdr-cursor.cursor-hover {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0.6;
   }
 
-  .word-anim {
-    display: inline-block;
+  /* ── Scroll progress ── */
+  #scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), #f0c96d);
+    z-index: 1000;
+    transform-origin: left center;
+    width: 100%;
+    transform: scaleX(0);
+    transition: transform 0.1s linear;
+  }
+
+  /* ── Loader ── */
+  #pdr-loader {
+    position: fixed;
+    inset: 0;
+    background: var(--dark);
+    z-index: 9000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  #pdr-loader.hidden {
     opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-  }
-
-  /* Blueprint Grid */
-  .blueprint-grid {
-    background-image: 
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  
-  .blueprint-corners {
-    position: relative;
-  }
-  .blueprint-corners::before, .blueprint-corners::after {
-    content: '';
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    border: 1px solid rgba(201, 168, 76, 0.3);
+    visibility: hidden;
     pointer-events: none;
   }
-  .blueprint-corners::before {
-    top: 20px; left: 20px;
-    border-right: none;
-    border-bottom: none;
+  .loader-line {
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    animation: loaderLine 1.2s cubic-bezier(0.77,0,0.18,1) forwards;
   }
-  .blueprint-corners::after {
-    bottom: 20px; right: 20px;
-    border-left: none;
-    border-top: none;
+  .loader-text {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: loaderText 0.6s ease 0.8s forwards;
+  }
+  .loader-sub {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    animation: loaderText 0.6s ease 1s forwards;
+    margin-top: 0.5rem;
   }
 
-  /* Interactive Elements */
-  .nav-link {
-    position: relative;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
+  @keyframes loaderLine {
+    from { width: 0; }
+    to { width: min(400px, 80vw); }
   }
-  .nav-link:hover {
-    color: #c9a84c;
+  @keyframes loaderText {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Nav ── */
+  #pdr-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 1.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s ease, padding 0.4s ease, backdrop-filter 0.4s ease;
+  }
+  #pdr-nav.scrolled {
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+    padding: 1rem 3rem;
+    border-bottom: 1px solid var(--gold-border);
+  }
+  .nav-wordmark { line-height: 1; }
+  .nav-wordmark-main { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.04em; display: block; }
+  .nav-wordmark-sub { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-top: 2px; }
+
+  .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  @media (max-width: 768px) { .nav-links { display: none; } }
+
+  .nav-link {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+    cursor: none;
   }
   .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: #c9a84c;
-    transition: width 0.3s ease;
+    bottom: -3px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.35s cubic-bezier(0.77,0,0.18,1);
   }
-  .nav-link:hover::after {
-    width: 100%;
-  }
+  .nav-link:hover, .nav-link.active { color: #fff; }
+  .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-  .btn-gold {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    transition: color 0.4s ease;
+  .nav-cta {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid var(--gold-border);
+    padding: 0.6rem 1.4rem;
+    transition: all 0.3s ease;
+    cursor: none;
   }
-  .btn-gold::before {
+  .nav-cta:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+
+  /* ── Mobile menu ── */
+  #mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: var(--dark);
+    z-index: 490;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    transform: translateX(100%);
+    transition: transform 0.6s cubic-bezier(0.77,0,0.18,1);
+  }
+  #mobile-menu.open { transform: translateX(0); }
+  .mobile-link {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    cursor: none;
+  }
+  .mobile-link:hover { color: var(--gold); }
+
+  /* ── Section labels ── */
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-left: 2.5rem;
+  }
+  .section-eyebrow::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #c9a84c;
-    transform: translateX(-100%);
-    transition: transform 0.4s ease;
-    z-index: -1;
-  }
-  .btn-gold:hover::before {
-    transform: translateX(0);
-  }
-  .btn-gold:hover {
-    color: #0d0d0d;
+    left: 0; top: 50%;
+    width: 1.8rem; height: 1px;
+    background: var(--gold);
+    transform: translateY(-50%);
   }
 
-  /* Scroll Reveal */
+  /* ── Hero ── */
+  #hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 8vh;
+  }
+  #hero-bg {
+    position: absolute;
+    inset: -5%;
+    background-size: cover;
+    background-position: center;
+    will-change: transform;
+  }
+  #hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(13,13,13,0.2) 0%,
+      rgba(13,13,13,0.4) 40%,
+      rgba(13,13,13,0.85) 75%,
+      rgba(13,13,13,1) 100%
+    );
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 10; width: 100%; }
+
+  .hero-headline {
+    font-size: clamp(2.8rem, 7vw, 7rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    overflow: hidden;
+  }
+
+  .headline-word {
+    display: inline-block;
+    clip-path: inset(0 0 100% 0);
+    animation: wordReveal 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
+    animation-play-state: paused;
+  }
+  .headline-word.play { animation-play-state: running; }
+
+  @keyframes wordReveal {
+    from { clip-path: inset(0 0 100% 0); transform: translateY(20px); }
+    to { clip-path: inset(0 0 0% 0); transform: translateY(0); }
+  }
+
+  .hero-sub {
+    font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1.4s forwards;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--gold-border);
+    padding: 0.4rem 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1.2s forwards;
+    margin-bottom: 2rem;
+  }
+
+  /* Magnetic button */
+  .hero-btn-wrap {
+    display: inline-block;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1.6s forwards;
+  }
+  .hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 1.1rem 2.4rem;
+    border: 1px solid var(--gold);
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    transition: color 0.4s ease;
+  }
+  .hero-btn-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-101%);
+    transition: transform 0.5s cubic-bezier(0.77,0,0.18,1);
+    z-index: 0;
+  }
+  .hero-btn:hover .hero-btn-fill { transform: translateX(0); }
+  .hero-btn:hover { color: var(--dark); }
+  .hero-btn span, .hero-btn svg { position: relative; z-index: 1; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1s ease 2s forwards;
+    cursor: none;
+  }
+  .hero-scroll-line {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  .hero-scroll-text {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { transform: scaleY(1); opacity: 0.6; }
+    50% { transform: scaleY(1.2); opacity: 1; }
+  }
+
+  /* Stats bar */
+  #stats-bar {
+    background: var(--dark2);
+    border-top: 1px solid var(--gold-border);
+    border-bottom: 1px solid var(--gold-border);
+    padding: 2.5rem 0;
+    overflow: hidden;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--gold-border);
+  }
+  @media (max-width: 768px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .stat-cell {
+    background: var(--dark2);
+    padding: 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+  }
+  .stat-num {
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  /* ── Services ── */
+  #services { padding: 8rem 0; background: var(--dark); }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  @media (max-width: 900px) { .service-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .service-grid { grid-template-columns: 1fr; } }
+
+  .service-card {
+    background: var(--dark);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    transition: background 0.4s ease;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.77,0,0.18,1);
+  }
+  .service-card:hover { background: var(--dark3); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-num {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    display: block;
+  }
+  .service-icon {
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+    transition: opacity 0.3s ease, transform 0.4s ease;
+  }
+  .service-card:hover .service-icon { opacity: 1; transform: translateY(-4px); }
+  .service-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .service-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.7; font-weight: 300; }
+  .service-arrow {
+    position: absolute;
+    bottom: 2.5rem; right: 2rem;
+    color: var(--gold);
+    opacity: 0;
+    transform: translate(-5px, 5px);
+    transition: all 0.4s ease;
+  }
+  .service-card:hover .service-arrow { opacity: 1; transform: translate(0,0); }
+
+  /* ── Projects ── */
+  #work { padding: 8rem 0; background: var(--dark2); overflow: hidden; }
+
+  .projects-track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 380px 280px;
+    gap: 4px;
+  }
+  @media (max-width: 900px) {
+    .projects-track { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .project-tile:nth-child(1) { grid-column: span 2; height: 300px; }
+    .project-tile { height: 220px; }
+  }
+  @media (max-width: 600px) {
+    .projects-track { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .project-tile:nth-child(1) { grid-column: span 1; height: 280px; }
+    .project-tile { height: 220px; }
+  }
+
+  .project-tile:nth-child(1) { grid-column: span 2; }
+  .project-tile:nth-child(5) { grid-column: span 2; }
+
+  .project-tile {
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+  }
+  .project-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    will-change: transform;
+  }
+  .project-tile:hover .project-img { transform: scale(1.07); }
+
+  .project-info {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,13,13,0.92) 0%, transparent 55%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem 1.75rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .project-tile:hover .project-info { opacity: 1; }
+
+  .project-tile-type {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+    transform: translateY(10px);
+    transition: transform 0.5s ease 0.05s;
+  }
+  .project-tile-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    transform: translateY(12px);
+    transition: transform 0.5s ease 0.1s;
+    letter-spacing: -0.01em;
+  }
+  .project-tile:hover .project-tile-type,
+  .project-tile:hover .project-tile-name {
+    transform: translateY(0);
+  }
+
+  /* ── Why ── */
+  #why { padding: 8rem 0; background: var(--dark); position: relative; overflow: hidden; }
+
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  @media (max-width: 900px) { .why-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+  .why-pillars { display: flex; flex-direction: column; gap: 0; }
+  .pillar {
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    transition: padding-left 0.4s ease;
+  }
+  .pillar::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 2px; height: 0;
+    background: var(--gold);
+    transition: height 0.5s cubic-bezier(0.77,0,0.18,1);
+  }
+  .pillar:hover { padding-left: 1rem; }
+  .pillar:hover::before { height: 100%; }
+  .pillar-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+  .pillar-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; }
+  .pillar-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.7; font-weight: 300; }
+
+  .review-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid var(--gold-border);
+    padding: 1.25rem 2rem;
+    background: var(--gold-dim);
+    margin-bottom: 3rem;
+  }
+  .review-stars { display: flex; gap: 3px; color: var(--gold); }
+  .review-score { font-size: 2.5rem; font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
+  .review-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); }
+
+  /* ── Process ── */
+  #process { padding: 8rem 0; background: var(--dark2); }
+
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+  @media (max-width: 900px) { .process-grid { grid-template-columns: 1fr 1fr; gap: 3rem 2rem; } }
+  @media (max-width: 600px) { .process-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+  .process-connector {
+    position: absolute;
+    top: 2.5rem; left: 0; right: 0;
+    height: 1px;
+    background: var(--gold-border);
+    overflow: hidden;
+  }
+  .process-connector-fill {
+    height: 100%;
+    background: var(--gold);
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.77,0,0.18,1);
+  }
+  .process-connector-fill.play { width: 100%; }
+
+  @media (max-width: 900px) { .process-connector { display: none; } }
+
+  .process-step { padding: 0 2rem 0 0; position: relative; }
+  .process-num-wrap {
+    width: 5rem; height: 5rem;
+    border: 1px solid var(--gold-border);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 2rem;
+    position: relative;
+    background: var(--dark2);
+    transition: border-color 0.4s ease, background 0.4s ease;
+  }
+  .process-step:hover .process-num-wrap {
+    border-color: var(--gold);
+    background: var(--gold-dim);
+  }
+  .process-num {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+  }
+  .process-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .process-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.7; font-weight: 300; }
+
+  /* ── About ── */
+  #about { padding: 8rem 0; background: var(--dark); overflow: hidden; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+  .about-quote {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.85);
+    padding-left: 2rem;
+    border-left: 2px solid var(--gold);
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.01em;
+  }
+  .about-body { font-size: 0.92rem; color: var(--gray); line-height: 1.9; font-weight: 300; margin-bottom: 2.5rem; }
+
+  .about-contact-row { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .about-contact-link {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    font-size: 0.85rem; color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    cursor: none;
+  }
+  .about-contact-link:hover { color: var(--gold); }
+  .about-contact-link svg { color: var(--gold); flex-shrink: 0; }
+
+  .about-img-wrap { position: relative; }
+  .about-img-frame {
+    position: relative;
+    overflow: hidden;
+    filter: grayscale(1);
+    transition: filter 0.8s ease;
+  }
+  .about-img-frame:hover { filter: grayscale(0); }
+  .about-img-frame img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
+  .about-img-badge {
+    position: absolute;
+    bottom: -1px; left: -1px;
+    background: var(--gold);
+    color: var(--dark);
+    padding: 1.25rem 1.75rem;
+  }
+  .about-img-badge-name { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+  .about-img-badge-title { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.7; margin-top: 3px; }
+
+  /* Blueprint decoration */
+  .blueprint-deco {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.08;
+  }
+
+  /* ── Contact ── */
+  #contact { padding: 8rem 0; background: #0a0a0a; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; }
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+  .contact-headline { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1rem; }
+  .contact-sub { font-size: 0.9rem; color: var(--gray); font-weight: 300; margin-bottom: 3rem; }
+
+  .contact-detail { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem; }
+  .contact-detail-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+  .contact-detail-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.3rem; }
+  .contact-detail-value { font-size: 1.1rem; font-weight: 300; }
+  .contact-detail-value a { color: #fff; text-decoration: none; transition: color 0.3s ease; cursor: none; }
+  .contact-detail-value a:hover { color: var(--gold); }
+
+  /* Form */
+  .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gray); }
+  .form-input, .form-select, .form-textarea {
+    background: var(--dark4);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 1rem 1.25rem;
+    color: #fff;
+    font-family: var(--font);
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    outline: none;
+    cursor: none;
+    width: 100%;
+  }
+  .form-select { appearance: none; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--gold);
+    background: var(--dark3);
+  }
+  .form-textarea { resize: none; }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+
+  .form-submit {
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-family: var(--font);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-submit:hover { background: #b89440; }
+  .form-submit:active { transform: scale(0.98); }
+
+  /* ── Footer ── */
+  #footer {
+    background: #050505;
+    border-top: 1px solid var(--gold-border);
+    padding: 3rem 0;
+  }
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+  }
+  .footer-name { font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; }
+  .footer-loc { font-size: 0.7rem; color: var(--gray); letter-spacing: 0.2em; text-transform: uppercase; }
+  .footer-contact { display: flex; gap: 2.5rem; }
+  .footer-contact a { font-size: 0.8rem; color: var(--gray); text-decoration: none; transition: color 0.3s ease; cursor: none; }
+  .footer-contact a:hover { color: var(--gold); }
+  .footer-socials { display: flex; gap: 1rem; }
+  .social-btn {
+    width: 2.5rem; height: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: none;
+  }
+  .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .footer-copy { font-size: 0.65rem; color: rgba(255,255,255,0.2); letter-spacing: 0.1em; }
+
+  /* ── Reveal ── */
   .reveal {
     opacity: 0;
     transform: translateY(40px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
   }
-  .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
   }
-  
-  .delay-100 { transition-delay: 100ms; }
-  .delay-200 { transition-delay: 200ms; }
-  .delay-300 { transition-delay: 300ms; }
-  .delay-400 { transition-delay: 400ms; }
-  .delay-500 { transition-delay: 500ms; }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
 
-  /* Projects Grid */
-  .project-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  /* ── Utils ── */
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 3rem; }
+  @media (max-width: 600px) { .container { padding: 0 1.5rem; } }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-  @media (min-width: 768px) {
-    .project-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (min-width: 1024px) {
-    .project-grid {
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 300px;
-    }
-    .project-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-    .project-item:nth-child(2) { grid-column: span 1; grid-row: span 1; }
-    .project-item:nth-child(3) { grid-column: span 1; grid-row: span 1; }
-    .project-item:nth-child(4) { grid-column: span 1; grid-row: span 1; }
-    .project-item:nth-child(5) { grid-column: span 2; grid-row: span 1; }
-    .project-item:nth-child(6) { grid-column: span 3; grid-row: span 1; }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
-  .project-card:hover .project-img {
-    transform: scale(1.05);
+  /* Noise overlay */
+  #noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 180px 180px;
   }
-  .project-card:hover .project-overlay {
-    opacity: 1;
-  }
+
+  a, button { cursor: none !important; }
 `;
 
-export function Website() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+/* ─── COUNTER HOOK ───────────────────────────────────────────────── */
+function useCounter(target: number, duration = 1800, started = false) {
+  const [count, setCount] = useState(0);
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 80);
+    if (!started) return;
+    let start = 0;
+    const startTime = performance.now();
+    const step = (now: number) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(ease * target));
+      if (progress < 1) requestAnimationFrame(step);
+      else setCount(target);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    requestAnimationFrame(step);
+  }, [started, target, duration]);
+  return count;
+}
+
+/* ─── SERVICES DATA ──────────────────────────────────────────────── */
+const SERVICES = [
+  { icon: <Home size={26} strokeWidth={1.5} />, title: 'Residential Design', desc: 'Custom home design from concept to council approval', num: '01' },
+  { icon: <FileText size={26} strokeWidth={1.5} />, title: 'Construction Drawings', desc: 'Technical documentation and building permits', num: '02' },
+  { icon: <Building2 size={26} strokeWidth={1.5} />, title: 'Multi-Unit Development', desc: 'Design for duplex, triplex and grouped dwellings', num: '03' },
+  { icon: <Wrench size={26} strokeWidth={1.5} />, title: 'Renovation & Extension', desc: 'Alterations and additions to existing homes', num: '04' },
+  { icon: <Trees size={26} strokeWidth={1.5} />, title: 'Granny Flats', desc: 'Ancillary dwelling design within Perth regulations', num: '05' },
+  { icon: <Fence size={26} strokeWidth={1.5} />, title: 'C.A.F.S', desc: 'Carports, alfresco areas, fencing and sheds', num: '06' },
+];
+
+const PROJECTS = [
+  { img: '/__mockup/images/patrick-derossi/project1.png', name: 'Nedlands Residence', type: 'Custom Home Design' },
+  { img: '/__mockup/images/patrick-derossi/project2.png', name: 'Applecross Extension', type: 'Renovation & Extension' },
+  { img: '/__mockup/images/patrick-derossi/project3.png', name: 'Como Duplex', type: 'Multi-Unit Development' },
+  { img: '/__mockup/images/patrick-derossi/project4.png', name: 'Shenton Park Granny Flat', type: 'Granny Flat' },
+  { img: '/__mockup/images/patrick-derossi/project5.png', name: 'Mount Lawley Renovation', type: 'Renovation' },
+  { img: '/__mockup/images/patrick-derossi/project6.png', name: 'Fremantle Heritage Home', type: 'Heritage Renovation' },
+];
+
+const PROCESS = [
+  { num: '01', title: 'Brief', desc: 'We listen to your vision and site requirements.' },
+  { num: '02', title: 'Design', desc: 'Concept drawings and design development.' },
+  { num: '03', title: 'Documentation', desc: 'Full construction drawings and permit sets.' },
+  { num: '04', title: 'Delivery', desc: 'Lodgement support through to approval.' },
+];
+
+/* ─── MAIN COMPONENT ─────────────────────────────────────────────── */
+export function Website() {
+  const [loaded, setLoaded] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const [statsVisible, setStatsVisible] = useState(false);
+  const [processVisible, setProcessVisible] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const heroBgRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const heroWordsRef = useRef<HTMLSpanElement[]>([]);
+  const mousePos = useRef({ x: 0, y: 0 });
+  const cursorPos = useRef({ x: 0, y: 0 });
+
+  /* ── Loader ── */
+  useEffect(() => {
+    const t = setTimeout(() => setLoaded(true), 1800);
+    return () => clearTimeout(t);
+  }, []);
+
+  /* ── Hero word animation after load ── */
+  useEffect(() => {
+    if (!loaded) return;
+    heroWordsRef.current.forEach((el, i) => {
+      if (el) setTimeout(() => el.classList.add('play'), i * 160);
+    });
+  }, [loaded]);
+
+  /* ── Scroll ── */
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 60);
+      if (progressRef.current) {
+        const max = document.body.scrollHeight - window.innerHeight;
+        progressRef.current.style.transform = `scaleX(${y / max})`;
+      }
+      // Active section
+      const sections = ['hero', 'services', 'work', 'why', 'process', 'about', 'contact'];
+      for (const id of [...sections].reverse()) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < window.innerHeight / 2) {
+          setActiveSection(id);
+          break;
+        }
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  /* ── Mouse parallax on hero bg ── */
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      mousePos.current = { x: e.clientX, y: e.clientY };
+    };
+    window.addEventListener('mousemove', onMove);
+    return () => window.removeEventListener('mousemove', onMove);
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-
-    document.querySelectorAll('.reveal').forEach((el) => {
-      observer.observe(el);
-    });
-
-    return () => observer.disconnect();
+    let raf: number;
+    const animate = () => {
+      // Hero parallax
+      if (heroBgRef.current) {
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight / 2;
+        const dx = (mousePos.current.x - cx) / cx;
+        const dy = (mousePos.current.y - cy) / cy;
+        heroBgRef.current.style.transform = `translate(${dx * -12}px, ${dy * -8}px) scale(1.12)`;
+      }
+      // Custom cursor
+      if (cursorRef.current && dotRef.current) {
+        const speed = 0.12;
+        cursorPos.current.x += (mousePos.current.x - cursorPos.current.x) * speed;
+        cursorPos.current.y += (mousePos.current.y - cursorPos.current.y) * speed;
+        cursorRef.current.style.left = `${cursorPos.current.x}px`;
+        cursorRef.current.style.top = `${cursorPos.current.y}px`;
+        dotRef.current.style.left = `${mousePos.current.x}px`;
+        dotRef.current.style.top = `${mousePos.current.y}px`;
+      }
+      raf = requestAnimationFrame(animate);
+    };
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
   }, []);
 
-  const headlineWords = "Designing Homes. Delivering Precision.".split(' ');
+  /* ── Cursor hover state ── */
+  useEffect(() => {
+    const onEnter = () => cursorRef.current?.classList.add('cursor-hover');
+    const onLeave = () => cursorRef.current?.classList.remove('cursor-hover');
+    const links = document.querySelectorAll('a, button, .service-card, .project-tile, .pillar');
+    links.forEach(el => { el.addEventListener('mouseenter', onEnter); el.addEventListener('mouseleave', onLeave); });
+    return () => links.forEach(el => { el.removeEventListener('mouseenter', onEnter); el.removeEventListener('mouseleave', onLeave); });
+  }, [loaded]);
 
-  const services = [
-    { icon: <Home size={28} strokeWidth={1.5} />, title: "Residential Design", desc: "Custom home design from concept to council approval" },
-    { icon: <FileText size={28} strokeWidth={1.5} />, title: "Construction Drawings", desc: "Technical documentation and building permits" },
-    { icon: <Building2 size={28} strokeWidth={1.5} />, title: "Multi-Unit Development", desc: "Design for duplex, triplex and grouped dwellings" },
-    { icon: <Paintbrush size={28} strokeWidth={1.5} />, title: "Renovation & Extension", desc: "Alterations and additions to existing homes" },
-    { icon: <Trees size={28} strokeWidth={1.5} />, title: "Granny Flats", desc: "Ancillary dwelling design within Perth regulations" },
-    { icon: <Fence size={28} strokeWidth={1.5} />, title: "C.A.F.S", desc: "Carports, alfresco areas, fencing and sheds" }
-  ];
+  /* ── Intersection Observer for reveals ── */
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-  const projects = [
-    { img: "/__mockup/images/patrick-derossi/project1.png", name: "Nedlands Residence", type: "Custom Home Design" },
-    { img: "/__mockup/images/patrick-derossi/project2.png", name: "Applecross Extension", type: "Renovation & Extension" },
-    { img: "/__mockup/images/patrick-derossi/project3.png", name: "Como Duplex", type: "Multi-Unit Development" },
-    { img: "/__mockup/images/patrick-derossi/project4.png", name: "Shenton Park Granny Flat", type: "Granny Flat" },
-    { img: "/__mockup/images/patrick-derossi/project5.png", name: "Mount Lawley Renovation", type: "Renovation" },
-    { img: "/__mockup/images/patrick-derossi/project6.png", name: "Fremantle Heritage Home", type: "Heritage Renovation" },
-  ];
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, [loaded]);
 
-  const processSteps = [
-    { num: "01", title: "Brief", desc: "We listen to your vision and site requirements" },
-    { num: "02", title: "Design", desc: "Concept drawings and design development" },
-    { num: "03", title: "Documentation", desc: "Full construction drawings and permit sets" },
-    { num: "04", title: "Delivery", desc: "Lodgement support through to approval" },
+  /* ── Stats counter observer ── */
+  useEffect(() => {
+    const el = document.getElementById('stats-bar');
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setStatsVisible(true); observer.disconnect(); }
+    }, { threshold: 0.3 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [loaded]);
+
+  /* ── Process line observer ── */
+  useEffect(() => {
+    const el = document.getElementById('process');
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setProcessVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.2 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [loaded]);
+
+  const years = useCounter(18, 1600, statsVisible);
+  const reviews = useCounter(50, 1800, statsVisible);
+  const projects_ = useCounter(200, 2000, statsVisible);
+
+  const navLinks = [
+    { href: '#work', label: 'Work', id: 'work' },
+    { href: '#services', label: 'Services', id: 'services' },
+    { href: '#about', label: 'About', id: 'about' },
+    { href: '#contact', label: 'Contact', id: 'contact' },
   ];
 
   return (
-    <div className="font-dm-sans min-h-screen bg-[#0d0d0d] text-white overflow-x-hidden selection:bg-[#c9a84c] selection:text-[#0d0d0d]">
-      <style dangerouslySetInnerHTML={{ __html: customStyles }} />
+    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#0d0d0d', color: '#fff', minHeight: '100vh' }}>
+      <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
-      {/* NAVIGATION */}
-      <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-[#111111]/95 backdrop-blur-sm border-b border-[#c9a84c]/20 py-4' : 'bg-transparent py-6'}`}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
-          <div className="flex flex-col">
-            <span className="text-xl md:text-2xl font-bold tracking-wide">Patrick De Rossi</span>
-            <span className="text-[10px] uppercase tracking-[0.2em] text-gold mt-1">Design & Drafting</span>
-          </div>
-          
-          <div className="hidden md:flex gap-8 items-center">
-            <a href="#work" className="nav-link">Work</a>
-            <a href="#services" className="nav-link">Services</a>
-            <a href="#about" className="nav-link">About</a>
-            <a href="#contact" className="nav-link">Contact</a>
-          </div>
+      {/* Noise overlay */}
+      <div id="noise" />
 
-          <button className="md:hidden text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+      {/* Custom cursor */}
+      <div id="pdr-cursor" ref={cursorRef}>
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="18" stroke="white" strokeWidth="0.75" />
+          <line x1="20" y1="0" x2="20" y2="10" stroke="white" strokeWidth="0.75" />
+          <line x1="20" y1="30" x2="20" y2="40" stroke="white" strokeWidth="0.75" />
+          <line x1="0" y1="20" x2="10" y2="20" stroke="white" strokeWidth="0.75" />
+          <line x1="30" y1="20" x2="40" y2="20" stroke="white" strokeWidth="0.75" />
+          <circle cx="20" cy="20" r="2" fill="white" />
+        </svg>
+      </div>
+      <div id="pdr-cursor-dot" ref={dotRef} />
+
+      {/* Scroll progress */}
+      <div id="scroll-progress" ref={progressRef} />
+
+      {/* Loader */}
+      <div id="pdr-loader" className={loaded ? 'hidden' : ''}>
+        <div className="loader-line" style={{ marginBottom: '1.5rem' }} />
+        <div className="loader-text">Patrick De Rossi</div>
+        <div className="loader-sub">Design & Drafting — Est. 2007</div>
+      </div>
+
+      {/* Navigation */}
+      <nav id="pdr-nav" className={scrolled ? 'scrolled' : ''}>
+        <div className="nav-wordmark">
+          <span className="nav-wordmark-main">Patrick De Rossi</span>
+          <span className="nav-wordmark-sub">Design & Drafting</span>
         </div>
+        <div className="nav-links">
+          {navLinks.map(l => (
+            <a key={l.id} href={l.href} className={`nav-link${activeSection === l.id ? ' active' : ''}`}>{l.label}</a>
+          ))}
+          <a href="#contact" className="nav-cta">Get a Quote</a>
+        </div>
+        <button
+          style={{ background: 'none', border: 'none', color: '#fff', display: 'none' }}
+          className="md:hidden"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Menu"
+        >
+          {mobileOpen ? <X size={26} /> : <Menu size={26} />}
+        </button>
       </nav>
 
-      {/* MOBILE MENU */}
-      <div className={`fixed inset-0 bg-[#0d0d0d] z-40 flex flex-col justify-center items-center transition-transform duration-500 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="flex flex-col gap-8 text-center text-2xl font-light">
-          <a href="#work" className="text-white hover:text-gold transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Work</a>
-          <a href="#services" className="text-white hover:text-gold transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Services</a>
-          <a href="#about" className="text-white hover:text-gold transition-colors" onClick={() => setIsMobileMenuOpen(false)}>About</a>
-          <a href="#contact" className="text-gold" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
+      {/* Mobile menu */}
+      <div id="mobile-menu" className={mobileOpen ? 'open' : ''}>
+        {navLinks.map(l => (
+          <a key={l.id} href={l.href} className="mobile-link" onClick={() => setMobileOpen(false)}>{l.label}</a>
+        ))}
+      </div>
+
+      {/* ── HERO ── */}
+      <section id="hero" ref={heroRef}>
+        <div
+          id="hero-bg"
+          ref={heroBgRef}
+          style={{
+            backgroundImage: "url('/__mockup/images/patrick-derossi/hero.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <div id="hero-overlay" />
+        <div className="hero-grid" />
+
+        <div className="hero-content container">
+          <div className="hero-badge">
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--gold)', display: 'inline-block' }} />
+            South Perth, WA — Est. 2007
+          </div>
+
+          <h1 className="hero-headline" style={{ marginBottom: '1.75rem' }}>
+            {['Designing', 'Homes.'].map((w, i) => (
+              <React.Fragment key={i}>
+                <span
+                  className="headline-word"
+                  ref={el => { if (el) heroWordsRef.current[i] = el; }}
+                  style={{ animationDelay: `${i * 0.18}s`, marginRight: '0.25em' }}
+                >{w}</span>
+              </React.Fragment>
+            ))}
+            <br />
+            {['Delivering', 'Precision.'].map((w, i) => (
+              <React.Fragment key={i + 2}>
+                <span
+                  className="headline-word"
+                  ref={el => { if (el) heroWordsRef.current[i + 2] = el; }}
+                  style={{ animationDelay: `${(i + 2) * 0.18}s`, marginRight: '0.25em' }}
+                >{w}</span>
+              </React.Fragment>
+            ))}
+          </h1>
+
+          <p className="hero-sub" style={{ marginBottom: '2.5rem' }}>
+            Residential Design & Construction Drafting — Perth, Western Australia
+          </p>
+
+          <div className="hero-btn-wrap">
+            <a href="#work" className="hero-btn">
+              <div className="hero-btn-fill" />
+              <span>View Our Work</span>
+              <ArrowRight size={14} />
+            </a>
+          </div>
+        </div>
+
+        <div className="hero-scroll">
+          <span className="hero-scroll-text">Scroll</span>
+          <div className="hero-scroll-line" />
+        </div>
+      </section>
+
+      {/* ── STATS BAR ── */}
+      <div id="stats-bar">
+        <div className="container">
+          <div className="stats-grid">
+            <div className="stat-cell">
+              <span className="stat-num">{statsVisible ? years : 0}+</span>
+              <span className="stat-label">Years of Experience</span>
+            </div>
+            <div className="stat-cell">
+              <span className="stat-num">{statsVisible ? reviews : 0}</span>
+              <span className="stat-label">Client Reviews</span>
+            </div>
+            <div className="stat-cell">
+              <span className="stat-num">{statsVisible ? projects_ : 0}+</span>
+              <span className="stat-label">Projects Completed</span>
+            </div>
+            <div className="stat-cell">
+              <span className="stat-num">5.0</span>
+              <span className="stat-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
+                {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="currentColor" color="var(--gold)" />)}
+                &nbsp;Star Rating
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <main>
-        {/* HERO */}
-        <section id="hero" className="relative h-screen flex items-center justify-center pt-20">
-          <div className="absolute inset-0 z-0">
-            <img src="/__mockup/images/patrick-derossi/hero.png" alt="Modern Luxury Home" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-[#0d0d0d]/60 to-[#0d0d0d]"></div>
-            <div className="absolute inset-0 blueprint-grid opacity-30 mix-blend-overlay"></div>
+      {/* ── SERVICES ── */}
+      <section id="services">
+        <div className="container">
+          <div style={{ marginBottom: '4rem' }} className="reveal">
+            <span className="section-eyebrow">What We Do</span>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, maxWidth: '500px' }}>
+              Comprehensive Residential Drafting
+            </h2>
           </div>
+          <div className="service-grid">
+            {SERVICES.map((s, i) => (
+              <div
+                key={i}
+                className="service-card reveal"
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
+                <span className="service-num">{s.num}</span>
+                <div className="service-icon">{s.icon}</div>
+                <div className="service-title">{s.title}</div>
+                <p className="service-desc">{s.desc}</p>
+                <div className="service-arrow"><ArrowUpRight size={18} /></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full flex flex-col items-start mt-20">
-            <h1 className="text-5xl md:text-7xl lg:text-[80px] font-bold leading-tight md:leading-[1.1] mb-6 max-w-4xl tracking-tight">
-              {headlineWords.map((word, i) => (
-                <React.Fragment key={i}>
-                  <span className="word-anim" style={{ animationDelay: `${i * 0.15}s` }}>
-                    {word}
-                  </span>
-                  {word.includes('.') && i < headlineWords.length - 1 ? <br className="hidden md:block" /> : ' '}
-                </React.Fragment>
-              ))}
-            </h1>
-            
-            <p className="text-gold font-light tracking-[0.15em] text-sm md:text-base uppercase mb-10 animate-fade-in" style={{ animationDelay: '1s', opacity: 0 }}>
-              Residential Design & Construction Drafting — Perth, WA — Est. 2007
-            </p>
-            
-            <a 
-              href="#work" 
-              className="btn-gold border border-gold text-white px-8 py-4 uppercase tracking-widest text-sm font-medium animate-fade-in"
-              style={{ animationDelay: '1.2s', opacity: 0 }}
+      {/* ── PROJECTS ── */}
+      <section id="work">
+        <div className="container">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3rem' }} className="reveal">
+            <div>
+              <span className="section-eyebrow">Our Work</span>
+              <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+                Featured Projects
+              </h2>
+            </div>
+            <a
+              href="#"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)', textDecoration: 'none', borderBottom: '1px solid var(--gold-border)', paddingBottom: '2px', transition: 'border-color 0.3s ease', cursor: 'none' }}
             >
-              View Our Work
+              View All <ArrowRight size={14} />
             </a>
           </div>
-
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/60 animate-bounce-slow">
-            <ChevronDown size={32} strokeWidth={1} />
+          <div className="projects-track reveal">
+            {PROJECTS.map((p, i) => (
+              <div key={i} className="project-tile">
+                <img src={p.img} alt={p.name} className="project-img" />
+                <div className="project-info">
+                  <span className="project-tile-type">{p.type}</span>
+                  <span className="project-tile-name">{p.name}</span>
+                </div>
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* SERVICES */}
-        <section id="services" className="py-24 md:py-32 relative blueprint-corners border-y border-white/5">
-          <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gold/10"></div>
-          
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-            <div className="text-center mb-16 md:mb-24 reveal">
-              <span className="section-label">What We Do</span>
-              <h2 className="text-3xl md:text-5xl font-bold">Comprehensive Drafting Solutions</h2>
+      {/* ── WHY PATRICK ── */}
+      <section id="why">
+        {/* Blueprint decoration */}
+        <div className="blueprint-deco" style={{ right: '-100px', top: '-50px', width: '500px', height: '500px' }}>
+          <svg width="500" height="500" viewBox="0 0 500 500" fill="none">
+            <circle cx="250" cy="250" r="200" stroke="#c9a84c" strokeWidth="0.5" />
+            <circle cx="250" cy="250" r="150" stroke="#c9a84c" strokeWidth="0.5" />
+            <circle cx="250" cy="250" r="80" stroke="#c9a84c" strokeWidth="0.5" />
+            <line x1="50" y1="250" x2="450" y2="250" stroke="#c9a84c" strokeWidth="0.5" />
+            <line x1="250" y1="50" x2="250" y2="450" stroke="#c9a84c" strokeWidth="0.5" />
+            {[0, 45, 90, 135].map(a => (
+              <line key={a}
+                x1={250 + 200 * Math.cos(a * Math.PI / 180)}
+                y1={250 + 200 * Math.sin(a * Math.PI / 180)}
+                x2={250 + 80 * Math.cos(a * Math.PI / 180)}
+                y2={250 + 80 * Math.sin(a * Math.PI / 180)}
+                stroke="#c9a84c" strokeWidth="0.5"
+              />
+            ))}
+          </svg>
+        </div>
+
+        <div className="container">
+          <div className="why-grid">
+            <div className="reveal-left">
+              <span className="section-eyebrow">Why Choose Us</span>
+              <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: '2.5rem' }}>
+                Expertise You Can Build On
+              </h2>
+              <div className="review-badge">
+                <div>
+                  <div className="review-stars">
+                    {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
+                  </div>
+                  <div className="review-label">50 Client Reviews</div>
+                </div>
+                <div style={{ width: '1px', height: '2.5rem', background: 'var(--gold-border)' }} />
+                <div>
+                  <div className="review-score">5.0</div>
+                  <div className="review-label">Average Rating</div>
+                </div>
+              </div>
+              <p style={{ fontSize: '0.9rem', color: 'var(--gray)', lineHeight: 1.9, fontWeight: 300, maxWidth: '420px' }}>
+                Based in South Perth since 2007, we have built a reputation for precision, reliability and seamless council approvals across the Perth metro area.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((service, index) => (
-                <div 
-                  key={index} 
-                  className="reveal group bg-[#141414] p-10 border border-gold/40 hover:border-gold/100 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(201,168,76,0.1)] flex flex-col"
-                  style={{ transitionDelay: `${(index % 3 + 1) * 100}ms` }}
-                >
-                  <div className="text-gold mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
-                    {service.icon}
+            <div className="why-pillars reveal-right">
+              {[
+                { icon: <Clock size={22} strokeWidth={1.5} />, title: '18+ Years Experience', desc: 'Established in Perth since 2007, delivering high-quality residential drafting across Western Australia.' },
+                { icon: <FileCheck size={22} strokeWidth={1.5} />, title: 'Council-Ready Documentation', desc: 'Meticulously detailed drawings built for smooth, hassle-free local government approvals and building permits.' },
+                { icon: <MapPin size={22} strokeWidth={1.5} />, title: 'Local Perth Knowledge', desc: 'Deep understanding of WA R-Codes, WAPC requirements and local authority planning policies.' },
+              ].map((p, i) => (
+                <div key={i} className="pillar" style={{ transitionDelay: `${i * 120}ms` }}>
+                  <div className="pillar-icon">{p.icon}</div>
+                  <div>
+                    <div className="pillar-title">{p.title}</div>
+                    <div className="pillar-desc">{p.desc}</div>
                   </div>
-                  <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                  <p className="text-gray-400 font-light leading-relaxed">{service.desc}</p>
                 </div>
               ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* FEATURED PROJECTS */}
-        <section id="work" className="py-24 md:py-32 bg-[#0a0a0a]">
-          <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
-              <div>
-                <span className="section-label">Our Work</span>
-                <h2 className="text-3xl md:text-5xl font-bold">Featured Projects</h2>
+      {/* ── PROCESS ── */}
+      <section id="process">
+        <div className="container">
+          <div style={{ marginBottom: '5rem' }} className="reveal">
+            <span className="section-eyebrow">How It Works</span>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+              Our Proven Process
+            </h2>
+          </div>
+          <div className="process-grid">
+            <div className="process-connector">
+              <div className={`process-connector-fill${processVisible ? ' play' : ''}`} />
+            </div>
+            {PROCESS.map((step, i) => (
+              <div
+                key={i}
+                className="process-step reveal"
+                style={{ transitionDelay: `${i * 150}ms` }}
+              >
+                <div className="process-num-wrap">
+                  <span className="process-num">{step.num}</span>
+                </div>
+                <div className="process-title">{step.title}</div>
+                <p className="process-desc">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── ABOUT ── */}
+      <section id="about">
+        <div className="container">
+          <div className="about-grid">
+            <div className="reveal-left">
+              <span className="section-eyebrow">About Patrick</span>
+              <blockquote className="about-quote">
+                "Over 18 years delivering design and drafting solutions across the Perth metro area."
+              </blockquote>
+              <p className="about-body">
+                Patrick De Rossi Design & Drafting is a registered building design and drafting practice based in South Perth, Western Australia, established in 2007. Specialising exclusively in residential projects, we serve clients across Perth's 50km metro area — from custom luxury homes and extensions to granny flats and complex multi-unit developments.
+              </p>
+              <p className="about-body" style={{ marginTop: '-1rem' }}>
+                Every drawing set we produce is built to meet local authority requirements from the outset, minimising revisions and maximising approval rates for our clients.
+              </p>
+              <div className="about-contact-row">
+                <a href="tel:+61423231515" className="about-contact-link">
+                  <Phone size={16} /><span>+61 423 231 515</span>
+                </a>
+                <a href="mailto:info@patrickderossi.com.au" className="about-contact-link">
+                  <Mail size={16} /><span>info@patrickderossi.com.au</span>
+                </a>
+                <span className="about-contact-link" style={{ cursor: 'default' }}>
+                  <MapPin size={16} style={{ color: 'var(--gold)' }} /><span>3 Mends St, South Perth WA 6151</span>
+                </span>
               </div>
             </div>
 
-            <div className="project-grid">
-              {projects.map((project, i) => (
-                <div key={i} className="project-item project-card relative overflow-hidden bg-[#1a1a1a] reveal h-[300px] lg:h-auto" style={{ transitionDelay: `${(i % 3 + 1) * 100}ms` }}>
-                  <img 
-                    src={project.img} 
-                    alt={project.name} 
-                    className="project-img w-full h-full object-cover transition-transform duration-700 ease-in-out" 
-                  />
-                  <div className="project-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 transition-opacity duration-500 flex flex-col justify-end p-8">
-                    <span className="text-gold text-xs tracking-widest uppercase mb-2 block">{project.type}</span>
-                    <h3 className="text-2xl font-medium text-white">{project.name}</h3>
-                  </div>
+            <div className="about-img-wrap reveal-right">
+              <div className="about-img-frame">
+                <img src="/__mockup/images/patrick-derossi/about.png" alt="Patrick De Rossi" />
+                <div className="about-img-badge">
+                  <div className="about-img-badge-name">Patrick De Rossi</div>
+                  <div className="about-img-badge-title">Principal Designer</div>
                 </div>
-              ))}
-            </div>
-
-            <div className="mt-16 text-center reveal">
-              <a href="#" className="inline-flex items-center gap-2 text-gold font-medium uppercase tracking-widest text-sm hover:text-white transition-colors group">
-                View All Projects <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </a>
+              </div>
+              <div style={{
+                position: 'absolute',
+                top: '-20px', right: '-20px',
+                width: '120px', height: '120px',
+                border: '1px solid var(--gold-border)',
+                zIndex: -1,
+              }} />
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* WHY PATRICK */}
-        <section id="why" className="py-24 bg-[#0d0d0d] border-t border-white/5 relative overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent"></div>
-          
-          <div className="max-w-6xl mx-auto px-6 lg:px-12">
-            <div className="flex flex-col items-center text-center mb-20 reveal">
-              <div className="inline-flex items-center gap-2 border border-gold/50 rounded-full px-6 py-2 mb-8 bg-gold/5">
-                <div className="flex gap-1 text-gold">
-                  {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
-                </div>
-                <span className="text-sm font-medium">5.0 Stars — 50 Client Reviews</span>
-              </div>
-              <span className="section-label">Why Us</span>
-              <h2 className="text-3xl md:text-5xl font-bold max-w-2xl">Expertise You Can Build On</h2>
-            </div>
+      {/* ── CONTACT ── */}
+      <section id="contact">
+        <div className="container">
+          <div className="contact-grid">
+            <div className="reveal-left">
+              <span className="section-eyebrow">Get In Touch</span>
+              <h2 className="contact-headline">Ready to Start Your Project?</h2>
+              <p className="contact-sub">Let's discuss your residential design or drafting requirements.</p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
-              <div className="text-center md:text-left reveal delay-100">
-                <div className="w-16 h-16 rounded-full bg-[#1a1a1a] border border-gold/20 flex items-center justify-center mx-auto md:mx-0 mb-6">
-                  <Clock className="text-gold" size={24} />
-                </div>
-                <h3 className="text-xl font-bold mb-4">18+ Years Experience</h3>
-                <p className="text-gray-400 font-light leading-relaxed">Established in Perth since 2007, delivering consistent, high-quality residential drafting across Western Australia.</p>
-              </div>
-              
-              <div className="text-center md:text-left reveal delay-200">
-                <div className="w-16 h-16 rounded-full bg-[#1a1a1a] border border-gold/20 flex items-center justify-center mx-auto md:mx-0 mb-6">
-                  <FileCheck className="text-gold" size={24} />
-                </div>
-                <h3 className="text-xl font-bold mb-4">Council-Ready Docs</h3>
-                <p className="text-gray-400 font-light leading-relaxed">Meticulously detailed drawings built specifically for smooth, hassle-free local government approvals and building permits.</p>
-              </div>
-              
-              <div className="text-center md:text-left reveal delay-300">
-                <div className="w-16 h-16 rounded-full bg-[#1a1a1a] border border-gold/20 flex items-center justify-center mx-auto md:mx-0 mb-6">
-                  <MapPin className="text-gold" size={24} />
-                </div>
-                <h3 className="text-xl font-bold mb-4">Local Perth Knowledge</h3>
-                <p className="text-gray-400 font-light leading-relaxed">Deep, comprehensive understanding of WA building codes, R-Codes, and specific WAPC requirements.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* PROCESS */}
-        <section id="process" className="py-24 md:py-32 bg-[#111111]">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="mb-20 reveal">
-              <span className="section-label">How It Works</span>
-              <h2 className="text-3xl md:text-5xl font-bold">Our Proven Process</h2>
-            </div>
-
-            <div className="relative">
-              {/* Connecting line */}
-              <div className="hidden md:block absolute top-12 left-0 w-full h-px bg-gradient-to-r from-gold/50 via-gold/20 to-transparent"></div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-6">
-                {processSteps.map((step, i) => (
-                  <div key={i} className="relative reveal" style={{ transitionDelay: `${(i + 1) * 100}ms` }}>
-                    <div className="bg-[#0d0d0d] w-24 h-24 rounded-full border border-gold/30 flex items-center justify-center mb-8 relative z-10 mx-auto md:mx-0 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
-                      <span className="text-3xl font-light text-gold">{step.num}</span>
-                    </div>
-                    <div className="text-center md:text-left pr-4">
-                      <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-                      <p className="text-gray-400 font-light text-sm leading-relaxed">{step.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ABOUT */}
-        <section id="about" className="py-24 md:py-32 bg-[#0d0d0d]">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-              <div className="order-2 lg:order-1 reveal">
-                <span className="section-label">About Patrick</span>
-                <blockquote className="text-2xl md:text-4xl font-light italic leading-tight mb-10 pl-6 border-l-2 border-gold text-white/90">
-                  "Over 18 years delivering precise design and drafting solutions across the Perth metro area."
-                </blockquote>
-                
-                <p className="text-gray-300 font-light leading-relaxed mb-8 text-lg">
-                  Patrick De Rossi Design & Drafting is a registered building design and drafting practice based in South Perth, Western Australia, established in 2007. Specialising exclusively in residential projects, we serve clients across Perth's 50km metro area — from custom luxury homes and extensions to granny flats and complex multi-unit developments.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-6 mt-12 pt-10 border-t border-white/10">
-                  <a href="tel:+61423231515" className="flex items-center gap-3 hover:text-gold transition-colors">
-                    <div className="w-10 h-10 rounded-full bg-[#1a1a1a] flex items-center justify-center border border-white/10">
-                      <Phone size={18} />
-                    </div>
-                    <span className="font-medium">+61 423 231 515</span>
-                  </a>
-                  <a href="mailto:info@patrickderossi.com.au" className="flex items-center gap-3 hover:text-gold transition-colors">
-                    <div className="w-10 h-10 rounded-full bg-[#1a1a1a] flex items-center justify-center border border-white/10">
-                      <Mail size={18} />
-                    </div>
-                    <span className="font-medium">info@patrickderossi.com.au</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="order-1 lg:order-2 reveal delay-200">
-                <div className="relative p-4 border border-gold/20 bg-[#141414]">
-                  <img 
-                    src="/__mockup/images/patrick-derossi/about.png" 
-                    alt="Patrick De Rossi at drafting desk" 
-                    className="w-full aspect-square object-cover filter grayscale hover:grayscale-0 transition-all duration-700" 
-                  />
-                  <div className="absolute -bottom-6 -left-6 bg-gold text-[#0d0d0d] p-6 shadow-xl">
-                    <h4 className="font-bold text-xl uppercase tracking-wider">Patrick De Rossi</h4>
-                    <span className="text-sm font-medium opacity-80">Principal Designer</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CONTACT */}
-        <section id="contact" className="py-24 md:py-32 bg-[#0f0f0f] border-t border-white/5">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="mb-16 reveal">
-              <span className="section-label">Get In Touch</span>
-              <h2 className="text-4xl md:text-6xl font-bold mb-4">Ready to Start Your Project?</h2>
-              <p className="text-gray-400 text-xl font-light">Let's discuss your residential design or drafting requirements.</p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
-              <div className="lg:col-span-2 space-y-10 reveal delay-100">
+              <div className="contact-detail">
+                <div className="contact-detail-icon"><Phone size={18} strokeWidth={1.5} /></div>
                 <div>
-                  <a href="tel:+61423231515" className="group flex items-start gap-4">
-                    <Phone className="text-gold mt-1 group-hover:scale-110 transition-transform" size={24} />
-                    <div>
-                      <span className="block text-sm text-gray-500 uppercase tracking-widest mb-1">Call Us</span>
-                      <span className="text-2xl md:text-3xl font-light group-hover:text-gold transition-colors">+61 423 231 515</span>
-                    </div>
-                  </a>
+                  <div className="contact-detail-label">Phone</div>
+                  <div className="contact-detail-value"><a href="tel:+61423231515">+61 423 231 515</a></div>
                 </div>
-                
+              </div>
+              <div className="contact-detail">
+                <div className="contact-detail-icon"><Mail size={18} strokeWidth={1.5} /></div>
                 <div>
-                  <a href="mailto:info@patrickderossi.com.au" className="group flex items-start gap-4">
-                    <Mail className="text-gold mt-1 group-hover:scale-110 transition-transform" size={24} />
-                    <div>
-                      <span className="block text-sm text-gray-500 uppercase tracking-widest mb-1">Email Us</span>
-                      <span className="text-xl md:text-2xl font-light group-hover:text-gold transition-colors break-all">info@patrickderossi.com.au</span>
-                    </div>
-                  </a>
-                </div>
-
-                <div className="flex items-start gap-4 pt-6 border-t border-white/10">
-                  <MapPin className="text-gray-500 mt-1" size={20} />
-                  <div>
-                    <span className="block text-sm text-gray-500 uppercase tracking-widest mb-1">Office</span>
-                    <span className="text-gray-300 font-light">3 Mends St<br/>South Perth WA 6151</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <Clock className="text-gray-500 mt-1" size={20} />
-                  <div>
-                    <span className="block text-sm text-gray-500 uppercase tracking-widest mb-1">Hours</span>
-                    <span className="text-gray-300 font-light">Monday – Friday<br/>8:00 AM – 5:00 PM</span>
+                  <div className="contact-detail-label">Email</div>
+                  <div className="contact-detail-value" style={{ fontSize: '0.95rem' }}>
+                    <a href="mailto:info@patrickderossi.com.au">info@patrickderossi.com.au</a>
                   </div>
                 </div>
               </div>
-
-              <div className="lg:col-span-3 reveal delay-200">
-                <form className="bg-[#141414] p-8 md:p-12 border border-white/5" onSubmit={(e) => e.preventDefault()}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Full Name</label>
-                      <input 
-                        type="text" 
-                        className="w-full bg-[#1a1a1a] border border-[#333] px-5 py-4 text-white focus:outline-none focus:border-gold transition-colors"
-                        placeholder="John Doe"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Email Address</label>
-                      <input 
-                        type="email" 
-                        className="w-full bg-[#1a1a1a] border border-[#333] px-5 py-4 text-white focus:outline-none focus:border-gold transition-colors"
-                        placeholder="john@example.com"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="mb-6">
-                    <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Service Required</label>
-                    <div className="relative">
-                      <select className="w-full bg-[#1a1a1a] border border-[#333] px-5 py-4 text-white focus:outline-none focus:border-gold transition-colors appearance-none cursor-pointer">
-                        <option value="">Select a service...</option>
-                        <option value="residential">Residential Design</option>
-                        <option value="construction">Construction Drawings</option>
-                        <option value="multi-unit">Multi-Unit Development</option>
-                        <option value="renovation">Renovation & Extension</option>
-                        <option value="granny">Granny Flats</option>
-                        <option value="cafs">C.A.F.S</option>
-                      </select>
-                      <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={20} />
-                    </div>
-                  </div>
-
-                  <div className="mb-8">
-                    <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Project Details</label>
-                    <textarea 
-                      rows={5}
-                      className="w-full bg-[#1a1a1a] border border-[#333] px-5 py-4 text-white focus:outline-none focus:border-gold transition-colors resize-none"
-                      placeholder="Tell us about your project location and requirements..."
-                    ></textarea>
-                  </div>
-
-                  <button className="w-full bg-gold text-[#0d0d0d] font-bold uppercase tracking-widest py-5 hover:bg-[#b5953f] transition-colors flex items-center justify-center gap-2 group">
-                    Send Enquiry
-                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </form>
+              <div className="contact-detail">
+                <div className="contact-detail-icon"><MapPin size={18} strokeWidth={1.5} /></div>
+                <div>
+                  <div className="contact-detail-label">Address</div>
+                  <div className="contact-detail-value" style={{ fontSize: '0.95rem', color: 'var(--gray)' }}>3 Mends St, South Perth WA 6151</div>
+                </div>
+              </div>
+              <div className="contact-detail">
+                <div className="contact-detail-icon"><Clock size={18} strokeWidth={1.5} /></div>
+                <div>
+                  <div className="contact-detail-label">Hours</div>
+                  <div className="contact-detail-value" style={{ fontSize: '0.95rem', color: 'var(--gray)' }}>Mon – Fri, 8:00 AM – 5:00 PM</div>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      </main>
 
-      {/* FOOTER */}
-      <footer className="bg-[#0a0a0a] border-t border-gold/20 py-12">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
-            <div className="text-center md:text-left">
-              <span className="block text-lg font-bold mb-1">Patrick De Rossi Design & Drafting</span>
-              <span className="text-sm text-gray-500">South Perth WA 6151</span>
-            </div>
-            
-            <div className="flex items-center gap-6 text-sm text-gray-400">
-              <a href="tel:+61423231515" className="hover:text-gold transition-colors">+61 423 231 515</a>
-              <span className="w-1 h-1 bg-gray-700 rounded-full"></span>
-              <a href="mailto:info@patrickderossi.com.au" className="hover:text-gold transition-colors">info@patrickderossi.com.au</a>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-[#141414] flex items-center justify-center text-white hover:text-gold hover:bg-[#1a1a1a] transition-all border border-white/5">
-                <Facebook size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-[#141414] flex items-center justify-center text-white hover:text-gold hover:bg-[#1a1a1a] transition-all border border-white/5">
-                <Linkedin size={18} />
-              </a>
+            <div className="reveal-right">
+              <form className="contact-form" onSubmit={e => e.preventDefault()}>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">Full Name</label>
+                    <input type="text" className="form-input" placeholder="John Smith" />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Email Address</label>
+                    <input type="email" className="form-input" placeholder="john@example.com" />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Service Required</label>
+                  <select className="form-select">
+                    <option value="">Select a service...</option>
+                    {SERVICES.map((s, i) => <option key={i} value={s.title}>{s.title}</option>)}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Project Details</label>
+                  <textarea className="form-textarea" rows={5} placeholder="Tell us about your project and site location..." />
+                </div>
+                <button type="submit" className="form-submit">
+                  Send Enquiry
+                  <ArrowRight size={16} />
+                </button>
+              </form>
             </div>
           </div>
-          
-          <div className="text-center text-xs text-gray-600 border-t border-white/5 pt-8">
-            © {new Date().getFullYear()} Patrick De Rossi Design & Drafting. All rights reserved.
+        </div>
+      </section>
+
+      {/* ── FOOTER ── */}
+      <footer id="footer">
+        <div className="container">
+          <div className="footer-inner">
+            <div>
+              <div className="footer-name">Patrick De Rossi Design & Drafting</div>
+              <div className="footer-loc">South Perth WA 6151</div>
+            </div>
+            <div className="footer-contact">
+              <a href="tel:+61423231515">+61 423 231 515</a>
+              <a href="mailto:info@patrickderossi.com.au">info@patrickderossi.com.au</a>
+            </div>
+            <div className="footer-socials">
+              <a href="#" className="social-btn"><Facebook size={16} /></a>
+              <a href="#" className="social-btn"><Linkedin size={16} /></a>
+            </div>
+            <div className="footer-copy">
+              © {new Date().getFullYear()} Patrick De Rossi Design & Drafting. All rights reserved.
+            </div>
           </div>
         </div>
       </footer>
