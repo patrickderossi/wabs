@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
-  Menu, X, ChevronDown, ArrowRight, ArrowUpRight,
+  Menu, X, ArrowRight, ArrowUpRight,
   Home, FileText, Building2, Wrench, Trees, Fence,
   Star, Clock, FileCheck, MapPin, Phone, Mail,
-  Facebook, Linkedin
+  Facebook, Linkedin, Award, Shield, CheckCircle
 } from 'lucide-react';
 
 /* ─── STYLES ──────────────────────────────────────────────────────── */
@@ -180,35 +180,88 @@ const CSS = `
 
   /* ── Marquee ── */
   #marquee {
-    background: var(--gold);
+    background: var(--dark2);
+    border-top: 1px solid var(--gold-border);
+    border-bottom: 1px solid var(--gold-border);
     overflow: hidden;
-    padding: 0.85rem 0;
+    padding: 0.9rem 0;
     white-space: nowrap;
   }
   .marquee-track {
     display: inline-flex;
-    animation: marquee 30s linear infinite;
+    animation: marquee 36s linear infinite;
   }
   .marquee-item {
     display: inline-flex;
     align-items: center;
     gap: 1.5rem;
     padding: 0 2rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    font-weight: 700;
-    color: var(--dark);
+    font-weight: 400;
+    color: rgba(201,168,76,0.7);
   }
   .marquee-dot {
-    width: 4px; height: 4px;
-    background: rgba(13,13,13,0.4);
+    width: 3px; height: 3px;
+    background: rgba(201,168,76,0.4);
     border-radius: 50%;
     flex-shrink: 0;
   }
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
+  }
+
+  /* ── Credentials strip ── */
+  #credentials-strip {
+    background: var(--dark3);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    padding: 0.8rem 0;
+  }
+  .credentials-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .cred-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0 1.8rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .cred-item:last-child { border-right: none; }
+  .cred-item svg { color: var(--gold); opacity: 0.8; flex-shrink: 0; }
+  .cred-dot {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.4;
+  }
+  .cred-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #4ade80;
+    letter-spacing: 0.15em;
+  }
+  .cred-live-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+    animation: pulseGreen 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulseGreen {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
   }
 
   /* ── Nav mobile button ── */
@@ -876,7 +929,7 @@ const CSS = `
   /* ── Sticky CTA ── */
   #sticky-cta {
     position: fixed;
-    bottom: 2rem;
+    bottom: max(2rem, env(safe-area-inset-bottom, 2rem));
     right: 2rem;
     z-index: 800;
     transform: translateY(120px);
@@ -938,7 +991,8 @@ const CSS = `
     gap: 1.5rem;
     margin-top: 4rem;
   }
-  @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .testimonials-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .testimonials-grid { grid-template-columns: 1fr; } }
 
   .testi-card {
     background: var(--dark3);
@@ -1126,12 +1180,12 @@ function useCounter(target: number, duration = 1800, started = false) {
 
 /* ─── SERVICES DATA ──────────────────────────────────────────────── */
 const SERVICES = [
-  { icon: <Home size={26} strokeWidth={1.5} />, title: 'Residential Design', desc: 'Custom home design from concept to council approval', num: '01' },
-  { icon: <FileText size={26} strokeWidth={1.5} />, title: 'Construction Drawings', desc: 'Technical documentation and building permits', num: '02' },
-  { icon: <Building2 size={26} strokeWidth={1.5} />, title: 'Multi-Unit Development', desc: 'Design for duplex, triplex and grouped dwellings', num: '03' },
-  { icon: <Wrench size={26} strokeWidth={1.5} />, title: 'Renovation & Extension', desc: 'Alterations and additions to existing homes', num: '04' },
-  { icon: <Trees size={26} strokeWidth={1.5} />, title: 'Granny Flats', desc: 'Ancillary dwelling design within Perth regulations', num: '05' },
-  { icon: <Fence size={26} strokeWidth={1.5} />, title: 'C.A.F.S', desc: 'Carports, alfresco areas, fencing and sheds', num: '06' },
+  { icon: <Home size={26} strokeWidth={1.5} />, title: 'Residential Design', desc: 'Full home design from initial concept sketches through to council-approved documentation. We work closely with you to translate your vision into precise, buildable drawings that meet all WA R-Code requirements.', num: '01' },
+  { icon: <FileText size={26} strokeWidth={1.5} />, title: 'Construction Drawings', desc: 'Comprehensive working drawing sets covering floor plans, elevations, sections, site plans and structural details. Every package is built to satisfy building permit and local authority requirements from the outset.', num: '02' },
+  { icon: <Building2 size={26} strokeWidth={1.5} />, title: 'Multi-Unit Development', desc: 'Duplex, triplex, grouped dwelling and apartments designed to maximise yield within your site\'s development potential. We navigate WAPC and local planning policy to make your investment work harder.', num: '03' },
+  { icon: <Wrench size={26} strokeWidth={1.5} />, title: 'Renovation & Extension', desc: 'Thoughtful alterations and additions that respect your home\'s existing character while delivering the space you need. From rear extensions to full internal reconfigurations and second-storey additions.', num: '04' },
+  { icon: <Trees size={26} strokeWidth={1.5} />, title: 'Granny Flats', desc: 'Ancillary dwelling designs that comply with Perth\'s R-Codes and maximise liveable space within the allowable footprint. An efficient solution for extended family accommodation or additional rental income.', num: '05' },
+  { icon: <Fence size={26} strokeWidth={1.5} />, title: 'C.A.F.S', desc: 'Permit-ready drawings for carports, alfresco entertainment areas, fencing and garden sheds. We handle the documentation so your builder can get on site without delays or council back-and-forth.', num: '06' },
 ];
 
 const PROJECTS = [
@@ -1144,10 +1198,10 @@ const PROJECTS = [
 ];
 
 const PROCESS = [
-  { num: '01', title: 'Brief', desc: 'We listen to your vision and site requirements.' },
-  { num: '02', title: 'Design', desc: 'Concept drawings and design development.' },
-  { num: '03', title: 'Documentation', desc: 'Full construction drawings and permit sets.' },
-  { num: '04', title: 'Delivery', desc: 'Lodgement support through to approval.' },
+  { num: '01', title: 'Initial Brief', desc: 'We meet to understand your vision, budget, and site constraints. You\'ll leave with a clear scope, realistic timeline, and a fixed-fee proposal — no surprises.' },
+  { num: '02', title: 'Concept Design', desc: 'We develop concept drawings that explore the best spatial arrangement for your block and lifestyle. You review, provide feedback, and we refine until it\'s exactly right.' },
+  { num: '03', title: 'Documentation', desc: 'We produce a complete set of construction-ready drawings — floor plans, elevations, sections, site plans and specifications. Every sheet is built for swift council approval.' },
+  { num: '04', title: 'Approval & Delivery', desc: 'We lodge your application with the relevant authority and manage any queries on your behalf. Final stamped documents are delivered digitally, ready for your builder to price.' },
 ];
 
 const TESTIMONIALS = [
@@ -1236,7 +1290,7 @@ export function Website() {
         }
       }
     };
-    timer = setTimeout(tick, 1200);
+    timer = setTimeout(tick, 300);
     return () => clearTimeout(timer);
   }, [loaded]);
 
@@ -1425,7 +1479,7 @@ export function Website() {
           </div>
 
           <h1 className="hero-headline" style={{ marginBottom: '1.75rem' }}>
-            {['Designing', 'Homes.'].map((w, i) => (
+            {['Every', 'Line'].map((w, i) => (
               <React.Fragment key={i}>
                 <span
                   className="headline-word"
@@ -1435,7 +1489,7 @@ export function Website() {
               </React.Fragment>
             ))}
             <br />
-            {['Delivering', 'Precision.'].map((w, i) => (
+            {['Drawn', 'With', <span key="purpose" style={{ color: 'var(--gold)' }}>Purpose.</span>].map((w, i) => (
               <React.Fragment key={i + 2}>
                 <span
                   className="headline-word"
@@ -1484,20 +1538,44 @@ export function Website() {
         );
       })()}
 
+      {/* ── CREDENTIALS STRIP ── */}
+      <div id="credentials-strip">
+        <div className="credentials-inner">
+          <div className="cred-item">
+            <Award size={13} />
+            Registered Building Designer
+          </div>
+          <div className="cred-item">
+            <Shield size={13} />
+            BDAWA Member
+          </div>
+          <div className="cred-item">
+            <Star size={13} />
+            Est. 2007 — 18 Years Perth
+          </div>
+          <div className="cred-item">
+            <span className="cred-live">
+              <span className="cred-live-dot" />
+              Currently Accepting New Projects
+            </span>
+          </div>
+        </div>
+      </div>
+
       {/* ── STATS BAR ── */}
       <div id="stats-bar">
         <div className="container">
           <div className="stats-grid">
             <div className="stat-cell">
-              <span className="stat-num">{statsVisible ? years : 0}+</span>
+              <span className="stat-num">{statsVisible ? `${years}+` : '—'}</span>
               <span className="stat-label">Years of Experience</span>
             </div>
             <div className="stat-cell">
-              <span className="stat-num">{statsVisible ? reviews : 0}</span>
+              <span className="stat-num">{statsVisible ? reviews : '—'}</span>
               <span className="stat-label">Client Reviews</span>
             </div>
             <div className="stat-cell">
-              <span className="stat-num">{statsVisible ? projects_ : 0}+</span>
+              <span className="stat-num">{statsVisible ? `${projects_}+` : '—'}</span>
               <span className="stat-label">Projects Completed</span>
             </div>
             <div className="stat-cell">
@@ -1800,6 +1878,10 @@ export function Website() {
                   </div>
                 </div>
                 <div className="form-group">
+                  <label className="form-label">Phone Number</label>
+                  <input type="tel" className="form-input" placeholder="04xx xxx xxx" />
+                </div>
+                <div className="form-group">
                   <label className="form-label">Service Required</label>
                   <select className="form-select">
                     <option value="">Select a service...</option>
@@ -1808,7 +1890,11 @@ export function Website() {
                 </div>
                 <div className="form-group">
                   <label className="form-label">Project Details</label>
-                  <textarea className="form-textarea" rows={5} placeholder="Tell us about your project and site location..." />
+                  <textarea className="form-textarea" rows={5} placeholder="Tell us about your project, site address and suburb..." />
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem', color: 'rgba(255,255,255,0.35)', fontSize: '0.72rem', letterSpacing: '0.05em' }}>
+                  <CheckCircle size={13} style={{ color: 'var(--gold)', opacity: 0.7, flexShrink: 0 }} />
+                  We respond to all enquiries within 1 business day.
                 </div>
                 <button type="submit" className="form-submit">
                   Send Enquiry
