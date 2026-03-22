@@ -297,7 +297,7 @@ export function Website() {
             <h1 className="text-5xl md:text-7xl lg:text-[80px] font-bold leading-tight md:leading-[1.1] mb-6 max-w-4xl tracking-tight">
               {headlineWords.map((word, i) => (
                 <React.Fragment key={i}>
-                  <span className="word-anim" style={{ animationDelay: \`\${i * 0.15}s\` }}>
+                  <span className="word-anim" style={{ animationDelay: `${i * 0.15}s` }}>
                     {word}
                   </span>
                   {word.includes('.') && i < headlineWords.length - 1 ? <br className="hidden md:block" /> : ' '}
@@ -337,7 +337,8 @@ export function Website() {
               {services.map((service, index) => (
                 <div 
                   key={index} 
-                  className={`reveal delay-\${(index % 3 + 1) * 100} group bg-[#141414] p-10 border border-gold/40 hover:border-gold/100 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(201,168,76,0.1)] flex flex-col`}
+                  className="reveal group bg-[#141414] p-10 border border-gold/40 hover:border-gold/100 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(201,168,76,0.1)] flex flex-col"
+                  style={{ transitionDelay: `${(index % 3 + 1) * 100}ms` }}
                 >
                   <div className="text-gold mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
                     {service.icon}
@@ -362,7 +363,7 @@ export function Website() {
 
             <div className="project-grid">
               {projects.map((project, i) => (
-                <div key={i} className={`project-item project-card relative overflow-hidden bg-[#1a1a1a] reveal delay-\${(i % 3 + 1) * 100} h-[300px] lg:h-auto`}>
+                <div key={i} className="project-item project-card relative overflow-hidden bg-[#1a1a1a] reveal h-[300px] lg:h-auto" style={{ transitionDelay: `${(i % 3 + 1) * 100}ms` }}>
                   <img 
                     src={project.img} 
                     alt={project.name} 
@@ -442,7 +443,7 @@ export function Website() {
               
               <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-6">
                 {processSteps.map((step, i) => (
-                  <div key={i} className={`relative reveal delay-\${(i + 1) * 100}`}>
+                  <div key={i} className="relative reveal" style={{ transitionDelay: `${(i + 1) * 100}ms` }}>
                     <div className="bg-[#0d0d0d] w-24 h-24 rounded-full border border-gold/30 flex items-center justify-center mb-8 relative z-10 mx-auto md:mx-0 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                       <span className="text-3xl font-light text-gold">{step.num}</span>
                     </div>
