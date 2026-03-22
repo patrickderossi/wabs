@@ -675,7 +675,7 @@ const CSS = `
   /* ── Process ── */
   #process { padding: 8rem 0; background: var(--dark2); }
 
-  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 0; row-gap: 3.5rem; position: relative; }
   @media (max-width: 900px) { .process-grid { grid-template-columns: 1fr 1fr; gap: 3rem 2rem; } }
   @media (max-width: 600px) { .process-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
 
@@ -1182,36 +1182,40 @@ const SERVICES = [
 ];
 
 const PROJECTS = [
-  { img: '/__mockup/images/patrick-derossi/project1.png', name: 'Nedlands Residence', type: 'Custom Home Design' },
-  { img: '/__mockup/images/patrick-derossi/project2.png', name: 'Applecross Extension', type: 'Renovation & Extension' },
-  { img: '/__mockup/images/patrick-derossi/project3.png', name: 'Como Duplex', type: 'Multi-Unit Development' },
-  { img: '/__mockup/images/patrick-derossi/project4.png', name: 'Shenton Park Granny Flat', type: 'Granny Flat' },
-  { img: '/__mockup/images/patrick-derossi/project5.png', name: 'Mount Lawley Renovation', type: 'Renovation' },
-  { img: '/__mockup/images/patrick-derossi/project6.png', name: 'Fremantle Heritage Home', type: 'Heritage Renovation' },
+  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2Fa30a969b7eec4e6883563ee4cd4697cd?format=webp&width=900', name: 'Ultra-Modern Double Storey', type: 'Custom Home Design' },
+  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F52c209f0e0d24770bd2ca845dda8bdeb?format=webp&width=900', name: 'Contemporary Residence', type: 'Custom Home Design' },
+  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F6049763deb68490486b31b8246cd37d6?format=webp&width=900', name: 'Modern Single Storey', type: 'Custom Home Design' },
+  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F83cae82e0ee742dda2d6173e8479c294?format=webp&width=900', name: 'Hampton-Style Home', type: 'Custom Home Design' },
+  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F33c2aa76642549618267469fa5e26c21?format=webp&width=900', name: 'Contemporary Single Storey', type: 'Custom Home Design' },
+  { img: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2Feb0d938ec5b44e65a8095a02be6d9637?format=webp&width=900', name: 'Modern New Build', type: 'Custom Home Design' },
 ];
 
 const PROCESS = [
-  { num: '01', title: 'Initial Brief', desc: 'We meet to understand your vision, budget, and site constraints. You\'ll leave with a clear scope, realistic timeline, and a fixed-fee proposal — no surprises.' },
-  { num: '02', title: 'Concept Design', desc: 'We develop concept drawings that explore the best spatial arrangement for your block and lifestyle. You review, provide feedback, and we refine until it\'s exactly right.' },
-  { num: '03', title: 'Documentation', desc: 'We produce a complete set of construction-ready drawings — floor plans, elevations, sections, site plans and specifications. Every sheet is built for swift council approval.' },
-  { num: '04', title: 'Approval & Delivery', desc: 'We lodge your application with the relevant authority and manage any queries on your behalf. Final stamped documents are delivered digitally, ready for your builder to price.' },
+  { num: '01', title: 'Formal Quote', desc: 'A transparent, itemised quote before any work begins — covering every stage, fee, and timeline so you know exactly what to expect.' },
+  { num: '02', title: 'Initial Consultation', desc: 'We meet to discuss your vision, site, lifestyle needs, and budget. This forms the foundation for a design brief that guides everything that follows.' },
+  { num: '03', title: 'Concept Design', desc: 'Preliminary floor plans and elevations are developed and refined with your feedback until the layout is exactly right for your block and the way you live.' },
+  { num: '04', title: 'Planning Approval', desc: 'Where required, we prepare and lodge a Development Application with the relevant local authority and manage all queries through to approval.' },
+  { num: '05', title: 'Working Drawings', desc: 'Full construction documentation — floor plans, elevations, sections, site plans, electrical and plumbing layouts — built to satisfy your certifier and builder.' },
+  { num: '06', title: '3rd Party Plans', desc: 'We coordinate any required engineer, surveyor, energy assessor, or other specialist reports and seamlessly incorporate them into your drawing set.' },
+  { num: '07', title: 'Design Compliance', desc: 'A Certificate of Design Compliance (CDC) is prepared and issued by a registered certifier, confirming your design meets all NCC and R-Code requirements.' },
+  { num: '08', title: 'Building Permit', desc: 'We lodge your completed building permit application and liaise with the certifier until permit is granted — so your builder can break ground without delay.' },
 ];
 
 const TESTIMONIALS = [
   {
-    text: "Patrick was outstanding to work with throughout our entire home build. His drawings were incredibly detailed and the council approval process was completely stress-free. I'd recommend him to anyone building in Perth.",
-    name: 'Sarah & David M.',
-    meta: 'Custom Home — Nedlands',
+    text: "Patrick is a legend! I needed some drafting done for a granny flat, and he nailed it. He worked quickly but didn't cut any corners. The design was spot on, and even my builder commented on how clear and detailed the plans were. If you need quality drafting, Patrick's your guy.",
+    name: 'Mark O\'Sullivan',
+    meta: 'Owner Builder Home — Rockingham',
   },
   {
-    text: "We had a complex dual-occupancy project and Patrick navigated the R-Code requirements with absolute precision. Professional, responsive, and delivered exactly what we needed on time.",
-    name: 'James K.',
-    meta: 'Dual Occupancy — Como',
+    text: "We used Patrick for a new duplex design, and he was fantastic! Super professional but also really easygoing. He had great ideas to maximise the space, and his attention to detail was incredible. Honestly, the whole experience was seamless, and we\'re thrilled with the result. Can\'t recommend him enough!",
+    name: 'Priya & John Williams',
+    meta: 'Duplex Design — Cannington',
   },
   {
-    text: "After dealing with another draftsman who couldn't get our extension approved, Patrick sorted everything within weeks. His local knowledge of the planning requirements is second to none.",
-    name: 'Michelle T.',
-    meta: 'Renovation & Extension — Applecross',
+    text: "I would like to express my gratitude to Patrick for efficiently completing all my applications at a minimal cost and within a remarkably short timeframe. Despite being unable to find anyone willing to meet my deadline elsewhere, Patrick delivered exceptional results. I highly recommend his services.",
+    name: 'Sarah & Michael Johnson',
+    meta: 'Custom Family Home — Claremont',
   },
 ];
 
@@ -1385,9 +1389,9 @@ export function Website() {
     return () => observer.disconnect();
   }, [loaded]);
 
-  const years = useCounter(18, 1600, statsVisible);
-  const reviews = useCounter(50, 1800, statsVisible);
-  const projects_ = useCounter(200, 2000, statsVisible);
+  const years = useCounter(17, 1600, statsVisible);
+  const reviews = useCounter(500, 2000, statsVisible);
+  const projects_ = useCounter(250, 1800, statsVisible);
 
   const navLinks = [
     { href: '#work', label: 'Work', id: 'work' },
@@ -1426,8 +1430,11 @@ export function Website() {
       {/* Navigation */}
       <nav id="pdr-nav" className={scrolled ? 'scrolled' : ''}>
         <div className="nav-wordmark">
-          <span className="nav-wordmark-main">Patrick De Rossi</span>
-          <span className="nav-wordmark-sub">Design & Drafting</span>
+          <img
+            src="/__mockup/images/patrick-derossi/logo.webp"
+            alt="Patrick De Rossi Design & Drafting"
+            style={{ height: '38px', width: 'auto', display: 'block' }}
+          />
         </div>
         <div className="nav-links">
           {navLinks.map(l => (
@@ -1457,7 +1464,7 @@ export function Website() {
           id="hero-bg"
           ref={heroBgRef}
           style={{
-            backgroundImage: "url('/__mockup/images/patrick-derossi/hero.png')",
+            backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2Feafa756245504b6dafa92e688ab57651?format=webp&width=1600')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -1540,11 +1547,11 @@ export function Website() {
           </div>
           <div className="cred-item">
             <Shield size={13} />
-            BDAWA Member
+            Registered Builder
           </div>
           <div className="cred-item">
             <Star size={13} />
-            Est. 2007 — 18 Years Perth
+            Est. 2007 — 17 Years Perth
           </div>
           <div className="cred-item">
             <span className="cred-live">
@@ -1561,15 +1568,15 @@ export function Website() {
           <div className="stats-grid">
             <div className="stat-cell">
               <span className="stat-num">{statsVisible ? `${years}+` : '—'}</span>
-              <span className="stat-label">Years of Experience</span>
+              <span className="stat-label">Years Experience</span>
             </div>
             <div className="stat-cell">
-              <span className="stat-num">{statsVisible ? reviews : '—'}</span>
-              <span className="stat-label">Client Reviews</span>
+              <span className="stat-num">{statsVisible ? `${reviews}+` : '—'}</span>
+              <span className="stat-label">Happy Clients</span>
             </div>
             <div className="stat-cell">
               <span className="stat-num">{statsVisible ? `${projects_}+` : '—'}</span>
-              <span className="stat-label">Projects Completed</span>
+              <span className="stat-label">Custom Homes</span>
             </div>
             <div className="stat-cell">
               <span className="stat-num">5.0</span>
@@ -1776,13 +1783,13 @@ export function Website() {
             <div className="reveal-left">
               <span className="section-eyebrow">About Patrick</span>
               <blockquote className="about-quote">
-                "Over 18 years delivering design and drafting solutions across the Perth metro area."
+                "Fusing creativity with technical precision to bring over 500 clients' projects to life — on time, on budget, and beyond expectations."
               </blockquote>
               <p className="about-body">
-                Patrick De Rossi Design & Drafting is a registered building design and drafting practice based in South Perth, Western Australia, established in 2007. Specialising exclusively in residential projects, we serve clients across Perth's 50km metro area — from custom luxury homes and extensions to granny flats and complex multi-unit developments.
+                With 17+ years in the Western Australian building industry, Patrick De Rossi has become a trusted name in residential design and drafting. Based in South Perth and established in 2007, the practice specialises exclusively in residential projects — from custom homes and extensions to granny flats, multi-unit developments, and everything in between.
               </p>
               <p className="about-body" style={{ marginTop: '-1rem' }}>
-                Every drawing set we produce is built to meet local authority requirements from the outset, minimising revisions and maximising approval rates for our clients.
+                Patrick holds registration as a Building Designer and Registered Builder, bringing hands-on expertise and deep local knowledge of Perth's R-Codes, local authority requirements, and council approval processes to every project.
               </p>
               <div className="about-contact-row">
                 <a href="tel:+61423231515" className="about-contact-link">
@@ -1799,11 +1806,11 @@ export function Website() {
 
             <div className="about-img-wrap reveal-right">
               <div className="about-img-frame">
-                <img src="/__mockup/images/patrick-derossi/about.png" alt="Patrick De Rossi" />
+                <img src="https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F25f6db68907b4e7f9b55020c56198d0d?format=webp&width=800" alt="Patrick De Rossi" />
               </div>
               <div className="about-img-badge">
                 <div className="about-img-badge-name">Patrick De Rossi</div>
-                <div className="about-img-badge-title">Principal Designer</div>
+                <div className="about-img-badge-title">Building Designer & Registered Builder</div>
               </div>
               <div style={{
                 position: 'absolute',
@@ -1939,7 +1946,7 @@ export function Website() {
               <div className="footer-brand-name">Patrick De Rossi</div>
               <div style={{ fontSize: '0.6rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '1rem' }}>Design & Drafting</div>
               <p className="footer-brand-tag">
-                South Perth's trusted residential design and drafting practice since 2007. Precision drawings. Seamless approvals.
+                Perth's trusted residential design and drafting practice. 17+ years, 500+ happy clients, and counting.
               </p>
               <div className="footer-social-row">
                 <a href="#" className="social-btn"><Facebook size={15} /></a>
