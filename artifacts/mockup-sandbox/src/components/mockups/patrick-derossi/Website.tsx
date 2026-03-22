@@ -10,6 +10,9 @@ import {
 const CSS = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  ::selection { background: rgba(201,168,76,0.3); color: #fff; }
+  ::-moz-selection { background: rgba(201,168,76,0.3); color: #fff; }
+
   :root {
     --gold: #c9a84c;
     --gold-dim: rgba(201,168,76,0.15);
@@ -507,7 +510,7 @@ const CSS = `
     padding: 3rem 2.5rem;
     position: relative;
     overflow: hidden;
-    
+    cursor: pointer;
     transition: background 0.4s ease;
   }
   .service-card::before {
@@ -805,7 +808,14 @@ const CSS = `
     
     width: 100%;
   }
-  .form-select { appearance: none; }
+  .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.25rem center;
+    padding-right: 3rem;
+    cursor: pointer;
+  }
   .form-input:focus, .form-select:focus, .form-textarea:focus {
     border-color: var(--gold);
     background: var(--dark3);
@@ -835,25 +845,7 @@ const CSS = `
   .form-submit:hover { background: #b89440; }
   .form-submit:active { transform: scale(0.98); }
 
-  /* ── Footer ── */
-  #footer {
-    background: #050505;
-    border-top: 1px solid var(--gold-border);
-    padding: 3rem 0;
-  }
-  .footer-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    text-align: center;
-  }
-  .footer-name { font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; }
-  .footer-loc { font-size: 0.7rem; color: var(--gray); letter-spacing: 0.2em; text-transform: uppercase; }
-  .footer-contact { display: flex; gap: 2.5rem; }
-  .footer-contact a { font-size: 0.8rem; color: var(--gray); text-decoration: none; transition: color 0.3s ease;  }
-  .footer-contact a:hover { color: var(--gold); }
-  .footer-socials { display: flex; gap: 1rem; }
+  /* ── Social buttons ── */
   .social-btn {
     width: 2.5rem; height: 2.5rem;
     border: 1px solid rgba(255,255,255,0.1);
@@ -1062,6 +1054,7 @@ const CSS = `
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.55);
+    cursor: default;
     transition: border-color 0.3s ease, color 0.3s ease;
   }
   .suburb-tag:hover { border-color: var(--gold-border); color: var(--gold); }
@@ -1259,7 +1252,7 @@ export function Website() {
 
   /* ── Loader ── */
   useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 1000);
+    const t = setTimeout(() => setLoaded(true), 1300);
     return () => clearTimeout(t);
   }, []);
 
@@ -1807,10 +1800,10 @@ export function Website() {
             <div className="about-img-wrap reveal-right">
               <div className="about-img-frame">
                 <img src="/__mockup/images/patrick-derossi/about.png" alt="Patrick De Rossi" />
-                <div className="about-img-badge">
-                  <div className="about-img-badge-name">Patrick De Rossi</div>
-                  <div className="about-img-badge-title">Principal Designer</div>
-                </div>
+              </div>
+              <div className="about-img-badge">
+                <div className="about-img-badge-name">Patrick De Rossi</div>
+                <div className="about-img-badge-title">Principal Designer</div>
               </div>
               <div style={{
                 position: 'absolute',
