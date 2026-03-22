@@ -28,35 +28,7 @@ const CSS = `
     background: var(--dark);
     color: #fff;
     font-family: var(--font);
-    cursor: none !important;
     overflow-x: hidden;
-  }
-
-  /* ── Custom cursor ── */
-  #pdr-cursor {
-    position: fixed;
-    top: 0; left: 0;
-    width: 40px; height: 40px;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.08s ease, opacity 0.3s ease;
-    mix-blend-mode: difference;
-  }
-  #pdr-cursor-dot {
-    position: fixed;
-    top: 0; left: 0;
-    width: 6px; height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10000;
-    transform: translate(-50%, -50%);
-    transition: transform 0.04s ease;
-  }
-  #pdr-cursor.cursor-hover {
-    transform: translate(-50%, -50%) scale(1.8);
-    opacity: 0.6;
   }
 
   /* ── Scroll progress ── */
@@ -154,7 +126,7 @@ const CSS = `
     text-decoration: none;
     position: relative;
     transition: color 0.3s ease;
-    cursor: none;
+    
   }
   .nav-link::after {
     content: '';
@@ -176,7 +148,7 @@ const CSS = `
     border: 1px solid var(--gold-border);
     padding: 0.6rem 1.4rem;
     transition: all 0.3s ease;
-    cursor: none;
+    
   }
   .nav-cta:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
 
@@ -202,9 +174,55 @@ const CSS = `
     color: rgba(255,255,255,0.3);
     text-decoration: none;
     transition: color 0.3s ease;
-    cursor: none;
+    
   }
   .mobile-link:hover { color: var(--gold); }
+
+  /* ── Marquee ── */
+  #marquee {
+    background: var(--gold);
+    overflow: hidden;
+    padding: 0.85rem 0;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 2rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .marquee-dot {
+    width: 4px; height: 4px;
+    background: rgba(13,13,13,0.4);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── Nav mobile button ── */
+  .nav-mobile-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 0;
+  }
+  @media (max-width: 768px) {
+    .nav-mobile-btn { display: flex; align-items: center; justify-content: center; }
+    .nav-links { display: none !important; }
+  }
 
   /* ── Section labels ── */
   .section-eyebrow {
@@ -333,7 +351,7 @@ const CSS = `
     text-decoration: none;
     position: relative;
     overflow: hidden;
-    cursor: none;
+    
     transition: color 0.4s ease;
   }
   .hero-btn-fill {
@@ -358,7 +376,7 @@ const CSS = `
     gap: 0.5rem;
     opacity: 0;
     animation: fadeIn 1s ease 2s forwards;
-    cursor: none;
+    
   }
   .hero-scroll-line {
     width: 1px; height: 60px;
@@ -436,7 +454,7 @@ const CSS = `
     padding: 3rem 2.5rem;
     position: relative;
     overflow: hidden;
-    cursor: none;
+    
     transition: background 0.4s ease;
   }
   .service-card::before {
@@ -509,7 +527,7 @@ const CSS = `
   .project-tile {
     position: relative;
     overflow: hidden;
-    cursor: none;
+    
   }
   .project-img {
     width: 100%; height: 100%;
@@ -568,7 +586,7 @@ const CSS = `
     align-items: flex-start;
     position: relative;
     overflow: hidden;
-    cursor: none;
+    
     transition: padding-left 0.4s ease;
   }
   .pillar::before {
@@ -669,7 +687,7 @@ const CSS = `
     font-size: 0.85rem; color: rgba(255,255,255,0.6);
     text-decoration: none;
     transition: color 0.3s ease;
-    cursor: none;
+    
   }
   .about-contact-link:hover { color: var(--gold); }
   .about-contact-link svg { color: var(--gold); flex-shrink: 0; }
@@ -712,7 +730,7 @@ const CSS = `
   .contact-detail-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
   .contact-detail-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.3rem; }
   .contact-detail-value { font-size: 1.1rem; font-weight: 300; }
-  .contact-detail-value a { color: #fff; text-decoration: none; transition: color 0.3s ease; cursor: none; }
+  .contact-detail-value a { color: #fff; text-decoration: none; transition: color 0.3s ease;  }
   .contact-detail-value a:hover { color: var(--gold); }
 
   /* Form */
@@ -731,7 +749,7 @@ const CSS = `
     font-size: 0.9rem;
     transition: border-color 0.3s ease, background 0.3s ease;
     outline: none;
-    cursor: none;
+    
     width: 100%;
   }
   .form-select { appearance: none; }
@@ -752,7 +770,7 @@ const CSS = `
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    cursor: none;
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -780,7 +798,7 @@ const CSS = `
   .footer-name { font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; }
   .footer-loc { font-size: 0.7rem; color: var(--gray); letter-spacing: 0.2em; text-transform: uppercase; }
   .footer-contact { display: flex; gap: 2.5rem; }
-  .footer-contact a { font-size: 0.8rem; color: var(--gray); text-decoration: none; transition: color 0.3s ease; cursor: none; }
+  .footer-contact a { font-size: 0.8rem; color: var(--gray); text-decoration: none; transition: color 0.3s ease;  }
   .footer-contact a:hover { color: var(--gold); }
   .footer-socials { display: flex; gap: 1rem; }
   .social-btn {
@@ -790,7 +808,7 @@ const CSS = `
     color: rgba(255,255,255,0.4);
     text-decoration: none;
     transition: all 0.3s ease;
-    cursor: none;
+    
   }
   .social-btn:hover { border-color: var(--gold); color: var(--gold); }
   .footer-copy { font-size: 0.65rem; color: rgba(255,255,255,0.2); letter-spacing: 0.1em; }
@@ -840,7 +858,6 @@ const CSS = `
     background-size: 180px 180px;
   }
 
-  a, button { cursor: none !important; }
 `;
 
 /* ─── COUNTER HOOK ───────────────────────────────────────────────── */
@@ -898,16 +915,13 @@ export function Website() {
   const [processVisible, setProcessVisible] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const heroBgRef = useRef<HTMLDivElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const dotRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const heroWordsRef = useRef<HTMLSpanElement[]>([]);
   const mousePos = useRef({ x: 0, y: 0 });
-  const cursorPos = useRef({ x: 0, y: 0 });
 
   /* ── Loader ── */
   useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 1800);
+    const t = setTimeout(() => setLoaded(true), 1000);
     return () => clearTimeout(t);
   }, []);
 
@@ -962,30 +976,12 @@ export function Website() {
         const dy = (mousePos.current.y - cy) / cy;
         heroBgRef.current.style.transform = `translate(${dx * -12}px, ${dy * -8}px) scale(1.12)`;
       }
-      // Custom cursor
-      if (cursorRef.current && dotRef.current) {
-        const speed = 0.12;
-        cursorPos.current.x += (mousePos.current.x - cursorPos.current.x) * speed;
-        cursorPos.current.y += (mousePos.current.y - cursorPos.current.y) * speed;
-        cursorRef.current.style.left = `${cursorPos.current.x}px`;
-        cursorRef.current.style.top = `${cursorPos.current.y}px`;
-        dotRef.current.style.left = `${mousePos.current.x}px`;
-        dotRef.current.style.top = `${mousePos.current.y}px`;
-      }
       raf = requestAnimationFrame(animate);
     };
     raf = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  /* ── Cursor hover state ── */
-  useEffect(() => {
-    const onEnter = () => cursorRef.current?.classList.add('cursor-hover');
-    const onLeave = () => cursorRef.current?.classList.remove('cursor-hover');
-    const links = document.querySelectorAll('a, button, .service-card, .project-tile, .pillar');
-    links.forEach(el => { el.addEventListener('mouseenter', onEnter); el.addEventListener('mouseleave', onLeave); });
-    return () => links.forEach(el => { el.removeEventListener('mouseenter', onEnter); el.removeEventListener('mouseleave', onLeave); });
-  }, [loaded]);
 
   /* ── Intersection Observer for reveals ── */
   useEffect(() => {
@@ -1044,18 +1040,6 @@ export function Website() {
       {/* Noise overlay */}
       <div id="noise" />
 
-      {/* Custom cursor */}
-      <div id="pdr-cursor" ref={cursorRef}>
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-          <circle cx="20" cy="20" r="18" stroke="white" strokeWidth="0.75" />
-          <line x1="20" y1="0" x2="20" y2="10" stroke="white" strokeWidth="0.75" />
-          <line x1="20" y1="30" x2="20" y2="40" stroke="white" strokeWidth="0.75" />
-          <line x1="0" y1="20" x2="10" y2="20" stroke="white" strokeWidth="0.75" />
-          <line x1="30" y1="20" x2="40" y2="20" stroke="white" strokeWidth="0.75" />
-          <circle cx="20" cy="20" r="2" fill="white" />
-        </svg>
-      </div>
-      <div id="pdr-cursor-dot" ref={dotRef} />
 
       {/* Scroll progress */}
       <div id="scroll-progress" ref={progressRef} />
@@ -1080,8 +1064,7 @@ export function Website() {
           <a href="#contact" className="nav-cta">Get a Quote</a>
         </div>
         <button
-          style={{ background: 'none', border: 'none', color: '#fff', display: 'none' }}
-          className="md:hidden"
+          className="nav-mobile-btn"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Menu"
         >
@@ -1157,6 +1140,24 @@ export function Website() {
         </div>
       </section>
 
+      {/* ── MARQUEE TICKER ── */}
+      {(() => {
+        const items = ['Residential Design', 'Custom Home Plans', 'Dual Occupancy', 'Granny Flats', 'Renovation Drawings', 'Council Approvals', 'Site Plans', 'Floor Plans', 'Elevation Drawings', 'South Perth WA'];
+        const all = [...items, ...items];
+        return (
+          <div id="marquee" aria-hidden="true">
+            <div className="marquee-track">
+              {all.map((t, i) => (
+                <span key={i} className="marquee-item">
+                  {t}
+                  <span className="marquee-dot" />
+                </span>
+              ))}
+            </div>
+          </div>
+        );
+      })()}
+
       {/* ── STATS BAR ── */}
       <div id="stats-bar">
         <div className="container">
@@ -1223,7 +1224,7 @@ export function Website() {
             </div>
             <a
               href="#"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)', textDecoration: 'none', borderBottom: '1px solid var(--gold-border)', paddingBottom: '2px', transition: 'border-color 0.3s ease', cursor: 'none' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)', textDecoration: 'none', borderBottom: '1px solid var(--gold-border)', paddingBottom: '2px', transition: 'border-color 0.3s ease' }}
             >
               View All <ArrowRight size={14} />
             </a>
