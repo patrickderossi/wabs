@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
   Menu, X, ArrowRight, ArrowUpRight,
-  Home, FileText, Building2, Wrench, Trees, Fence,
   Star, Clock, FileCheck, MapPin, Phone, Mail,
   Facebook, Linkedin, Award, Shield, CheckCircle
 } from 'lucide-react';
@@ -494,64 +493,98 @@ const CSS = `
   .service-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.05);
+    gap: 1.5rem;
   }
   @media (max-width: 900px) { .service-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) { .service-grid { grid-template-columns: 1fr; } }
 
   .service-card {
-    background: var(--dark);
-    padding: 3rem 2.5rem;
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.06);
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    transition: background 0.4s ease;
+    transition: border-color 0.4s ease, transform 0.4s ease;
+    display: flex;
+    flex-direction: column;
   }
-  .service-card::before {
+  .service-card:hover {
+    border-color: var(--gold-border);
+    transform: translateY(-4px);
+  }
+  .service-card::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0;
     width: 100%; height: 2px;
-    background: var(--gold);
+    background: linear-gradient(90deg, var(--gold), transparent);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.5s cubic-bezier(0.77,0,0.18,1);
   }
-  .service-card:hover { background: var(--dark3); }
-  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover::after { transform: scaleX(1); }
 
-  .service-num {
+  .service-img-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+    flex-shrink: 0;
+  }
+  .service-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    filter: grayscale(0.3) brightness(0.85);
+  }
+  .service-card:hover .service-img {
+    transform: scale(1.07);
+    filter: grayscale(0) brightness(0.95);
+  }
+  .service-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(13,13,13,0.7) 100%);
+  }
+  .service-img-num {
+    position: absolute;
+    top: 1rem; left: 1.25rem;
     font-size: 0.6rem;
     letter-spacing: 0.3em;
     color: var(--gold);
-    margin-bottom: 2rem;
-    display: block;
+    font-weight: 500;
+    background: rgba(13,13,13,0.7);
+    padding: 0.25rem 0.6rem;
+    backdrop-filter: blur(4px);
   }
-  .service-icon {
-    color: var(--gold);
-    margin-bottom: 1.5rem;
-    opacity: 0.7;
-    transition: opacity 0.3s ease, transform 0.4s ease;
+
+  .service-body {
+    padding: 1.75rem 2rem 2.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
-  .service-card:hover .service-icon { opacity: 1; transform: translateY(-4px); }
   .service-title {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.6rem;
     letter-spacing: -0.01em;
   }
-  .service-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.7; font-weight: 300; }
+  .service-desc { font-size: 0.84rem; color: var(--gray); line-height: 1.75; font-weight: 300; flex: 1; }
   .service-arrow {
-    position: absolute;
-    bottom: 2.5rem; right: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
     color: var(--gold);
     opacity: 0;
-    transform: translate(-5px, 5px);
+    transform: translateX(-6px);
     transition: all 0.4s ease;
   }
-  .service-card:hover .service-arrow { opacity: 1; transform: translate(0,0); }
+  .service-card:hover .service-arrow { opacity: 1; transform: translateX(0); }
 
   /* ── Projects ── */
   #work { padding: 8rem 0; background: var(--dark2); overflow: hidden; }
@@ -1193,12 +1226,42 @@ function useCounter(target: number, duration = 1800, started = false) {
 
 /* ─── DATA ───────────────────────────────────────────────────────── */
 const SERVICES = [
-  { icon: <Home size={26} strokeWidth={1.5} />, title: 'Residential Design', desc: 'Full home design from initial concept sketches through to council-approved documentation. We work closely with you to translate your vision into precise, buildable drawings that meet all WA R-Code requirements.', num: '01' },
-  { icon: <FileText size={26} strokeWidth={1.5} />, title: 'Construction Drawings', desc: 'Comprehensive working drawing sets covering floor plans, elevations, sections, site plans and structural details. Every package is built to satisfy building permit and local authority requirements from the outset.', num: '02' },
-  { icon: <Building2 size={26} strokeWidth={1.5} />, title: 'Multi-Unit Development', desc: 'Duplex, triplex, grouped dwelling and apartments designed to maximise yield within your site\'s development potential. We navigate WAPC and local planning policy to make your investment work harder.', num: '03' },
-  { icon: <Wrench size={26} strokeWidth={1.5} />, title: 'Renovation & Extension', desc: 'Thoughtful alterations and additions that respect your home\'s existing character while delivering the space you need. From rear extensions to full internal reconfigurations and second-storey additions.', num: '04' },
-  { icon: <Trees size={26} strokeWidth={1.5} />, title: 'Granny Flats', desc: 'Ancillary dwelling designs that comply with Perth\'s R-Codes and maximise liveable space within the allowable footprint. An efficient solution for extended family accommodation or additional rental income.', num: '05' },
-  { icon: <Fence size={26} strokeWidth={1.5} />, title: 'C.A.F.S', desc: 'Permit-ready drawings for carports, alfresco entertainment areas, fencing and garden sheds. We handle the documentation so your builder can get on site without delays or council back-and-forth.', num: '06' },
+  {
+    img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80',
+    title: 'Residential Design',
+    desc: 'Full home design from initial concept sketches through to council-approved documentation. We work closely with you to translate your vision into precise, buildable drawings that meet all WA R-Code requirements.',
+    num: '01',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&q=80',
+    title: 'Construction Drawings',
+    desc: 'Comprehensive working drawing sets covering floor plans, elevations, sections, site plans and structural details. Every package is built to satisfy building permit and local authority requirements from the outset.',
+    num: '02',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80',
+    title: 'Multi-Unit Development',
+    desc: 'Duplex, triplex, grouped dwelling and apartments designed to maximise yield within your site\'s development potential. We navigate WAPC and local planning policy to make your investment work harder.',
+    num: '03',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=700&q=80',
+    title: 'Renovation & Extension',
+    desc: 'Thoughtful alterations and additions that respect your home\'s existing character while delivering the space you need. From rear extensions to full internal reconfigurations and second-storey additions.',
+    num: '04',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1600047508788-786f3865b87c?w=700&q=80',
+    title: 'Granny Flats',
+    desc: 'Ancillary dwelling designs that comply with Perth\'s R-Codes and maximise liveable space within the allowable footprint. An efficient solution for extended family accommodation or additional rental income.',
+    num: '05',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=700&q=80',
+    title: 'C.A.F.S',
+    desc: 'Permit-ready drawings for carports, alfresco entertainment areas, fencing and garden sheds. We handle the documentation so your builder can get on site without delays or council back-and-forth.',
+    num: '06',
+  },
 ];
 
 const PROJECTS = [
@@ -1693,11 +1756,18 @@ export default function App() {
                 className="service-card reveal"
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
-                <span className="service-num">{s.num}</span>
-                <div className="service-icon">{s.icon}</div>
-                <div className="service-title">{s.title}</div>
-                <p className="service-desc">{s.desc}</p>
-                <div className="service-arrow"><ArrowUpRight size={18} /></div>
+                <div className="service-img-wrap">
+                  <img src={s.img} alt={s.title} className="service-img" loading="lazy" />
+                  <div className="service-img-overlay" />
+                  <span className="service-img-num">{s.num}</span>
+                </div>
+                <div className="service-body">
+                  <div className="service-title">{s.title}</div>
+                  <p className="service-desc">{s.desc}</p>
+                  <div className="service-arrow">
+                    Learn More <ArrowUpRight size={13} />
+                  </div>
+                </div>
               </div>
             ))}
           </div>
