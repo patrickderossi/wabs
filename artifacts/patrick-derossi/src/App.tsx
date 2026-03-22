@@ -312,9 +312,11 @@ const CSS = `
   #hero-bg {
     position: absolute;
     inset: -5%;
-    background-size: cover;
-    background-position: center;
+    width: 110%;
+    height: 110%;
+    object-fit: cover;
     will-change: transform;
+    display: block;
   }
   #hero-overlay {
     position: absolute;
@@ -1518,7 +1520,7 @@ export default function App() {
     setFormSent(true);
     setTimeout(() => setFormSent(false), 5000);
   };
-  const heroBgRef = useRef<HTMLDivElement>(null);
+  const heroBgRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const heroWordsRef = useRef<HTMLSpanElement[]>([]);
   const mousePos = useRef({ x: 0, y: 0 });
@@ -1720,14 +1722,14 @@ export default function App() {
 
       {/* ── HERO ── */}
       <section id="hero">
-        <div
+        <video
           id="hero-bg"
-          ref={heroBgRef}
-          style={{
-            backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2Feafa756245504b6dafa92e688ab57651?format=webp&width=1600')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+          ref={heroBgRef as React.RefObject<HTMLVideoElement & HTMLElement>}
+          src="/hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
         />
         <div id="hero-overlay" />
         <div className="hero-grid" />
