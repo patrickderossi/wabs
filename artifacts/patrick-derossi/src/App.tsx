@@ -1320,36 +1320,42 @@ const SERVICES = [
     title: 'Residential Design',
     desc: 'Full home design from initial concept sketches through to council-approved documentation. We work closely with you to translate your vision into precise, buildable drawings that meet all WA R-Code requirements.',
     num: '01',
+    slug: 'residential-design',
   },
   {
     img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&q=80',
     title: 'Construction Drawings',
     desc: 'Comprehensive working drawing sets covering floor plans, elevations, sections, site plans and structural details. Every package is built to satisfy building permit and local authority requirements from the outset.',
     num: '02',
+    slug: 'construction-drawings',
   },
   {
     img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80',
     title: 'Multi-Unit Development',
     desc: 'Duplex, triplex, grouped dwelling and apartments designed to maximise yield within your site\'s development potential. We navigate WAPC and local planning policy to make your investment work harder.',
     num: '03',
+    slug: 'multi-unit-development',
   },
   {
     img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=80',
     title: 'Renovation & Extension',
     desc: 'Thoughtful alterations and additions that respect your home\'s existing character while delivering the space you need. From rear extensions to full internal reconfigurations and second-storey additions.',
     num: '04',
+    slug: 'renovation-extension',
   },
   {
     img: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=700&q=80',
     title: 'Granny Flats',
     desc: 'Ancillary dwelling designs that comply with Perth\'s R-Codes and maximise liveable space within the allowable footprint. An efficient solution for extended family accommodation or additional rental income.',
     num: '05',
+    slug: 'granny-flats',
   },
   {
     img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80',
-    title: 'C.A.F.S',
+    title: 'Carports, Alfrescos & Sheds',
     desc: 'Permit-ready drawings for carports, alfresco entertainment areas, fencing and garden sheds. We handle the documentation so your builder can get on site without delays or council back-and-forth.',
     num: '06',
+    slug: 'carports-alfrescos-sheds',
   },
 ];
 
@@ -1838,10 +1844,11 @@ export default function App() {
           </div>
           <div className="service-grid">
             {SERVICES.map((s, i) => (
-              <div
+              <a
                 key={i}
+                href={`/services/${s.slug}`}
                 className="service-card reveal"
-                style={{ transitionDelay: `${i * 80}ms` }}
+                style={{ transitionDelay: `${i * 80}ms`, textDecoration: 'none', color: 'inherit' }}
               >
                 <div className="service-img-wrap">
                   <img src={s.img} alt={s.title} className="service-img" loading="lazy" />
@@ -1855,7 +1862,7 @@ export default function App() {
                     Learn More <ArrowUpRight size={13} />
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
