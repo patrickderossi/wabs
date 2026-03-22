@@ -713,6 +713,81 @@ const CSS = `
   .review-score { font-size: 2.5rem; font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
   .review-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); }
 
+  /* ── CTA Band ── */
+  .cta-band {
+    padding: 0;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-band-rule {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-border) 30%, var(--gold-border) 70%, transparent);
+  }
+  .cta-band-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+  @media (max-width: 800px) {
+    .cta-band-inner { flex-direction: column; align-items: flex-start; padding: 4rem 1.5rem; gap: 2rem; }
+  }
+  .cta-band-heading {
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0.5rem 0 1rem;
+  }
+  .cta-band-sub {
+    font-size: 0.85rem;
+    color: var(--gray);
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+  .cta-band-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+    flex-shrink: 0;
+  }
+  .cta-band-btn {
+    white-space: nowrap;
+    font-size: 0.8rem;
+    padding: 1rem 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gold);
+    color: #0d0d0d;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease;
+  }
+  .cta-band-btn:hover { opacity: 0.88; }
+  .cta-band-call {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
+  .cta-band-call:hover { opacity: 1; }
+
   /* ── Process ── */
   #process { padding: 8rem 0; background: var(--dark2); position: relative; overflow: hidden; }
 
@@ -1423,6 +1498,20 @@ export default function App() {
   const [processVisible, setProcessVisible] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
   const [typedText, setTypedText] = useState('');
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: '', message: '' });
+  const [formSent, setFormSent] = useState(false);
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const { name, email, phone, service, message } = formData;
+    const subject = encodeURIComponent(`Enquiry from ${name}${service ? ` — ${service}` : ''}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\n\nProject Details:\n${message}`
+    );
+    window.open(`mailto:info@patrickderossi.com.au?subject=${subject}&body=${body}`, '_blank');
+    setFormSent(true);
+    setTimeout(() => setFormSent(false), 5000);
+  };
   const heroBgRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const heroWordsRef = useRef<HTMLSpanElement[]>([]);
@@ -1486,7 +1575,7 @@ export default function App() {
         const max = document.body.scrollHeight - window.innerHeight;
         progressRef.current.style.transform = `scaleX(${y / max})`;
       }
-      const sections = ['hero', 'services', 'work', 'testimonials', 'why', 'process', 'about', 'contact'];
+      const sections = ['hero', 'services', 'about', 'work', 'testimonials', 'process', 'contact'];
       for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top < window.innerHeight / 2) {
@@ -1560,9 +1649,9 @@ export default function App() {
   const projects_ = useCounter(250, 1800, statsVisible);
 
   const navLinks = [
-    { href: '#work', label: 'Work', id: 'work' },
     { href: '#services', label: 'Services', id: 'services' },
     { href: '#about', label: 'About', id: 'about' },
+    { href: '#work', label: 'Work', id: 'work' },
     { href: '#contact', label: 'Contact', id: 'contact' },
   ];
 
@@ -1857,6 +1946,29 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── CTA BAND ── */}
+      <section id="cta-band" className="cta-band reveal">
+        <div className="cta-band-inner">
+          <div className="cta-band-text">
+            <span className="section-eyebrow" style={{ color: 'rgba(201,168,76,0.7)' }}>Start Today</span>
+            <h2 className="cta-band-heading">Have a project in mind?<br />Let's bring it to life.</h2>
+            <p className="cta-band-sub">
+              Free initial consultation. No obligation. Perth-wide service.
+            </p>
+          </div>
+          <div className="cta-band-actions">
+            <a href="#contact" className="btn-primary cta-band-btn">
+              Get a Free Quote <ArrowRight size={16} />
+            </a>
+            <a href="tel:+61423231515" className="cta-band-call">
+              <Phone size={16} />
+              <span>+61 423 231 515</span>
+            </a>
+          </div>
+        </div>
+        <div className="cta-band-rule" />
+      </section>
+
       {/* ── TESTIMONIALS ── */}
       <section id="testimonials">
         <div className="container">
@@ -1884,71 +1996,6 @@ export default function App() {
             <TestimonialsColumn testimonials={TESTIMONIALS.slice(0, 3)} duration={18} />
             <TestimonialsColumn testimonials={TESTIMONIALS.slice(3, 6)} duration={22} />
             <TestimonialsColumn testimonials={TESTIMONIALS.slice(6, 9)} duration={20} />
-          </div>
-        </div>
-      </section>
-
-      {/* ── WHY PATRICK ── */}
-      <section id="why">
-        <div className="blueprint-deco" style={{ right: '-100px', top: '-50px', width: '500px', height: '500px' }}>
-          <svg width="500" height="500" viewBox="0 0 500 500" fill="none" aria-hidden="true">
-            <circle cx="250" cy="250" r="200" stroke="#c9a84c" strokeWidth="0.5" />
-            <circle cx="250" cy="250" r="150" stroke="#c9a84c" strokeWidth="0.5" />
-            <circle cx="250" cy="250" r="80" stroke="#c9a84c" strokeWidth="0.5" />
-            <line x1="50" y1="250" x2="450" y2="250" stroke="#c9a84c" strokeWidth="0.5" />
-            <line x1="250" y1="50" x2="250" y2="450" stroke="#c9a84c" strokeWidth="0.5" />
-            {[0, 45, 90, 135].map(a => (
-              <line key={a}
-                x1={250 + 200 * Math.cos(a * Math.PI / 180)}
-                y1={250 + 200 * Math.sin(a * Math.PI / 180)}
-                x2={250 + 80 * Math.cos(a * Math.PI / 180)}
-                y2={250 + 80 * Math.sin(a * Math.PI / 180)}
-                stroke="#c9a84c" strokeWidth="0.5"
-              />
-            ))}
-          </svg>
-        </div>
-
-        <div className="container">
-          <div className="why-grid">
-            <div className="reveal-left">
-              <span className="section-eyebrow">Why Choose Us</span>
-              <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: '2.5rem' }}>
-                Expertise You Can Build On
-              </h2>
-              <div className="review-badge">
-                <div>
-                  <div className="review-stars">
-                    {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" color="var(--gold)" />)}
-                  </div>
-                  <div className="review-label">50+ Client Reviews</div>
-                </div>
-                <div style={{ width: '1px', height: '2.5rem', background: 'var(--gold-border)' }} />
-                <div>
-                  <div className="review-score">5.0</div>
-                  <div className="review-label">Average Rating</div>
-                </div>
-              </div>
-              <p style={{ fontSize: '0.9rem', color: 'var(--gray)', lineHeight: 1.9, fontWeight: 300, maxWidth: '420px' }}>
-                Based in South Perth since 2007, we have built a reputation for precision, reliability and seamless council approvals across the Perth metro area.
-              </p>
-            </div>
-
-            <div className="why-pillars reveal-right">
-              {[
-                { icon: <Clock size={22} strokeWidth={1.5} />, title: '17+ Years Experience', desc: 'Established in Perth since 2007, delivering high-quality residential drafting across Western Australia.' },
-                { icon: <FileCheck size={22} strokeWidth={1.5} />, title: 'Council-Ready Documentation', desc: 'Meticulously detailed drawings built for smooth, hassle-free local government approvals and building permits.' },
-                { icon: <MapPin size={22} strokeWidth={1.5} />, title: 'Local Perth Knowledge', desc: 'Deep understanding of WA R-Codes, WAPC requirements and local authority planning policies.' },
-              ].map((p, i) => (
-                <div key={i} className="pillar" style={{ transitionDelay: `${i * 120}ms` }}>
-                  <div className="pillar-icon">{p.icon}</div>
-                  <div>
-                    <div className="pillar-title">{p.title}</div>
-                    <div className="pillar-desc">{p.desc}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -2026,36 +2073,62 @@ export default function App() {
             </div>
 
             <div className="reveal-right">
-              <form className="contact-form" onSubmit={e => e.preventDefault()}>
+              <form className="contact-form" onSubmit={handleFormSubmit}>
                 <div className="form-row">
                   <div className="form-group">
                     <label className="form-label">Full Name</label>
-                    <input type="text" className="form-input" placeholder="John Smith" />
+                    <input
+                      type="text" className="form-input" placeholder="John Smith" required
+                      value={formData.name}
+                      onChange={e => setFormData(f => ({ ...f, name: e.target.value }))}
+                    />
                   </div>
                   <div className="form-group">
                     <label className="form-label">Email Address</label>
-                    <input type="email" className="form-input" placeholder="john@example.com" />
+                    <input
+                      type="email" className="form-input" placeholder="john@example.com" required
+                      value={formData.email}
+                      onChange={e => setFormData(f => ({ ...f, email: e.target.value }))}
+                    />
                   </div>
                 </div>
                 <div className="form-group">
                   <label className="form-label">Phone Number</label>
-                  <input type="tel" className="form-input" placeholder="04xx xxx xxx" />
+                  <input
+                    type="tel" className="form-input" placeholder="04xx xxx xxx"
+                    value={formData.phone}
+                    onChange={e => setFormData(f => ({ ...f, phone: e.target.value }))}
+                  />
                 </div>
                 <div className="form-group">
                   <label className="form-label">Service Required</label>
-                  <select className="form-select">
+                  <select
+                    className="form-select"
+                    value={formData.service}
+                    onChange={e => setFormData(f => ({ ...f, service: e.target.value }))}
+                  >
                     <option value="">Select a service...</option>
                     {SERVICES.map((s, i) => <option key={i} value={s.title}>{s.title}</option>)}
                   </select>
                 </div>
                 <div className="form-group">
                   <label className="form-label">Project Details</label>
-                  <textarea className="form-textarea" rows={5} placeholder="Tell us about your project, site address and suburb..." />
+                  <textarea
+                    className="form-textarea" rows={5}
+                    placeholder="Tell us about your project, site address and suburb..."
+                    value={formData.message}
+                    onChange={e => setFormData(f => ({ ...f, message: e.target.value }))}
+                  />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem', color: 'rgba(255,255,255,0.35)', fontSize: '0.72rem', letterSpacing: '0.05em' }}>
                   <CheckCircle size={13} style={{ color: 'var(--gold)', opacity: 0.7, flexShrink: 0 }} />
                   We respond to all enquiries within 1 business day.
                 </div>
+                {formSent && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem', padding: '0.8rem 1rem', background: 'rgba(201,168,76,0.08)', border: '1px solid var(--gold-border)', fontSize: '0.8rem', color: 'var(--gold)', letterSpacing: '0.05em' }}>
+                    <CheckCircle size={14} /> Your email client has opened — send the message to complete your enquiry.
+                  </div>
+                )}
                 <button type="submit" className="form-submit">
                   Send Enquiry
                   <ArrowRight size={16} />
@@ -2116,11 +2189,11 @@ export default function App() {
               <div className="footer-col-title">Quick Links</div>
               <nav className="footer-nav-links">
                 {[
-                  { href: '#work', label: 'Our Work' },
                   { href: '#services', label: 'Services' },
+                  { href: '#about', label: 'About Patrick' },
+                  { href: '#work', label: 'Our Work' },
                   { href: '#testimonials', label: 'Client Stories' },
                   { href: '#process', label: 'Our Process' },
-                  { href: '#about', label: 'About Patrick' },
                   { href: '#contact', label: 'Get a Quote' },
                 ].map(l => (
                   <a key={l.href} href={l.href} className="footer-nav-link">
