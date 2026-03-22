@@ -1772,6 +1772,58 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── ABOUT ── */}
+      <section id="about">
+        <div className="container">
+          <div className="about-grid">
+            <div className="reveal-left">
+              <span className="section-eyebrow">About Patrick</span>
+              <blockquote className="about-quote">
+                "Fusing creativity with technical precision to bring over 500 clients' projects to life — on time, on budget, and beyond expectations."
+              </blockquote>
+              <p className="about-body">
+                With 17+ years in the Western Australian building industry, Patrick De Rossi has become a trusted name in residential design and drafting. Based in South Perth and established in 2007, the practice specialises exclusively in residential projects — from custom homes and extensions to granny flats, multi-unit developments, and everything in between.
+              </p>
+              <p className="about-body" style={{ marginTop: '-1rem' }}>
+                Patrick holds registration as a Building Designer and Registered Builder, bringing hands-on expertise and deep local knowledge of Perth's R-Codes, local authority requirements, and council approval processes to every project.
+              </p>
+              <div className="about-contact-row">
+                <a href="tel:+61423231515" className="about-contact-link">
+                  <Phone size={16} /><span>+61 423 231 515</span>
+                </a>
+                <a href="mailto:info@patrickderossi.com.au" className="about-contact-link">
+                  <Mail size={16} /><span>info@patrickderossi.com.au</span>
+                </a>
+                <span className="about-contact-link" style={{ cursor: 'default' }}>
+                  <MapPin size={16} style={{ color: 'var(--gold)' }} /><span>3 Mends St, South Perth WA 6151</span>
+                </span>
+              </div>
+            </div>
+
+            <div className="about-img-wrap reveal-right">
+              <div className="about-img-frame">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F25f6db68907b4e7f9b55020c56198d0d?format=webp&width=800"
+                  alt="Patrick De Rossi"
+                  loading="lazy"
+                />
+              </div>
+              <div className="about-img-badge">
+                <div className="about-img-badge-name">Patrick De Rossi</div>
+                <div className="about-img-badge-title">Building Designer & Registered Builder</div>
+              </div>
+              <div style={{
+                position: 'absolute',
+                top: '-20px', right: '-20px',
+                width: '120px', height: '120px',
+                border: '1px solid var(--gold-border)',
+                zIndex: -1,
+              }} />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── PROJECTS ── */}
       <section id="work">
         <div className="container">
@@ -1928,58 +1980,6 @@ export default function App() {
                 <p className="process-desc">{step.desc}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── ABOUT ── */}
-      <section id="about">
-        <div className="container">
-          <div className="about-grid">
-            <div className="reveal-left">
-              <span className="section-eyebrow">About Patrick</span>
-              <blockquote className="about-quote">
-                "Fusing creativity with technical precision to bring over 500 clients' projects to life — on time, on budget, and beyond expectations."
-              </blockquote>
-              <p className="about-body">
-                With 17+ years in the Western Australian building industry, Patrick De Rossi has become a trusted name in residential design and drafting. Based in South Perth and established in 2007, the practice specialises exclusively in residential projects — from custom homes and extensions to granny flats, multi-unit developments, and everything in between.
-              </p>
-              <p className="about-body" style={{ marginTop: '-1rem' }}>
-                Patrick holds registration as a Building Designer and Registered Builder, bringing hands-on expertise and deep local knowledge of Perth's R-Codes, local authority requirements, and council approval processes to every project.
-              </p>
-              <div className="about-contact-row">
-                <a href="tel:+61423231515" className="about-contact-link">
-                  <Phone size={16} /><span>+61 423 231 515</span>
-                </a>
-                <a href="mailto:info@patrickderossi.com.au" className="about-contact-link">
-                  <Mail size={16} /><span>info@patrickderossi.com.au</span>
-                </a>
-                <span className="about-contact-link" style={{ cursor: 'default' }}>
-                  <MapPin size={16} style={{ color: 'var(--gold)' }} /><span>3 Mends St, South Perth WA 6151</span>
-                </span>
-              </div>
-            </div>
-
-            <div className="about-img-wrap reveal-right">
-              <div className="about-img-frame">
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F25f6db68907b4e7f9b55020c56198d0d?format=webp&width=800"
-                  alt="Patrick De Rossi"
-                  loading="lazy"
-                />
-              </div>
-              <div className="about-img-badge">
-                <div className="about-img-badge-name">Patrick De Rossi</div>
-                <div className="about-img-badge-title">Building Designer & Registered Builder</div>
-              </div>
-              <div style={{
-                position: 'absolute',
-                top: '-20px', right: '-20px',
-                width: '120px', height: '120px',
-                border: '1px solid var(--gold-border)',
-                zIndex: -1,
-              }} />
-            </div>
           </div>
         </div>
       </section>
