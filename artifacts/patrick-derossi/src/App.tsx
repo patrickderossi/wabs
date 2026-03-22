@@ -487,8 +487,22 @@ const CSS = `
     color: var(--gray);
   }
 
+  /* ── Grid background ── */
+  .section-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    pointer-events: none;
+    z-index: 0;
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+  }
+
   /* ── Services ── */
-  #services { padding: 8rem 0; background: var(--dark); }
+  #services { padding: 8rem 0; background: var(--dark); position: relative; overflow: hidden; }
 
   .service-grid {
     display: grid;
@@ -700,7 +714,7 @@ const CSS = `
   .review-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); }
 
   /* ── Process ── */
-  #process { padding: 8rem 0; background: var(--dark2); }
+  #process { padding: 8rem 0; background: var(--dark2); position: relative; overflow: hidden; }
 
   .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 0; row-gap: 3.5rem; position: relative; }
   @media (max-width: 900px) { .process-grid { grid-template-columns: 1fr 1fr; gap: 3rem 2rem; } }
@@ -1725,7 +1739,8 @@ export default function App() {
 
       {/* ── SERVICES ── */}
       <section id="services">
-        <div className="container">
+        <div className="section-grid-bg" />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ marginBottom: '4rem' }} className="reveal">
             <span className="section-eyebrow">What We Do</span>
             <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, maxWidth: '500px' }}>
@@ -1888,7 +1903,8 @@ export default function App() {
 
       {/* ── PROCESS ── */}
       <section id="process">
-        <div className="container">
+        <div className="section-grid-bg" />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ marginBottom: '5rem' }} className="reveal">
             <span className="section-eyebrow">How It Works</span>
             <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
