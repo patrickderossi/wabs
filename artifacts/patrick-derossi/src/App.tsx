@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import {
   Menu, X, ArrowRight, ArrowUpRight,
   Home, FileText, Building2, Wrench, Trees, Fence,
@@ -967,24 +968,41 @@ const CSS = `
 
   /* ── Testimonials ── */
   #testimonials { padding: 8rem 0; background: var(--dark2); overflow: hidden; }
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+
+  .testi-columns-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
     margin-top: 4rem;
+    max-height: 680px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
   }
-  @media (max-width: 900px) { .testimonials-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+  .testi-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    flex-shrink: 0;
+    width: 340px;
+  }
+  @media (max-width: 1100px) {
+    .testi-column:nth-child(3) { display: none; }
+  }
+  @media (max-width: 740px) {
+    .testi-column:nth-child(2) { display: none; }
+    .testi-column { width: min(340px, 90vw); }
+  }
 
   .testi-card {
     background: var(--dark3);
-    border: 1px solid rgba(255,255,255,0.05);
-    padding: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 2rem;
     position: relative;
-    overflow: hidden;
-    transition: border-color 0.4s ease, transform 0.4s ease;
+    flex-shrink: 0;
+    transition: border-color 0.4s ease;
   }
-  .testi-card:hover { border-color: var(--gold-border); transform: translateY(-4px); }
   .testi-card::before {
     content: '';
     position: absolute;
@@ -993,32 +1011,43 @@ const CSS = `
     background: var(--gold);
     transition: height 0.5s cubic-bezier(0.77,0,0.18,1);
   }
+  .testi-card:hover { border-color: var(--gold-border); }
   .testi-card:hover::before { height: 100%; }
+
   .testi-quote-mark {
-    font-size: 4rem;
-    line-height: 1;
+    font-size: 3rem;
+    line-height: 0.9;
     color: var(--gold);
-    opacity: 0.25;
+    opacity: 0.2;
     font-family: Georgia, serif;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     display: block;
   }
   .testi-text {
-    font-size: 0.92rem;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.8);
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.75);
     font-weight: 300;
     font-style: italic;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
   .testi-stars { display: flex; gap: 3px; color: var(--gold); margin-bottom: 1.25rem; }
-  .testi-divider {
-    width: 2rem; height: 1px;
-    background: var(--gold-border);
-    margin-bottom: 1.25rem;
+  .testi-author-row {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
-  .testi-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
-  .testi-meta { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+  .testi-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--gold-border);
+    flex-shrink: 0;
+  }
+  .testi-name { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.15rem; }
+  .testi-meta { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); opacity: 0.8; }
 
   /* ── Suburbs ── */
   #suburbs { padding: 8rem 0; background: var(--dark); }
@@ -1194,19 +1223,58 @@ const PROCESS = [
 
 const TESTIMONIALS = [
   {
-    text: "Patrick is a legend! I needed some drafting done for a granny flat, and he nailed it. He worked quickly but didn't cut any corners. The design was spot on, and even my builder commented on how clear and detailed the plans were. If you need quality drafting, Patrick's your guy.",
+    text: "Patrick is a legend! I needed some drafting done for a granny flat, and he nailed it. He worked quickly but didn't cut any corners. The design was spot on, and even my builder commented on how clear and detailed the plans were.",
     name: "Mark O'Sullivan",
-    meta: 'Owner Builder Home — Rockingham',
+    role: 'Owner Builder — Rockingham',
+    image: 'https://randomuser.me/api/portraits/men/32.jpg',
   },
   {
-    text: "We used Patrick for a new duplex design, and he was fantastic! Super professional but also really easygoing. He had great ideas to maximise the space, and his attention to detail was incredible. Honestly, the whole experience was seamless, and we're thrilled with the result. Can't recommend him enough!",
+    text: "We used Patrick for a new duplex design, and he was fantastic! Super professional but also really easygoing. He had great ideas to maximise the space, and his attention to detail was incredible. Can't recommend him enough!",
     name: 'Priya & John Williams',
-    meta: 'Duplex Design — Cannington',
+    role: 'Duplex Design — Cannington',
+    image: 'https://randomuser.me/api/portraits/women/44.jpg',
   },
   {
-    text: "I would like to express my gratitude to Patrick for efficiently completing all my applications at a minimal cost and within a remarkably short timeframe. Despite being unable to find anyone willing to meet my deadline elsewhere, Patrick delivered exceptional results. I highly recommend his services.",
+    text: "Patrick efficiently completed all my applications at a minimal cost and within a remarkably short timeframe. Despite being unable to find anyone willing to meet my deadline elsewhere, Patrick delivered exceptional results.",
     name: 'Sarah & Michael Johnson',
-    meta: 'Custom Family Home — Claremont',
+    role: 'Custom Family Home — Claremont',
+    image: 'https://randomuser.me/api/portraits/women/68.jpg',
+  },
+  {
+    text: "From concept to council approval, Patrick was with us every step of the way. His knowledge of the R-Codes saved us weeks of back-and-forth. The finished drawings were beautifully detailed — our builder was very impressed.",
+    name: 'James & Rebecca Thornton',
+    role: 'Double Storey Home — Nedlands',
+    image: 'https://randomuser.me/api/portraits/men/46.jpg',
+  },
+  {
+    text: "We had a complex rear extension and couldn't get anyone to take it on. Patrick not only took it on but delivered a stunning design that council approved first go. Professional, responsive, and genuinely talented.",
+    name: 'Lisa Nguyen',
+    role: 'Rear Extension — Como',
+    image: 'https://randomuser.me/api/portraits/women/22.jpg',
+  },
+  {
+    text: "Five stars isn't enough. Patrick designed our knockdown-rebuild and the whole process was smooth from start to finish. He listened carefully to what we wanted and translated it perfectly into the plans.",
+    name: 'David & Karen Pollard',
+    role: 'Knockdown Rebuild — Applecross',
+    image: 'https://randomuser.me/api/portraits/men/54.jpg',
+  },
+  {
+    text: "Excellent service and very competitive pricing. Patrick turned our ideas into detailed, council-ready plans faster than we expected. He kept us informed throughout and was always easy to reach.",
+    name: 'Tony Marcello',
+    role: 'Multi-Unit Development — Victoria Park',
+    image: 'https://randomuser.me/api/portraits/men/11.jpg',
+  },
+  {
+    text: "Patrick designed our granny flat and ancillary dwelling — both approved without any issues. He has an excellent understanding of what local councils require and makes the whole process stress-free.",
+    name: 'Angela & Rob Simmons',
+    role: 'Granny Flat — Willetton',
+    image: 'https://randomuser.me/api/portraits/women/37.jpg',
+  },
+  {
+    text: "We've worked with several draftspeople over the years and Patrick is without doubt the best. His communication is excellent, his drawings are incredibly thorough, and he delivers exactly what he promises.",
+    name: 'Chris Wakefield',
+    role: 'Custom Home — Subiaco',
+    image: 'https://randomuser.me/api/portraits/men/29.jpg',
   },
 ];
 
@@ -1225,6 +1293,48 @@ const TYPED_PHRASES = [
   'Construction Drawings',
   'Council Approvals',
 ];
+
+/* ─── TESTIMONIALS COLUMN ────────────────────────────────────────── */
+function TestimonialsColumn({
+  testimonials,
+  duration = 15,
+  className,
+}: {
+  testimonials: typeof TESTIMONIALS;
+  duration?: number;
+  className?: string;
+}) {
+  return (
+    <div className={`testi-column${className ? ` ${className}` : ''}`} style={{ overflow: 'hidden' }}>
+      <motion.div
+        animate={{ translateY: '-50%' }}
+        transition={{ duration, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
+        style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', paddingBottom: '1.25rem' }}
+      >
+        {[...Array(2)].map((_, loopIdx) => (
+          <React.Fragment key={loopIdx}>
+            {testimonials.map((t, i) => (
+              <div className="testi-card" key={i}>
+                <span className="testi-quote-mark">&ldquo;</span>
+                <p className="testi-text">{t.text}</p>
+                <div className="testi-stars">
+                  {[...Array(5)].map((_, j) => <Star key={j} size={11} fill="#c9a84c" color="#c9a84c" />)}
+                </div>
+                <div className="testi-author-row">
+                  <img src={t.image} alt={t.name} className="testi-avatar" loading="lazy" />
+                  <div>
+                    <div className="testi-name">{t.name}</div>
+                    <div className="testi-meta">{t.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </React.Fragment>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
 
 /* ─── MAIN COMPONENT ─────────────────────────────────────────────── */
 export default function App() {
@@ -1630,7 +1740,13 @@ export default function App() {
       {/* ── TESTIMONIALS ── */}
       <section id="testimonials">
         <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }} className="reveal">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 0 }}
+          >
             <div>
               <span className="section-eyebrow">Client Stories</span>
               <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
@@ -1638,24 +1754,16 @@ export default function App() {
               </h2>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
-              {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" color="var(--gold)" />)}
+              {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="#c9a84c" color="#c9a84c" />)}
               <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--gold)', letterSpacing: '-0.02em' }}>5.0</span>
               <span style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gray)' }}>Google Rating</span>
             </div>
-          </div>
-          <div className="testimonials-grid">
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="testi-card reveal" style={{ transitionDelay: `${i * 120}ms` }}>
-                <span className="testi-quote-mark">&ldquo;</span>
-                <p className="testi-text">{t.text}</p>
-                <div className="testi-stars">
-                  {[...Array(5)].map((_, j) => <Star key={j} size={12} fill="currentColor" color="var(--gold)" />)}
-                </div>
-                <div className="testi-divider" />
-                <div className="testi-name">{t.name}</div>
-                <div className="testi-meta">{t.meta}</div>
-              </div>
-            ))}
+          </motion.div>
+
+          <div className="testi-columns-wrap">
+            <TestimonialsColumn testimonials={TESTIMONIALS.slice(0, 3)} duration={18} />
+            <TestimonialsColumn testimonials={TESTIMONIALS.slice(3, 6)} duration={22} />
+            <TestimonialsColumn testimonials={TESTIMONIALS.slice(6, 9)} duration={20} />
           </div>
         </div>
       </section>
