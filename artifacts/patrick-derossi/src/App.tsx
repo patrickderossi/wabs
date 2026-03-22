@@ -1671,23 +1671,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── MARQUEE TICKER ── */}
-      {(() => {
-        const items = ['Residential Design', 'Custom Home Plans', 'Dual Occupancy', 'Granny Flats', 'Renovation Drawings', 'Council Approvals', 'Site Plans', 'Floor Plans', 'Elevation Drawings', 'South Perth WA'];
-        const all = [...items, ...items];
-        return (
-          <div id="marquee" aria-hidden="true">
-            <div className="marquee-track">
-              {all.map((t, i) => (
-                <span key={i} className="marquee-item">
-                  {t}
-                  <span className="marquee-dot" />
-                </span>
-              ))}
-            </div>
-          </div>
-        );
-      })()}
 
       {/* ── CREDENTIALS STRIP ── */}
       <div id="credentials-strip">
