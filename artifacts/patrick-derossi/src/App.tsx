@@ -834,7 +834,7 @@ const CSS = `
   /* Left sticky column */
   .process-tl-sticky {
     position: sticky;
-    top: 7rem;
+    top: 40vh;
     align-self: flex-start;
     display: flex;
     flex-direction: column;
