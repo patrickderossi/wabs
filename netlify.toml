@@ -1,0 +1,13 @@
+[build]
+  base      = "."
+  command   = "pnpm install --frozen-lockfile && pnpm --filter @workspace/patrick-derossi exec vite build --config vite.config.netlify.ts"
+  publish   = "artifacts/patrick-derossi/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  PNPM_VERSION = "10"
+
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
