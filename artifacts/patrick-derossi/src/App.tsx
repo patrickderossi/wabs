@@ -1513,14 +1513,46 @@ const PROJECTS = [
 ];
 
 const PROCESS = [
-  { num: '01', title: 'Formal Quote', desc: 'A transparent, itemised quote before any work begins — covering every stage, fee, and timeline so you know exactly what to expect.', imgs: ['/process/formal-quote_1.jpg', '/process/formal-quote_2.jpg'] },
-  { num: '02', title: 'Initial Consultation', desc: 'We meet to discuss your vision, site, lifestyle needs, and budget. This forms the foundation for a design brief that guides everything that follows.', imgs: ['/process/initial-consult_1.jpg', '/process/initial-consult_2.jpg'] },
-  { num: '03', title: 'Concept Design', desc: 'Preliminary floor plans and elevations are developed and refined with your feedback until the layout is exactly right for your block and the way you live.', imgs: ['/process/concept-design_1.jpg', '/process/concept-design_2.jpg'] },
-  { num: '04', title: 'Planning Approval', desc: 'Where required, we prepare and lodge a Development Application with the relevant local authority and manage all queries through to approval.', imgs: ['/process/planning-approval_1.jpg', '/process/planning-approval_2.jpg'] },
-  { num: '05', title: 'Working Drawings', desc: 'Full construction documentation — floor plans, elevations, sections, site plans, electrical and plumbing layouts — built to satisfy your certifier and builder.', imgs: ['/process/working-drawings_1.jpg', '/process/working-drawings_2.jpg'] },
-  { num: '06', title: '3rd Party Plans', desc: 'We coordinate any required engineer, surveyor, energy assessor, or other specialist reports and seamlessly incorporate them into your drawing set.', imgs: ['/process/third-party-plans_1.jpg', '/process/third-party-plans_2.jpg'] },
-  { num: '07', title: 'Design Compliance', desc: 'A Certificate of Design Compliance (CDC) is prepared and issued by a registered certifier, confirming your design meets all NCC and R-Code requirements.', imgs: ['/process/design-compliance_1.jpg', '/process/design-compliance_2.jpg'] },
-  { num: '08', title: 'Building Permit', desc: 'We lodge your completed building permit application and liaise with the certifier until permit is granted — so your builder can break ground without delay.', imgs: ['/process/building-permit_1.jpg', '/process/building-permit_2.jpg'] },
+  {
+    num: '01', title: 'Formal Quote',
+    desc: 'Before a single line is drawn, you receive a clear, itemised written quote covering every stage of the project — design fees, documentation, authority lodgements, and estimated timeframes. There are no hidden costs and no surprises. You review the scope, ask any questions, and only proceed when you\'re completely comfortable. This upfront transparency sets the tone for the entire project and ensures you have full confidence before committing.',
+    imgs: ['/process/formal-quote_1.jpg', '/process/formal-quote_2.jpg']
+  },
+  {
+    num: '02', title: 'Initial Consultation',
+    desc: 'We sit down together — in person or virtually — to explore your vision in depth. We discuss how you live, what you need now and in the future, your block\'s constraints and opportunities, council requirements, and your budget. Notes are taken, questions are asked, and by the end of the meeting a detailed design brief is agreed upon. This brief becomes the single reference point that keeps the entire project on track from concept through to permit.',
+    imgs: ['/process/initial-consult_1.jpg', '/process/initial-consult_2.jpg']
+  },
+  {
+    num: '03', title: 'Concept Design',
+    desc: 'Using the agreed brief, preliminary floor plans and elevations are sketched and developed. You\'re presented with a concept that addresses your site, your lifestyle, and your budget — then we refine it together. Rooms are resized, orientations adjusted, outdoor connections considered. We iterate until every space feels right and the home works exactly the way you want it to. Only once you\'re fully satisfied does the design move forward.',
+    imgs: ['/process/concept-design_1.jpg', '/process/concept-design_2.jpg']
+  },
+  {
+    num: '04', title: 'Planning Approval',
+    desc: 'Some projects — particularly those that vary from standard R-Code requirements or fall within specific overlays — require a Development Application (DA) before construction documents can be finalised. We assess whether a DA is needed, prepare all required documentation including site plans, design statements, and neighbour notification materials, and lodge the application directly with the relevant local government authority. We manage all correspondence and respond to any queries from the planning officer, steering the application through to written approval.',
+    imgs: ['/process/planning-approval_1.jpg', '/process/planning-approval_2.jpg']
+  },
+  {
+    num: '05', title: 'Working Drawings',
+    desc: 'This is the full technical documentation package your builder and certifier need to price, approve, and construct your home. It includes dimensioned floor plans, all elevations, cross-sections, roof plan, site plan, retaining wall details, window and door schedules, and wet area waterproofing notes. Electrical and plumbing layouts are included where required. Every drawing is produced to Australian standard conventions and coordinated to be consistent across the entire set — eliminating conflicts on site before they happen.',
+    imgs: ['/process/working-drawings_1.jpg', '/process/working-drawings_2.jpg']
+  },
+  {
+    num: '06', title: '3rd Party Plans',
+    desc: 'Most residential projects require input from specialists beyond the draftsman. We coordinate directly with structural engineers, geotechnical consultants, energy efficiency assessors (NatHERS), surveyors, and where needed, bushfire attack level (BAL) assessors. Their reports and drawings are reviewed, cross-checked against our documentation, and incorporated into the full drawing set. You don\'t need to manage multiple consultants — we handle the coordination so the final package is complete, consistent, and ready for lodgement.',
+    imgs: ['/process/third-party-plans_1.jpg', '/process/third-party-plans_2.jpg']
+  },
+  {
+    num: '07', title: 'Design Compliance',
+    desc: 'A Certificate of Design Compliance (CDC) is a mandatory document confirming that your design satisfies all requirements of the National Construction Code (NCC) and applicable Western Australian R-Codes. We work with a registered private building certifier who reviews the complete documentation set, raises any technical queries, and issues the CDC once satisfied. This step is a legal requirement for issuing a building permit in WA and cannot be bypassed — having a thorough, well-prepared drawing set at this stage avoids costly delays.',
+    imgs: ['/process/design-compliance_1.jpg', '/process/design-compliance_2.jpg']
+  },
+  {
+    num: '08', title: 'Building Permit',
+    desc: 'With the CDC in hand and all documentation complete, we compile and lodge the formal Building Permit Application with the local government authority. We liaise with the certifier throughout the assessment period, responding promptly to any technical queries or requests for additional information. Once the permit is granted, you receive the stamped drawings and permit documentation — everything your builder needs to legally commence construction. From this point, your home moves from paper to reality.',
+    imgs: ['/process/building-permit_1.jpg', '/process/building-permit_2.jpg']
+  },
 ];
 
 const TESTIMONIALS = [
