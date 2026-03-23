@@ -1798,7 +1798,7 @@ export default function App() {
   const [typedText, setTypedText] = useState('');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: '', message: '' });
   const [formSent, setFormSent] = useState(false);
-  const [formError, setFormError] = useState(false);
+  const [formError, setFormError] = useState<string | false>(false);
   const [formLoading, setFormLoading] = useState(false);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -1821,9 +1821,13 @@ export default function App() {
       setFormSent(true);
       setFormData({ name: '', email: '', phone: '', service: '', message: '' });
       setTimeout(() => setFormSent(false), 8000);
-    } catch {
-      setFormError(true);
-      setTimeout(() => setFormError(false), 6000);
+    } catch (err: unknown) {
+      const msg = err && typeof err === 'object' && 'text' in err
+        ? (err as { text: string }).text
+        : err instanceof Error ? err.message : JSON.stringify(err);
+      console.error('EmailJS error:', msg);
+      setFormError(msg || 'Unknown error');
+      setTimeout(() => setFormError(false), 12000);
     } finally {
       setFormLoading(false);
     }
@@ -2409,8 +2413,9 @@ export default function App() {
                   </div>
                 )}
                 {formError && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem', padding: '0.8rem 1rem', background: 'rgba(220,50,50,0.08)', border: '1px solid rgba(220,50,50,0.25)', fontSize: '0.8rem', color: '#e07070', letterSpacing: '0.05em' }}>
-                    Something went wrong — please try calling us or emailing directly.
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginBottom: '1rem', padding: '0.8rem 1rem', background: 'rgba(220,50,50,0.08)', border: '1px solid rgba(220,50,50,0.25)', fontSize: '0.8rem', color: '#e07070', letterSpacing: '0.05em' }}>
+                    <span>Something went wrong — please try calling us or emailing directly.</span>
+                    <span style={{ fontSize: '0.7rem', opacity: 0.7, wordBreak: 'break-all' }}>Detail: {formError}</span>
                   </div>
                 )}
                 <button type="submit" className="form-submit" disabled={formLoading} style={{ opacity: formLoading ? 0.65 : 1 }}>
