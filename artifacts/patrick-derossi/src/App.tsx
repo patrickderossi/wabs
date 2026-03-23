@@ -2327,7 +2327,7 @@ export default function App() {
                 <div className="contact-detail-icon"><Clock size={18} strokeWidth={1.5} /></div>
                 <div>
                   <div className="contact-detail-label">Hours</div>
-                  <div className="contact-detail-value" style={{ fontSize: '0.95rem', color: 'var(--gray)' }}>Mon – Fri, 8:00 AM – 5:00 PM</div>
+                  <div className="contact-detail-value" style={{ fontSize: '0.95rem', color: 'var(--gray)' }}>Mon – Fri, 9:00 AM – 6:00 PM</div>
                 </div>
               </div>
             </div>
@@ -2435,8 +2435,7 @@ export default function App() {
         <div className="container">
           <div className="footer-grid">
             <div>
-              <div className="footer-brand-name">Patrick De Rossi</div>
-              <div style={{ fontSize: '0.6rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '1rem' }}>Design & Drafting</div>
+              <img src="/logo.webp" alt="Patrick De Rossi Design & Drafting" style={{ height: '52px', width: 'auto', display: 'block', marginBottom: '1.25rem' }} />
               <p className="footer-brand-tag">
                 Perth's trusted residential design and drafting practice. 17+ years, 500+ happy clients, and counting.
               </p>
@@ -2494,7 +2493,7 @@ export default function App() {
                 <Clock size={15} strokeWidth={1.5} />
                 <div>
                   <div className="footer-contact-label">Hours</div>
-                  <div className="footer-contact-value">Mon – Fri, 8:00 AM – 5:00 PM</div>
+                  <div className="footer-contact-value">Mon – Fri, 9:00 AM – 6:00 PM</div>
                 </div>
               </div>
             </div>
