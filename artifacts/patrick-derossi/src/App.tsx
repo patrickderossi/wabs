@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import imgFormalQuote from '@assets/Formal_Quote_1774258217637.jpeg';
+import imgInitialConsult from '@assets/Initial_Consultation_1774258217637.jpeg';
+import imgConceptDesign from '@assets/Concept_Design_1774258217636.jpeg';
+import imgPlanningApproval from '@assets/Planning_Approval_1774258217638.png';
+import imgWorkingDrawings from '@assets/Working_Drawings_1774258217638.jpeg';
+import imgThirdParty from '@assets/3rd_Party_Plans_1774258217635.png';
+import imgDesignCompliance from '@assets/Design_Compliance_1774258217637.jpeg';
+import imgBuildingPermit from '@assets/Building_Permit_1774258217636.jpeg';
 import {
   Menu, X, ArrowRight, ArrowUpRight,
   Star, Clock, FileCheck, MapPin, Phone, Mail,
@@ -914,28 +922,23 @@ const CSS = `
   }
 
   /* 2-col image placeholder grid */
-  .process-tl-img-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-  .process-tl-ph {
-    height: 5rem;
-    border-radius: 4px;
-    overflow: hidden;
+  .process-tl-img-wrap {
     position: relative;
+    border-radius: 6px;
+    overflow: hidden;
     background: var(--dark3);
+    height: 14rem;
   }
-  .process-tl-ph img {
+  .process-tl-img-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
     transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
   }
-  .process-tl-ph:hover img { transform: scale(1.04); }
-  @media (min-width: 768px) { .process-tl-ph { height: 11rem; } }
-  @media (min-width: 1024px) { .process-tl-ph { height: 15rem; } }
+  .process-tl-img-wrap:hover img { transform: scale(1.04); }
+  @media (min-width: 768px) { .process-tl-img-wrap { height: 18rem; } }
+  @media (min-width: 1024px) { .process-tl-img-wrap { height: 22rem; } }
 
   /* Animated line */
   .process-tl-line-wrap {
@@ -1516,42 +1519,42 @@ const PROCESS = [
   {
     num: '01', title: 'Formal Quote',
     desc: 'Before a single line is drawn, you receive a clear, itemised written quote covering every stage of the project — design fees, documentation, authority lodgements, and estimated timeframes. There are no hidden costs and no surprises. You review the scope, ask any questions, and only proceed when you\'re completely comfortable. This upfront transparency sets the tone for the entire project and ensures you have full confidence before committing.',
-    imgs: ['/process/formal-quote_1.jpg', '/process/formal-quote_2.jpg']
+    img: imgFormalQuote,
   },
   {
     num: '02', title: 'Initial Consultation',
     desc: 'We sit down together — in person or virtually — to explore your vision in depth. We discuss how you live, what you need now and in the future, your block\'s constraints and opportunities, council requirements, and your budget. Notes are taken, questions are asked, and by the end of the meeting a detailed design brief is agreed upon. This brief becomes the single reference point that keeps the entire project on track from concept through to permit.',
-    imgs: ['/process/initial-consult_1.jpg', '/process/initial-consult_2.jpg']
+    img: imgInitialConsult,
   },
   {
     num: '03', title: 'Concept Design',
     desc: 'Using the agreed brief, preliminary floor plans and elevations are sketched and developed. You\'re presented with a concept that addresses your site, your lifestyle, and your budget — then we refine it together. Rooms are resized, orientations adjusted, outdoor connections considered. We iterate until every space feels right and the home works exactly the way you want it to. Only once you\'re fully satisfied does the design move forward.',
-    imgs: ['/process/concept-design_1.jpg', '/process/concept-design_2.jpg']
+    img: imgConceptDesign,
   },
   {
     num: '04', title: 'Planning Approval',
     desc: 'Some projects — particularly those that vary from standard R-Code requirements or fall within specific overlays — require a Development Application (DA) before construction documents can be finalised. We assess whether a DA is needed, prepare all required documentation including site plans, design statements, and neighbour notification materials, and lodge the application directly with the relevant local government authority. We manage all correspondence and respond to any queries from the planning officer, steering the application through to written approval.',
-    imgs: ['/process/planning-approval_1.jpg', '/process/planning-approval_2.jpg']
+    img: imgPlanningApproval,
   },
   {
     num: '05', title: 'Working Drawings',
     desc: 'This is the full technical documentation package your builder and certifier need to price, approve, and construct your home. It includes dimensioned floor plans, all elevations, cross-sections, roof plan, site plan, retaining wall details, window and door schedules, and wet area waterproofing notes. Electrical and plumbing layouts are included where required. Every drawing is produced to Australian standard conventions and coordinated to be consistent across the entire set — eliminating conflicts on site before they happen.',
-    imgs: ['/process/working-drawings_1.jpg', '/process/working-drawings_2.jpg']
+    img: imgWorkingDrawings,
   },
   {
     num: '06', title: '3rd Party Plans',
     desc: 'Most residential projects require input from specialists beyond the draftsman. We coordinate directly with structural engineers, geotechnical consultants, energy efficiency assessors (NatHERS), surveyors, and where needed, bushfire attack level (BAL) assessors. Their reports and drawings are reviewed, cross-checked against our documentation, and incorporated into the full drawing set. You don\'t need to manage multiple consultants — we handle the coordination so the final package is complete, consistent, and ready for lodgement.',
-    imgs: ['/process/third-party-plans_1.jpg', '/process/third-party-plans_2.jpg']
+    img: imgThirdParty,
   },
   {
     num: '07', title: 'Design Compliance',
     desc: 'A Certificate of Design Compliance (CDC) is a mandatory document confirming that your design satisfies all requirements of the National Construction Code (NCC) and applicable Western Australian R-Codes. We work with a registered private building certifier who reviews the complete documentation set, raises any technical queries, and issues the CDC once satisfied. This step is a legal requirement for issuing a building permit in WA and cannot be bypassed — having a thorough, well-prepared drawing set at this stage avoids costly delays.',
-    imgs: ['/process/design-compliance_1.jpg', '/process/design-compliance_2.jpg']
+    img: imgDesignCompliance,
   },
   {
     num: '08', title: 'Building Permit',
     desc: 'With the CDC in hand and all documentation complete, we compile and lodge the formal Building Permit Application with the local government authority. We liaise with the certifier throughout the assessment period, responding promptly to any technical queries or requests for additional information. Once the permit is granted, you receive the stamped drawings and permit documentation — everything your builder needs to legally commence construction. From this point, your home moves from paper to reality.',
-    imgs: ['/process/building-permit_1.jpg', '/process/building-permit_2.jpg']
+    img: imgBuildingPermit,
   },
 ];
 
@@ -1695,6 +1698,37 @@ function TestimonialsColumn({
 }
 
 /* ─── PROCESS TIMELINE ──────────────────────────────────────────── */
+function BorderTrail({ size = 120, duration = 6 }: { size?: number; duration?: number }) {
+  return (
+    <div style={{
+      pointerEvents: 'none',
+      position: 'absolute',
+      inset: 0,
+      borderRadius: 'inherit',
+      border: '1px solid transparent',
+      WebkitMaskClip: 'padding-box, border-box',
+      WebkitMaskComposite: 'destination-in',
+      maskClip: 'padding-box, border-box',
+      maskComposite: 'intersect',
+      WebkitMaskImage: 'linear-gradient(transparent, transparent), linear-gradient(#000, #000)',
+      maskImage: 'linear-gradient(transparent, transparent), linear-gradient(#000, #000)',
+    }}>
+      <motion.div
+        style={{
+          position: 'absolute',
+          aspectRatio: '1',
+          width: size,
+          background: 'transparent',
+          offsetPath: `rect(0 auto auto 0 round 6px)`,
+          boxShadow: `0 0 ${size * 0.5}px ${size * 0.25}px rgba(201,168,76,0.55), 0 0 ${size}px ${size * 0.5}px rgba(201,168,76,0.25), 0 0 ${size * 1.5}px ${size * 0.75}px rgba(201,168,76,0.08)`,
+        }}
+        animate={{ offsetDistance: ['0%', '100%'] }}
+        transition={{ repeat: Infinity, duration, ease: 'linear' }}
+      />
+    </div>
+  );
+}
+
 function ProcessTimeline() {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -1735,12 +1769,9 @@ function ProcessTimeline() {
               <span className="process-tl-num-mob">{step.num}</span>
               <h3 className="process-tl-step-name">{step.title}</h3>
               <p className="process-tl-step-desc">{step.desc}</p>
-              <div className="process-tl-img-grid">
-                {step.imgs.map((src, j) => (
-                  <div key={j} className="process-tl-ph">
-                    <img src={src} alt={`${step.title} ${j + 1}`} loading="lazy" />
-                  </div>
-                ))}
+              <div className="process-tl-img-wrap">
+                <img src={step.img} alt={step.title} loading="lazy" />
+                <BorderTrail size={140} duration={7} />
               </div>
             </div>
 

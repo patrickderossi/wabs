@@ -1,0 +1,116 @@
+You are given a task to integrate an existing React component in the codebase
+
+The codebase should support:
+- shadcn project structure  
+- Tailwind CSS
+- Typescript
+
+If it doesn't, provide instructions on how to setup project via shadcn CLI, install Tailwind or Typescript.
+
+Determine the default path for components and styles. 
+If default path for components is not /components/ui, provide instructions on why it's important to create this folder
+Copy-paste this component to /components/ui folder:
+```tsx
+border-trail.tsx
+'use client';
+import { cn } from '@/lib/utils';
+import { motion, Transition } from 'framer-motion';
+
+type BorderTrailProps = {
+  className?: string;
+  size?: number;
+  transition?: Transition;
+  delay?: number;
+  onAnimationComplete?: () => void;
+  style?: React.CSSProperties;
+};
+
+export function BorderTrail({
+  className,
+  size = 60,
+  transition,
+  delay,
+  onAnimationComplete,
+  style,
+}: BorderTrailProps) {
+  const BASE_TRANSITION = {
+    repeat: Infinity,
+    duration: 5,
+    ease: 'linear',
+  };
+
+  return (
+    <div className='pointer-events-none absolute inset-0 rounded-[inherit] border border-transparent [mask-clip:padding-box,border-box] [mask-composite:intersect] [mask-image:linear-gradient(transparent,transparent),linear-gradient(#000,#000)]'>
+      <motion.div
+        className={cn('absolute aspect-square bg-zinc-500', className)}
+        style={{
+          width: size,
+          offsetPath: `rect(0 auto auto 0 round ${size}px)`,
+          ...style,
+        }}
+        animate={{
+          offsetDistance: ['0%', '100%'],
+        }}
+        transition={{
+          ...(transition ?? BASE_TRANSITION),
+          delay: delay,
+        }}
+        onAnimationComplete={onAnimationComplete}
+      />
+    </div>
+  );
+}
+
+
+demo.tsx
+"use client";
+
+import { BorderTrail } from "@/components/ui/border-trail";
+
+export function LoadingCardBorderTrail() {
+  return (
+    <div className="relative flex h-[200px] w-[300px] flex-col items-center justify-center rounded-md bg-zinc-200 px-5 py-2 dark:bg-zinc-900">
+      <BorderTrail
+        style={{
+          boxShadow:
+            "0px 0px 60px 30px rgb(255 255 255 / 50%), 0 0 100px 60px rgb(0 0 0 / 50%), 0 0 140px 90px rgb(0 0 0 / 50%)",
+        }}
+        size={100}
+      />
+      <div
+        className="flex h-full animate-pulse flex-col items-start justify-center space-y-2"
+        role="status"
+        aria-label="Loading..."
+      >
+        <div className="h-1 w-4 rounded-[4px] bg-zinc-600"></div>
+        <div className="h-1 w-10 rounded-[4px] bg-zinc-600"></div>
+        <div className="h-1 w-12 rounded-[4px] bg-zinc-600"></div>
+        <div className="h-1 w-12 rounded-[4px] bg-zinc-600"></div>
+        <div className="h-1 w-12 rounded-[4px] bg-zinc-600"></div>
+      </div>
+    </div>
+  );
+}
+```
+
+Install NPM dependencies:
+```bash
+framer-motion
+```
+
+Implementation Guidelines
+ 1. Analyze the component structure and identify all required dependencies
+ 2. Review the component's argumens and state
+ 3. Identify any required context providers or hooks and install them
+ 4. Questions to Ask
+ - What data/props will be passed to this component?
+ - Are there any specific state management requirements?
+ - Are there any required assets (images, icons, etc.)?
+ - What is the expected responsive behavior?
+ - What is the best place to use this component in the app?
+
+Steps to integrate
+ 0. Copy paste all the code above in the correct directories
+ 1. Install external dependencies
+ 2. Fill image assets with Unsplash stock images you know exist
+ 3. Use lucide-react icons for svgs or logos if component requires them
