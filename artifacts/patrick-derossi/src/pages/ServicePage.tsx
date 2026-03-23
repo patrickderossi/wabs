@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 import { ArrowLeft, ArrowRight, Phone, Mail, MapPin, Clock, ChevronDown, Star, CheckCircle } from 'lucide-react';
 import { SERVICES_DATA } from '../serviceData';
 
@@ -261,6 +262,8 @@ export default function ServicePage({ params }: ServicePageProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: '', message: '' });
   const [formSent, setFormSent] = useState(false);
+  const [formError, setFormError] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -283,14 +286,32 @@ export default function ServicePage({ params }: ServicePageProps) {
 
   const otherServices = SERVICES_DATA.filter(s => s.slug !== slug);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { name, email, phone, message } = formData;
-    const subj = encodeURIComponent(`Enquiry: ${service.title} — from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service.title}\n\nDetails:\n${message}`);
-    window.open(`mailto:info@patrickderossi.com.au?subject=${subj}&body=${body}`, '_blank');
-    setFormSent(true);
-    setTimeout(() => setFormSent(false), 6000);
+    setFormLoading(true);
+    setFormError(false);
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone || 'Not provided',
+          service: service.title,
+          message: formData.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      setFormSent(true);
+      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      setTimeout(() => setFormSent(false), 8000);
+    } catch {
+      setFormError(true);
+      setTimeout(() => setFormError(false), 6000);
+    } finally {
+      setFormLoading(false);
+    }
   };
 
   return (

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import imgFormalQuote from '@assets/Formal_Quote_1774258217637.jpeg';
 import imgInitialConsult from '@assets/Initial_Consultation_1774258217637.jpeg';
@@ -1797,17 +1798,35 @@ export default function App() {
   const [typedText, setTypedText] = useState('');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: '', message: '' });
   const [formSent, setFormSent] = useState(false);
+  const [formError, setFormError] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { name, email, phone, service, message } = formData;
-    const subject = encodeURIComponent(`Enquiry from ${name}${service ? ` — ${service}` : ''}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\n\nProject Details:\n${message}`
-    );
-    window.open(`mailto:info@patrickderossi.com.au?subject=${subject}&body=${body}`, '_blank');
-    setFormSent(true);
-    setTimeout(() => setFormSent(false), 5000);
+    setFormLoading(true);
+    setFormError(false);
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone || 'Not provided',
+          service: formData.service || 'Not specified',
+          message: formData.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      setFormSent(true);
+      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      setTimeout(() => setFormSent(false), 8000);
+    } catch {
+      setFormError(true);
+      setTimeout(() => setFormError(false), 6000);
+    } finally {
+      setFormLoading(false);
+    }
   };
   const heroBgRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -2386,12 +2405,17 @@ export default function App() {
                 </div>
                 {formSent && (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem', padding: '0.8rem 1rem', background: 'rgba(201,168,76,0.08)', border: '1px solid var(--gold-border)', fontSize: '0.8rem', color: 'var(--gold)', letterSpacing: '0.05em' }}>
-                    <CheckCircle size={14} /> Your email client has opened — send the message to complete your enquiry.
+                    <CheckCircle size={14} /> Message sent — we'll be in touch within 1 business day.
                   </div>
                 )}
-                <button type="submit" className="form-submit">
-                  Send Enquiry
-                  <ArrowRight size={16} />
+                {formError && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem', padding: '0.8rem 1rem', background: 'rgba(220,50,50,0.08)', border: '1px solid rgba(220,50,50,0.25)', fontSize: '0.8rem', color: '#e07070', letterSpacing: '0.05em' }}>
+                    Something went wrong — please try calling us or emailing directly.
+                  </div>
+                )}
+                <button type="submit" className="form-submit" disabled={formLoading} style={{ opacity: formLoading ? 0.65 : 1 }}>
+                  {formLoading ? 'Sending…' : 'Send Enquiry'}
+                  {!formLoading && <ArrowRight size={16} />}
                 </button>
               </form>
             </div>
