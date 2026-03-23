@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   Menu, X, ArrowRight, ArrowUpRight,
   Star, Clock, FileCheck, MapPin, Phone, Mail,
@@ -811,52 +811,128 @@ const CSS = `
   }
   .cta-band-call:hover { opacity: 1; }
 
-  /* ── Process ── */
+  /* ── Process Timeline ── */
   #process { padding: 8rem 0; background: var(--dark2); position: relative; overflow: hidden; }
 
-  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 0; row-gap: 3.5rem; position: relative; }
-  @media (max-width: 900px) { .process-grid { grid-template-columns: 1fr 1fr; gap: 3rem 2rem; } }
-  @media (max-width: 600px) { .process-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
-
-  .process-connector {
-    position: absolute;
-    top: 2.5rem; left: 0; right: 0;
-    height: 1px;
-    background: var(--gold-border);
-    overflow: hidden;
-  }
-  .process-connector-fill {
-    height: 100%;
-    background: var(--gold);
-    width: 0;
-    transition: width 1.5s cubic-bezier(0.77,0,0.18,1);
-  }
-  .process-connector-fill.play { width: 100%; }
-
-  @media (max-width: 900px) { .process-connector { display: none; } }
-
-  .process-step { padding: 0 2rem 0 0; position: relative; }
-  .process-num-wrap {
-    width: 5rem; height: 5rem;
-    border: 1px solid var(--gold-border);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 2rem;
+  .process-tl-wrap {
     position: relative;
+    max-width: 860px;
+  }
+
+  .process-tl-track {
+    position: absolute;
+    left: 2.4rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.18) 8%, rgba(201,168,76,0.18) 92%, transparent);
+  }
+
+  .process-tl-step {
+    display: flex;
+    gap: 3rem;
+    padding-bottom: 5rem;
+    position: relative;
+    align-items: flex-start;
+  }
+  .process-tl-step:last-child { padding-bottom: 0; }
+
+  .process-tl-left {
+    flex-shrink: 0;
+    width: 4.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .process-tl-num-box {
+    width: 4.8rem;
+    height: 4.8rem;
+    border: 1px solid rgba(201,168,76,0.35);
     background: var(--dark2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: border-color 0.4s ease, background 0.4s ease;
   }
-  .process-step:hover .process-num-wrap {
+  .process-tl-step:hover .process-tl-num-box {
     border-color: var(--gold);
-    background: var(--gold-dim);
+    background: rgba(201,168,76,0.07);
   }
-  .process-num {
-    font-size: 1.4rem;
+
+  .process-tl-num-text {
+    font-size: 1rem;
     font-weight: 800;
     color: var(--gold);
-    letter-spacing: -0.02em;
+    letter-spacing: 0.03em;
   }
-  .process-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
-  .process-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.7; font-weight: 300; }
+
+  .process-tl-right {
+    flex: 1;
+    padding-top: 0.6rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .process-tl-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .process-tl-desc {
+    font-size: 0.875rem;
+    color: var(--gray);
+    line-height: 1.85;
+    margin-bottom: 2rem;
+    max-width: 540px;
+  }
+
+  .process-tl-img-ph {
+    width: 100%;
+    max-width: 580px;
+    height: 280px;
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .process-tl-img-ph::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%);
+  }
+  .process-tl-img-ph-icon {
+    font-size: 2rem;
+    opacity: 0.18;
+    position: relative;
+    z-index: 1;
+  }
+  .process-tl-img-ph-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.35);
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 700px) {
+    .process-tl-track { left: 1.9rem; }
+    .process-tl-left { width: 3.8rem; }
+    .process-tl-num-box { width: 3.8rem; height: 3.8rem; }
+    .process-tl-step { gap: 1.75rem; padding-bottom: 4rem; }
+    .process-tl-img-ph { height: 200px; }
+  }
 
   /* ── About ── */
   #about { padding: 8rem 0; background: var(--dark); overflow: hidden; }
@@ -1567,6 +1643,66 @@ function TestimonialsColumn({
   );
 }
 
+/* ─── PROCESS TIMELINE ──────────────────────────────────────────── */
+function ProcessTimeline() {
+  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    if (ref.current) setHeight(ref.current.getBoundingClientRect().height);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start 15%', 'end 70%'],
+  });
+
+  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
+
+  return (
+    <div ref={containerRef} style={{ position: 'relative' }}>
+      <div ref={ref} className="process-tl-wrap">
+        {/* Background track */}
+        <div className="process-tl-track" />
+        {/* Gold fill line */}
+        <motion.div
+          style={{
+            position: 'absolute',
+            left: '2.4rem',
+            top: 0,
+            width: '2px',
+            background: 'linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.5))',
+            borderRadius: '9999px',
+            height: heightTransform,
+            opacity: opacityTransform,
+            zIndex: 1,
+          }}
+        />
+        {/* Steps */}
+        {PROCESS.map((step, i) => (
+          <div key={i} className="process-tl-step">
+            <div className="process-tl-left">
+              <div className="process-tl-num-box">
+                <span className="process-tl-num-text">{step.num}</span>
+              </div>
+            </div>
+            <div className="process-tl-right">
+              <h3 className="process-tl-title">{step.title}</h3>
+              <p className="process-tl-desc">{step.desc}</p>
+              <div className="process-tl-img-ph">
+                <span className="process-tl-img-ph-icon">⬜</span>
+                <span className="process-tl-img-ph-label">Photo — Step {step.num}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ─── MAIN COMPONENT ─────────────────────────────────────────────── */
 export default function App() {
   const [loaded, setLoaded] = useState(false);
@@ -1583,7 +1719,6 @@ export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [statsVisible, setStatsVisible] = useState(false);
-  const [processVisible, setProcessVisible] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
   const [typedText, setTypedText] = useState('');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: '', message: '' });
@@ -1721,16 +1856,6 @@ export default function App() {
     return () => observer.disconnect();
   }, [loaded]);
 
-  /* ── Process line observer ── */
-  useEffect(() => {
-    const el = document.getElementById('process');
-    if (!el) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setProcessVisible(true); observer.disconnect(); }
-    }, { threshold: 0.2 });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [loaded]);
 
   const years = useCounter(17, 1600, statsVisible);
   const reviews = useCounter(500, 2000, statsVisible);
@@ -2089,24 +2214,7 @@ export default function App() {
               Our Proven Process
             </h2>
           </div>
-          <div className="process-grid">
-            <div className="process-connector">
-              <div className={`process-connector-fill${processVisible ? ' play' : ''}`} />
-            </div>
-            {PROCESS.map((step, i) => (
-              <div
-                key={i}
-                className="process-step reveal"
-                style={{ transitionDelay: `${i * 150}ms` }}
-              >
-                <div className="process-num-wrap">
-                  <span className="process-num">{step.num}</span>
-                </div>
-                <div className="process-title">{step.title}</div>
-                <p className="process-desc">{step.desc}</p>
-              </div>
-            ))}
-          </div>
+          <ProcessTimeline />
         </div>
       </section>
 
