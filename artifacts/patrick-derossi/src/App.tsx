@@ -2032,7 +2032,7 @@ export default function App() {
         <video
           id="hero-bg"
           ref={heroBgRef as React.RefObject<HTMLVideoElement & HTMLElement>}
-          src="/hero-new.mp4"
+          src="/hero.mp4"
           autoPlay
           muted
           loop

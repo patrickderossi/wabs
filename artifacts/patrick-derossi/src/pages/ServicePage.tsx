@@ -301,7 +301,15 @@ export default function ServicePage({ params }: ServicePageProps) {
     }
     canonicalEl.href = canonical;
 
-    const ldJson = {
+    const injectLd = (id: string, data: object) => {
+      const s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.id = id;
+      s.text = JSON.stringify(data);
+      document.head.appendChild(s);
+    };
+
+    injectLd('ld-service', {
       '@context': 'https://schema.org',
       '@type': 'Service',
       name: service.title,
@@ -323,12 +331,27 @@ export default function ServicePage({ params }: ServicePageProps) {
         },
       },
       areaServed: { '@type': 'AdministrativeArea', name: 'Perth Metropolitan Area, WA' },
-    };
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.id = 'service-ld-json';
-    script.text = JSON.stringify(ldJson);
-    document.head.appendChild(script);
+    });
+
+    injectLd('ld-faq', {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: service.faqs.map(faq => ({
+        '@type': 'Question',
+        name: faq.q,
+        acceptedAnswer: { '@type': 'Answer', text: faq.a },
+      })),
+    });
+
+    injectLd('ld-breadcrumb', {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: BASE },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: `${BASE}/#services` },
+        { '@type': 'ListItem', position: 3, name: service.title, item: canonical },
+      ],
+    });
 
     return () => {
       document.title = 'Patrick De Rossi Design & Drafting | Residential Design Malaga, Perth WA';
@@ -337,7 +360,9 @@ export default function ServicePage({ params }: ServicePageProps) {
       if (ogDesc) ogDesc.content = origOgDesc;
       if (ogUrl) ogUrl.content = origOgUrl;
       if (canonicalEl) canonicalEl.href = origCanonical;
-      document.getElementById('service-ld-json')?.remove();
+      document.getElementById('ld-service')?.remove();
+      document.getElementById('ld-faq')?.remove();
+      document.getElementById('ld-breadcrumb')?.remove();
     };
   }, [service]);
 
