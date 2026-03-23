@@ -814,124 +814,153 @@ const CSS = `
   /* ── Process Timeline ── */
   #process { padding: 8rem 0; background: var(--dark2); position: relative; overflow: hidden; }
 
-  .process-tl-wrap {
+  /* ── Process Timeline (Aceternity layout) ── */
+  .process-tl-rows {
     position: relative;
-    max-width: 860px;
-  }
-
-  .process-tl-track {
-    position: absolute;
-    left: 2.4rem;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.18) 8%, rgba(201,168,76,0.18) 92%, transparent);
-  }
-
-  .process-tl-step {
-    display: flex;
-    gap: 3rem;
     padding-bottom: 5rem;
-    position: relative;
-    align-items: flex-start;
   }
-  .process-tl-step:last-child { padding-bottom: 0; }
 
-  .process-tl-left {
-    flex-shrink: 0;
-    width: 4.8rem;
+  .process-tl-row {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 2.5rem;
+  }
+  .process-tl-row:first-child { padding-top: 0; }
+  @media (min-width: 768px) {
+    .process-tl-row { padding-top: 9rem; gap: 2.5rem; }
+    .process-tl-row:first-child { padding-top: 0; }
+  }
+
+  /* Left sticky column */
+  .process-tl-sticky {
+    position: sticky;
+    top: 7rem;
+    align-self: flex-start;
     display: flex;
     flex-direction: column;
+    z-index: 40;
     align-items: center;
-    position: relative;
-    z-index: 2;
+    flex-shrink: 0;
+    width: 100%;
+  }
+  @media (min-width: 768px) {
+    .process-tl-sticky { flex-direction: row; max-width: 20rem; }
   }
 
-  .process-tl-num-box {
-    width: 4.8rem;
-    height: 4.8rem;
-    border: 1px solid rgba(201,168,76,0.35);
+  /* Circular dot on the line */
+  .process-tl-dot {
+    position: absolute;
+    left: 0.75rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
     background: var(--dark2);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.4s ease, background 0.4s ease;
+    flex-shrink: 0;
   }
-  .process-tl-step:hover .process-tl-num-box {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.07);
+  .process-tl-dot-inner {
+    height: 0.875rem;
+    width: 0.875rem;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.18);
+    border: 1px solid rgba(201,168,76,0.55);
   }
 
-  .process-tl-num-text {
-    font-size: 1rem;
+  /* Big step number — desktop only */
+  .process-tl-left-num {
+    display: none;
+    font-size: clamp(2.5rem, 4vw, 3.75rem);
     font-weight: 800;
-    color: var(--gold);
-    letter-spacing: 0.03em;
+    color: rgba(201,168,76,0.45);
+    padding-left: 5rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
   }
+  @media (min-width: 768px) { .process-tl-left-num { display: block; } }
 
-  .process-tl-right {
-    flex: 1;
-    padding-top: 0.6rem;
-    padding-bottom: 0.5rem;
+  /* Right content column */
+  .process-tl-content {
+    position: relative;
+    padding-left: 5rem;
+    padding-right: 1rem;
+    width: 100%;
   }
+  @media (min-width: 768px) { .process-tl-content { padding-left: 1rem; } }
 
-  .process-tl-title {
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.02em;
+  /* Step number — mobile only */
+  .process-tl-num-mob {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: rgba(201,168,76,0.4);
     margin-bottom: 0.75rem;
   }
+  @media (min-width: 768px) { .process-tl-num-mob { display: none; } }
 
-  .process-tl-desc {
+  .process-tl-step-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.65rem;
+    letter-spacing: -0.02em;
+  }
+  .process-tl-step-desc {
     font-size: 0.875rem;
     color: var(--gray);
     line-height: 1.85;
-    margin-bottom: 2rem;
-    max-width: 540px;
+    margin-bottom: 1.75rem;
   }
 
-  .process-tl-img-ph {
-    width: 100%;
-    max-width: 580px;
-    height: 280px;
+  /* 2-col image placeholder grid */
+  .process-tl-img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .process-tl-ph {
+    height: 5rem;
     background: var(--dark3);
-    border: 1px solid rgba(201,168,76,0.1);
-    position: relative;
-    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.08);
+    border-radius: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    gap: 0.75rem;
+    overflow: hidden;
+    position: relative;
   }
-  .process-tl-img-ph::before {
+  .process-tl-ph::before {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%);
   }
-  .process-tl-img-ph-icon {
-    font-size: 2rem;
-    opacity: 0.18;
-    position: relative;
-    z-index: 1;
-  }
-  .process-tl-img-ph-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
+  .process-tl-ph-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(201,168,76,0.35);
+    color: rgba(201,168,76,0.28);
     position: relative;
     z-index: 1;
   }
+  @media (min-width: 768px) { .process-tl-ph { height: 11rem; } }
+  @media (min-width: 1024px) { .process-tl-ph { height: 15rem; } }
 
-  @media (max-width: 700px) {
-    .process-tl-track { left: 1.9rem; }
-    .process-tl-left { width: 3.8rem; }
-    .process-tl-num-box { width: 3.8rem; height: 3.8rem; }
-    .process-tl-step { gap: 1.75rem; padding-bottom: 4rem; }
-    .process-tl-img-ph { height: 200px; }
+  /* Animated line */
+  .process-tl-line-wrap {
+    position: absolute;
+    left: 2rem;
+    top: 0;
+    overflow: hidden;
+    width: 2px;
+  }
+  .process-tl-line-bg {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.2) 10%, rgba(201,168,76,0.2) 90%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
   }
 
   /* ── About ── */
@@ -1650,54 +1679,70 @@ function ProcessTimeline() {
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    if (ref.current) setHeight(ref.current.getBoundingClientRect().height);
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      setHeight(rect.height);
+    }
   }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start 15%', 'end 70%'],
+    offset: ['start 10%', 'end 50%'],
   });
 
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
-    <div ref={containerRef} style={{ position: 'relative' }}>
-      <div ref={ref} className="process-tl-wrap">
-        {/* Background track */}
-        <div className="process-tl-track" />
-        {/* Gold fill line */}
-        <motion.div
-          style={{
-            position: 'absolute',
-            left: '2.4rem',
-            top: 0,
-            width: '2px',
-            background: 'linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.5))',
-            borderRadius: '9999px',
-            height: heightTransform,
-            opacity: opacityTransform,
-            zIndex: 1,
-          }}
-        />
-        {/* Steps */}
+    <div ref={containerRef} style={{ position: 'relative', width: '100%' }}>
+      <div ref={ref} className="process-tl-rows">
+
         {PROCESS.map((step, i) => (
-          <div key={i} className="process-tl-step">
-            <div className="process-tl-left">
-              <div className="process-tl-num-box">
-                <span className="process-tl-num-text">{step.num}</span>
+          <div key={i} className="process-tl-row">
+
+            {/* ── Left sticky label ── */}
+            <div className="process-tl-sticky">
+              <div className="process-tl-dot">
+                <div className="process-tl-dot-inner" />
+              </div>
+              <span className="process-tl-left-num">{step.num}</span>
+            </div>
+
+            {/* ── Right content ── */}
+            <div className="process-tl-content">
+              <span className="process-tl-num-mob">{step.num}</span>
+              <h3 className="process-tl-step-name">{step.title}</h3>
+              <p className="process-tl-step-desc">{step.desc}</p>
+              <div className="process-tl-img-grid">
+                <div className="process-tl-ph">
+                  <span className="process-tl-ph-label">Photo coming soon</span>
+                </div>
+                <div className="process-tl-ph">
+                  <span className="process-tl-ph-label">Photo coming soon</span>
+                </div>
               </div>
             </div>
-            <div className="process-tl-right">
-              <h3 className="process-tl-title">{step.title}</h3>
-              <p className="process-tl-desc">{step.desc}</p>
-              <div className="process-tl-img-ph">
-                <span className="process-tl-img-ph-icon">⬜</span>
-                <span className="process-tl-img-ph-label">Photo — Step {step.num}</span>
-              </div>
-            </div>
+
           </div>
         ))}
+
+        {/* ── Animated vertical line ── */}
+        <div className="process-tl-line-wrap" style={{ height: height + 'px' }}>
+          <div className="process-tl-line-bg" style={{ height: '100%' }} />
+          <motion.div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '2px',
+              borderRadius: '9999px',
+              background: 'linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.5), transparent)',
+              height: heightTransform,
+              opacity: opacityTransform,
+            }}
+          />
+        </div>
+
       </div>
     </div>
   );
