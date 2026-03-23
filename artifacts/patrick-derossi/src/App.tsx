@@ -642,6 +642,55 @@ const CSS = `
     box-shadow: inset 0 0 40px rgba(201,168,76,0.06);
   }
 
+  /* ── Lightbox ── */
+  .lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    cursor: zoom-out;
+    animation: lbFadeIn 0.25s ease;
+  }
+  @keyframes lbFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .lightbox-img {
+    max-width: 90vw;
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 0 80px rgba(201,168,76,0.15), 0 30px 80px rgba(0,0,0,0.7);
+    animation: lbZoomIn 0.3s cubic-bezier(0.16,1,0.3,1);
+    cursor: default;
+  }
+  @keyframes lbZoomIn { from { transform: scale(0.88); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  .lightbox-close {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    z-index: 10000;
+    line-height: 1;
+  }
+  .lightbox-close:hover { background: rgba(201,168,76,0.3); border-color: rgba(201,168,76,0.5); }
+
   /* ── Why ── */
   #why { padding: 8rem 0; background: var(--dark); position: relative; overflow: hidden; }
 
@@ -1521,6 +1570,15 @@ function TestimonialsColumn({
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [lightbox, setLightbox] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setLightbox(null); };
+    document.addEventListener('keydown', handleKey);
+    document.body.style.overflow = 'hidden';
+    return () => { document.removeEventListener('keydown', handleKey); document.body.style.overflow = ''; };
+  }, [lightbox]);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [statsVisible, setStatsVisible] = useState(false);
@@ -1988,7 +2046,7 @@ export default function App() {
           </div>
           <div className="gallery-columns reveal">
             {PROJECTS.map((src, i) => (
-              <div key={i} className="gallery-item">
+              <div key={i} className="gallery-item" onClick={() => setLightbox(src)}>
                 <img src={src} alt={`Project ${i + 1}`} loading="lazy" />
                 <div className="gallery-shimmer" />
               </div>
@@ -2270,6 +2328,19 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* ── LIGHTBOX ── */}
+      {lightbox && (
+        <div className="lightbox-overlay" onClick={() => setLightbox(null)}>
+          <button className="lightbox-close" onClick={() => setLightbox(null)} aria-label="Close">✕</button>
+          <img
+            className="lightbox-img"
+            src={lightbox}
+            alt="Project photo"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 }
