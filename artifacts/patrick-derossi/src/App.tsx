@@ -625,7 +625,8 @@ const CSS = `
     display: block;
     width: 100%;
     height: auto;
-    transition: transform 0.9s cubic-bezier(0.16,1,0.3,1);
+    filter: grayscale(100%);
+    transition: transform 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.6s ease;
     will-change: transform;
   }
   .gallery-shimmer {
@@ -636,7 +637,7 @@ const CSS = `
     pointer-events: none;
     z-index: 1;
   }
-  .gallery-item:hover img { transform: scale(1.05); }
+  .gallery-item:hover img { transform: scale(1.05); filter: grayscale(0%); }
   .gallery-item:hover .gallery-shimmer {
     border-color: rgba(201,168,76,0.45);
     box-shadow: inset 0 0 40px rgba(201,168,76,0.06);
