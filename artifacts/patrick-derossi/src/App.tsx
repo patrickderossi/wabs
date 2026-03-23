@@ -1886,7 +1886,7 @@ export default function App() {
                 "Fusing creativity with technical precision to bring over 500 clients' projects to life — on time, on budget, and beyond expectations."
               </blockquote>
               <p className="about-body">
-                With 17+ years in the Western Australian building industry, Patrick De Rossi has become a trusted name in residential design and drafting. Based in South Perth and established in 2007, the practice specialises exclusively in residential projects — from custom homes and extensions to granny flats, multi-unit developments, and everything in between.
+                With 17+ years in the Western Australian building industry, Patrick De Rossi has become a trusted name in residential design and drafting. Based in Malaga and established in 2007, the practice specialises exclusively in residential projects — from custom homes and extensions to granny flats, multi-unit developments, and everything in between.
               </p>
               <p className="about-body" style={{ marginTop: '-1rem' }}>
                 Patrick holds registration as a Building Designer and Registered Builder, bringing hands-on expertise and deep local knowledge of Perth's R-Codes, local authority requirements, and council approval processes to every project.
@@ -2164,11 +2164,11 @@ export default function App() {
                 Serving Greater Perth
               </h2>
               <p style={{ fontSize: '0.88rem', color: 'var(--gray)', lineHeight: 1.9, fontWeight: 300, maxWidth: '320px', marginBottom: '1.75rem' }}>
-                Based in South Perth, we design for residential clients across the entire Perth metropolitan area — from Joondalup to Fremantle.
+                Based in Malaga, we design for residential clients across the entire Perth metropolitan area — from Joondalup to Fremantle.
               </p>
               <div className="suburbs-radius-badge">
                 <MapPin size={14} />
-                50km Service Radius from South Perth
+                50km Service Radius from Malaga
               </div>
             </div>
             <div className="reveal-right">
