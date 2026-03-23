@@ -50,8 +50,7 @@ const PAGE_CSS = `
     transition: color 0.3s ease;
   }
   .sp-nav-back:hover { color: var(--gold); }
-  .sp-nav-logo { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.05em; }
-  .sp-nav-logo span { font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-top: 1px; }
+  .sp-nav-logo img { height: 48px; width: auto; display: block; }
   .sp-nav-cta {
     display: inline-flex; align-items: center; gap: 0.5rem;
     font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
@@ -303,10 +302,9 @@ export default function ServicePage({ params }: ServicePageProps) {
         <a href="/#services" className="sp-nav-back">
           <ArrowLeft size={13} /> All Services
         </a>
-        <div className="sp-nav-logo" style={{ textAlign: 'center' }}>
-          Patrick De Rossi
-          <span>Design &amp; Drafting</span>
-        </div>
+        <a href="/" className="sp-nav-logo">
+          <img src="/logo.webp" alt="Patrick De Rossi Design & Drafting" />
+        </a>
         <a href="/#contact" className="sp-nav-cta">
           <Phone size={12} /> Get a Quote
         </a>
