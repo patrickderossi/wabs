@@ -921,29 +921,19 @@ const CSS = `
   }
   .process-tl-ph {
     height: 5rem;
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,0.08);
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 4px;
     overflow: hidden;
     position: relative;
+    background: var(--dark3);
   }
-  .process-tl-ph::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%);
+  .process-tl-ph img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
   }
-  .process-tl-ph-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(201,168,76,0.28);
-    position: relative;
-    z-index: 1;
-  }
+  .process-tl-ph:hover img { transform: scale(1.04); }
   @media (min-width: 768px) { .process-tl-ph { height: 11rem; } }
   @media (min-width: 1024px) { .process-tl-ph { height: 15rem; } }
 
@@ -1523,14 +1513,14 @@ const PROJECTS = [
 ];
 
 const PROCESS = [
-  { num: '01', title: 'Formal Quote', desc: 'A transparent, itemised quote before any work begins — covering every stage, fee, and timeline so you know exactly what to expect.' },
-  { num: '02', title: 'Initial Consultation', desc: 'We meet to discuss your vision, site, lifestyle needs, and budget. This forms the foundation for a design brief that guides everything that follows.' },
-  { num: '03', title: 'Concept Design', desc: 'Preliminary floor plans and elevations are developed and refined with your feedback until the layout is exactly right for your block and the way you live.' },
-  { num: '04', title: 'Planning Approval', desc: 'Where required, we prepare and lodge a Development Application with the relevant local authority and manage all queries through to approval.' },
-  { num: '05', title: 'Working Drawings', desc: 'Full construction documentation — floor plans, elevations, sections, site plans, electrical and plumbing layouts — built to satisfy your certifier and builder.' },
-  { num: '06', title: '3rd Party Plans', desc: 'We coordinate any required engineer, surveyor, energy assessor, or other specialist reports and seamlessly incorporate them into your drawing set.' },
-  { num: '07', title: 'Design Compliance', desc: 'A Certificate of Design Compliance (CDC) is prepared and issued by a registered certifier, confirming your design meets all NCC and R-Code requirements.' },
-  { num: '08', title: 'Building Permit', desc: 'We lodge your completed building permit application and liaise with the certifier until permit is granted — so your builder can break ground without delay.' },
+  { num: '01', title: 'Formal Quote', desc: 'A transparent, itemised quote before any work begins — covering every stage, fee, and timeline so you know exactly what to expect.', imgs: ['/process/formal-quote_1.jpg', '/process/formal-quote_2.jpg'] },
+  { num: '02', title: 'Initial Consultation', desc: 'We meet to discuss your vision, site, lifestyle needs, and budget. This forms the foundation for a design brief that guides everything that follows.', imgs: ['/process/initial-consult_1.jpg', '/process/initial-consult_2.jpg'] },
+  { num: '03', title: 'Concept Design', desc: 'Preliminary floor plans and elevations are developed and refined with your feedback until the layout is exactly right for your block and the way you live.', imgs: ['/process/concept-design_1.jpg', '/process/concept-design_2.jpg'] },
+  { num: '04', title: 'Planning Approval', desc: 'Where required, we prepare and lodge a Development Application with the relevant local authority and manage all queries through to approval.', imgs: ['/process/planning-approval_1.jpg', '/process/planning-approval_2.jpg'] },
+  { num: '05', title: 'Working Drawings', desc: 'Full construction documentation — floor plans, elevations, sections, site plans, electrical and plumbing layouts — built to satisfy your certifier and builder.', imgs: ['/process/working-drawings_1.jpg', '/process/working-drawings_2.jpg'] },
+  { num: '06', title: '3rd Party Plans', desc: 'We coordinate any required engineer, surveyor, energy assessor, or other specialist reports and seamlessly incorporate them into your drawing set.', imgs: ['/process/third-party-plans_1.jpg', '/process/third-party-plans_2.jpg'] },
+  { num: '07', title: 'Design Compliance', desc: 'A Certificate of Design Compliance (CDC) is prepared and issued by a registered certifier, confirming your design meets all NCC and R-Code requirements.', imgs: ['/process/design-compliance_1.jpg', '/process/design-compliance_2.jpg'] },
+  { num: '08', title: 'Building Permit', desc: 'We lodge your completed building permit application and liaise with the certifier until permit is granted — so your builder can break ground without delay.', imgs: ['/process/building-permit_1.jpg', '/process/building-permit_2.jpg'] },
 ];
 
 const TESTIMONIALS = [
@@ -1714,12 +1704,11 @@ function ProcessTimeline() {
               <h3 className="process-tl-step-name">{step.title}</h3>
               <p className="process-tl-step-desc">{step.desc}</p>
               <div className="process-tl-img-grid">
-                <div className="process-tl-ph">
-                  <span className="process-tl-ph-label">Photo coming soon</span>
-                </div>
-                <div className="process-tl-ph">
-                  <span className="process-tl-ph-label">Photo coming soon</span>
-                </div>
+                {step.imgs.map((src, j) => (
+                  <div key={j} className="process-tl-ph">
+                    <img src={src} alt={`${step.title} ${j + 1}`} loading="lazy" />
+                  </div>
+                ))}
               </div>
             </div>
 
