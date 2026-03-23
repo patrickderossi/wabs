@@ -1961,9 +1961,9 @@ export default function App() {
   const navLinks = [
     { href: '#services', label: 'Services', id: 'services' },
     { href: '#about', label: 'About', id: 'about' },
-    { href: '#process', label: 'Our Process', id: 'process' },
     { href: '#testimonials', label: 'Reviews', id: 'testimonials' },
     { href: '#work', label: 'Work', id: 'work' },
+    { href: '#process', label: 'Our Process', id: 'process' },
     { href: '#contact', label: 'Contact', id: 'contact' },
   ];
 
