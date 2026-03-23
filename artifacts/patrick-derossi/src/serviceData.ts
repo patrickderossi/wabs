@@ -224,8 +224,8 @@ export const SERVICES_DATA: ServiceData[] = [
     num: '06',
     title: 'Carports, Alfrescos & Sheds',
     tagline: 'Permit-ready drawings for outbuildings and outdoor structures — done right, done fast.',
-    heroImg: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=1600&q=80',
-    cardImg: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=700&q=80',
+    heroImg: '/svc-cafs.webp',
+    cardImg: '/svc-cafs.webp',
     overview: 'Compliant documentation for carports, alfresco areas, fencing, sheds, and other ancillary structures.',
     paragraphs: [
       'Building a carport, alfresco, shed, or substantial fence without the correct approval can result in expensive rectification orders from your local council. Our documentation service makes sure your builder can get on site with everything in order — no surprises.',

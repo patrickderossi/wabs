@@ -1356,7 +1356,7 @@ const SERVICES = [
     slug: 'granny-flats',
   },
   {
-    img: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=700&q=80',
+    img: '/svc-cafs.webp',
     title: 'Carports, Alfrescos & Sheds',
     desc: 'Permit-ready drawings for carports, alfresco entertainment areas, fencing and garden sheds. We handle the documentation so your builder can get on site without delays or council back-and-forth.',
     num: '06',
