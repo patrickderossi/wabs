@@ -881,8 +881,8 @@ const CSS = `
     color: var(--dark);
     padding: 1.25rem 1.75rem;
   }
-  .about-img-badge-name { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
-  .about-img-badge-title { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.7; margin-top: 3px; }
+  .about-img-badge-name { font-size: 1rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+  .about-img-badge-title { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 1; margin-top: 5px; }
 
   /* Blueprint decoration */
   .blueprint-deco {
