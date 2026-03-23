@@ -21,7 +21,7 @@ const CSS = `
     --dark2: #111111;
     --dark3: #141414;
     --dark4: #1a1a1a;
-    --gray: rgba(255,255,255,0.45);
+    --gray: rgba(255,255,255,0.72);
     --font: 'DM Sans', sans-serif;
   }
 
@@ -172,7 +172,7 @@ const CSS = `
     font-size: 2.5rem;
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.85);
     text-decoration: none;
     transition: color 0.3s ease;
   }
@@ -966,12 +966,12 @@ const CSS = `
     width: 2.5rem; height: 2.5rem;
     border: 1px solid rgba(255,255,255,0.1);
     display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.7);
     text-decoration: none;
     transition: all 0.3s ease;
   }
   .social-btn:hover { border-color: var(--gold); color: var(--gold); }
-  .footer-copy { font-size: 0.65rem; color: rgba(255,255,255,0.2); letter-spacing: 0.1em; }
+  .footer-copy { font-size: 0.65rem; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; }
 
   /* ── Reveal ── */
   .reveal {
@@ -1281,7 +1281,7 @@ const CSS = `
   .footer-contact-value a { color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.3s ease; }
   .footer-contact-value a:hover { color: var(--gold); }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-  .footer-copy { font-size: 0.65rem; color: rgba(255,255,255,0.2); letter-spacing: 0.1em; }
+  .footer-copy { font-size: 0.65rem; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; }
   .footer-back-top {
     font-size: 0.65rem;
     letter-spacing: 0.2em;
@@ -2135,7 +2135,7 @@ export default function App() {
                     onChange={e => setFormData(f => ({ ...f, message: e.target.value }))}
                   />
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem', color: 'rgba(255,255,255,0.35)', fontSize: '0.72rem', letterSpacing: '0.05em' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem', color: 'rgba(255,255,255,0.65)', fontSize: '0.72rem', letterSpacing: '0.05em' }}>
                   <CheckCircle size={13} style={{ color: 'var(--gold)', opacity: 0.7, flexShrink: 0 }} />
                   We respond to all enquiries within 1 business day.
                 </div>
