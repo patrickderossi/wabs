@@ -1744,11 +1744,6 @@ export default function App() {
         <div className="hero-grid" />
 
         <div className="hero-content container">
-          <div className="hero-badge">
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--gold)', display: 'inline-block' }} />
-            South Perth, WA — Est. 2007
-          </div>
-
           <h1 className="hero-headline" style={{ marginBottom: '1.75rem' }}>
             {['Every', 'Line'].map((w, i) => (
               <React.Fragment key={i}>
@@ -1902,7 +1897,7 @@ export default function App() {
                   <Mail size={16} /><span>info@patrickderossi.com.au</span>
                 </a>
                 <span className="about-contact-link" style={{ cursor: 'default' }}>
-                  <MapPin size={16} style={{ color: 'var(--gold)' }} /><span>3 Mends St, South Perth WA 6151</span>
+                  <MapPin size={16} style={{ color: 'var(--gold)' }} /><span>2/35 Westchester Road, Malaga WA 6090</span>
                 </span>
               </div>
             </div>
@@ -2078,7 +2073,7 @@ export default function App() {
                 <div className="contact-detail-icon"><MapPin size={18} strokeWidth={1.5} /></div>
                 <div>
                   <div className="contact-detail-label">Address</div>
-                  <div className="contact-detail-value" style={{ fontSize: '0.95rem', color: 'var(--gray)' }}>3 Mends St, South Perth WA 6151</div>
+                  <div className="contact-detail-value" style={{ fontSize: '0.95rem', color: 'var(--gray)' }}>2/35 Westchester Road, Malaga WA 6090</div>
                 </div>
               </div>
               <div className="contact-detail">
@@ -2243,7 +2238,7 @@ export default function App() {
                 <MapPin size={15} strokeWidth={1.5} />
                 <div>
                   <div className="footer-contact-label">Location</div>
-                  <div className="footer-contact-value">3 Mends St, South Perth WA 6151</div>
+                  <div className="footer-contact-value">2/35 Westchester Road, Malaga WA 6090</div>
                 </div>
               </div>
               <div className="footer-contact-item">
