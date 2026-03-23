@@ -2029,15 +2029,11 @@ export default function App() {
 
       {/* ── HERO ── */}
       <section id="hero">
-        <video
+        <img
           id="hero-bg"
-          ref={heroBgRef as React.RefObject<HTMLVideoElement & HTMLElement>}
-          src="/hero.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/hero-bg.jpg"
+          ref={heroBgRef as React.RefObject<HTMLImageElement & HTMLElement>}
+          src="/hero-image.jpg"
+          alt="Patrick De Rossi consulting with clients over architectural plans"
         />
         <div id="hero-overlay" />
         <div className="hero-grid" />
