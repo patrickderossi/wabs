@@ -1829,9 +1829,11 @@ export default function App() {
             </div>
             <div className="stat-cell">
               <span className="stat-num">5.0</span>
-              <span className="stat-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
-                {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="currentColor" color="var(--gold)" />)}
-                &nbsp;Star Rating
+              <span className="stat-label" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                <span style={{ display: 'flex', gap: '3px' }}>
+                  {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="currentColor" color="var(--gold)" />)}
+                </span>
+                Star Rating
               </span>
             </div>
           </div>
