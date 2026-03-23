@@ -217,7 +217,7 @@ const CSS = `
   #credentials-strip {
     background: var(--dark3);
     border-bottom: 1px solid rgba(255,255,255,0.04);
-    padding: 0.8rem 0;
+    padding: 1.1rem 0;
   }
   .credentials-inner {
     display: flex;
@@ -229,9 +229,9 @@ const CSS = `
   .cred-item {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0 1.8rem;
-    font-size: 0.62rem;
+    gap: 0.7rem;
+    padding: 0 2.2rem;
+    font-size: 0.72rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.4);
@@ -1791,16 +1791,16 @@ export default function App() {
       <div id="credentials-strip">
         <div className="credentials-inner">
           <div className="cred-item">
-            <Award size={13} />
-            Registered Building Designer
+            <Award size={14} />
+            Professional Building Designer
           </div>
           <div className="cred-item">
-            <Shield size={13} />
+            <Shield size={14} />
             Registered Builder
           </div>
           <div className="cred-item">
-            <Star size={13} />
-            Est. 2007 — 17 Years Perth
+            <MapPin size={14} />
+            Perth based Business
           </div>
           <div className="cred-item">
             <span className="cred-live">
