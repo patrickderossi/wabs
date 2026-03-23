@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "0Zd65J71n5O0O4xNxwWyI"
+uri = "file://artifacts/patrick-derossi/dist.tar.gz"
+type = "unspecified"
+title = "Patrick De Rossi — Netlify Deploy Package"

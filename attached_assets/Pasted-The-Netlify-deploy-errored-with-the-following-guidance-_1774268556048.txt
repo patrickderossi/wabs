@@ -1,0 +1,117 @@
+The Netlify deploy errored, with the following guidance provided:
+
+Diagnosis
+
+- Relevant log lines: the build runs the workspace build ([line 64](#L64)-[line 66](#L66)) and fails to load the Vite config ([line 67](#L67)). The error is explicit: "PORT environment variable is required but was not provided." ([line 69](#L69)). The failing file is artifacts/mockup-sandbox/vite.config.ts (shown in the stack) ([line 70](#L70)).
+- Error type and cause: during Vite config load, vite.config.ts throws because it expects the PORT env var to be set. That prevents Vite from even starting the build step (so this is a config-time runtime error, not a dependency or Node version issue).
+
+Solution
+
+You have two safe options — a quick fix (set the env var for the build) and a robust fix (change vite.config.ts so it doesn't require PORT for builds).
+
+Option A — Quick fix: set PORT for Netlify builds
+1. In the Netlify UI: Site settings -> Build & deploy -> Environment -> Add variable
+   - Key: PORT
+   - Value: 3000 (or whatever your config expects)
+2. Or add it to netlify.toml in your repo so builds pick it up:
+
+```toml
+# netlify.toml
+[build.environment]
+PORT = "3000"
+```
+
+This will satisfy the requirement in vite.config.ts and allow the build to proceed.
+
+Option B — Robust fix (recommended): make vite.config.ts only require PORT for dev serve, not for build
+Edit artifacts/mockup-sandbox/vite.config.ts so it does not throw during production builds. Use the Vite config function parameter to distinguish commands. Example change:
+
+```ts
+// artifacts/mockup-sandbox/vite.config.ts
+import { defineConfig } from 'vite';
+
+export default defineConfig(({ command }) => {
+  // Only require PORT when running the dev server (command === 'serve')
+  if (command === 'serve' && !process.env.PORT) {
+    throw new Error('PORT environment variable is required but was not provided.');
+  }
+
+  return {
+    // ... your existing config
+    server: {
+      port: process.env.PORT ? Number(process.env.PORT) : undefined,
+    },
+  };
+});
+```
+
+Why this helps: Netlify runs a build (command === 'build'), not the dev server, so the config will no longer throw during CI. This is the preferred approach because the build process should not depend on a dev-only environment variable.
+
+Which to choose:
+- If you control vite.config.ts, implement Option B to avoid build-time failures in CI.
+- If you cannot change the repo quickly, use Option A to unblock the deploy immediately.
+
+References to logs: failing config load at [line 67](#L67), error message at [line 69](#L69), stack showing the config file path at [line 70](#L70).
+
+The relevant error logs are:
+
+Line 0: build-image version: c2b8ae031d22ab4c62dd61deb4eac30945db824f (noble-new-builds)
+Line 1: buildbot version: 80dfe36208af12a46422917c4b93b0cb7f340032
+Line 2: Fetching cached dependencies
+Line 3: Failed to fetch cache, continuing with build
+Line 4: Fetching build zip file
+Line 5: Starting to prepare the repo for build
+Line 6: Custom publish path detected. Proceeding with the specified path: 'artifacts/mockup-sandbox/dist'
+Line 7: Custom build command detected. Proceeding with the specified command: 'pnpm --filter @workspace/mockup-sandbox... run build'
+Line 8: Installing dependencies
+Line 9: mise [36m~/.config/mise/config.toml[0m tools: [34mpython[0m@3.14.3
+Line 10: mise [36m~/.config/mise/config.toml[0m tools: [34mruby[0m@3.4.8
+Line 11: mise [36m~/.config/mise/config.toml[0m tools: [34mgo[0m@1.26.1
+Line 12: v22.22.1 is already installed.
+Line 13: Now using node v22.22.1 (npm v10.9.4)
+Line 57: [36m[1m​[22m[39m
+Line 58: [36m[1m❯ Context[22m[39m
+Line 59:   production
+Line 60: [96m[1m​[22m[39m
+Line 61: [96m[1mbuild.command from netlify.toml                               [22m[39m
+Line 62: [96m[1m────────────────────────────────────────────────────────────────[22m[39m
+Line 63: ​
+Line 64: [36m$ pnpm --filter @workspace/mockup-sandbox... run build[39m
+Line 65: > @workspace/mockup-sandbox@2.0.0 build /opt/build/repo/artifacts/mockup-sandbox
+Line 66: > vite build
+Line 67: [31mfailed to load config from /opt/build/repo/artifacts/mockup-sandbox/vite.config.ts[39m
+Line 68: [31merror during build:
+Line 69: Error: PORT environment variable is required but was not provided.
+Line 70:     at file:///opt/build/repo/artifacts/mockup-sandbox/node_modules/.vite-temp/vite.config.ts.timestamp-1774268312603-70e426a343
+Line 71:     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+Line 72:     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)
+Line 73:     at async loadConfigFromBundledFile (file:///opt/build/repo/node_modules/.pnpm/vite@7.3.1_@types+node@25.3.5_jiti@2.6.1_light
+Line 74:     at async bundleAndLoadConfigFile (file:///opt/build/repo/node_modules/.pnpm/vite@7.3.1_@types+node@25.3.5_jiti@2.6.1_lightni
+Line 75:     at async loadConfigFromFile (file:///opt/build/repo/node_modules/.pnpm/vite@7.3.1_@types+node@25.3.5_jiti@2.6.1_lightningcss
+Line 76:     at async resolveConfig (file:///opt/build/repo/node_modules/.pnpm/vite@7.3.1_@types+node@25.3.5_jiti@2.6.1_lightningcss@1.31
+Line 77:     at async createBuilder (file:///opt/build/repo/node_modules/.pnpm/vite@7.3.1_@types+node@25.3.5_jiti@2.6.1_lightningcss@1.31
+Line 78:     at async CAC.<anonymous> (file:///opt/build/repo/node_modules/.pnpm/vite@7.3.1_@types+node@25.3.5_jiti@2.6.1_lightningcss@1.
+Line 79: /opt/build/repo/artifacts/mockup-sandbox:
+Line 80: [41m[30m ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL [39m[49m [31m@workspace/mockup-sandbox@2.0.0 build: `vite build`[39m
+Line 81: [31mExit status 1[39m
+Line 82: [91m[1m​[22m[39m
+Line 83: [91m[1m"build.command" failed                                        [22m[39m
+Line 84: [91m[1m────────────────────────────────────────────────────────────────[22m[39m
+Line 85: ​
+Line 86:   [31m[1mError message[22m[39m
+Line 87:   Command failed with exit code 1: pnpm --filter @workspace/mockup-sandbox... run build
+Line 88: ​
+Line 89:   [31m[1mError location[22m[39m
+Line 90:   In build.command from netlify.toml:
+Line 91:   pnpm --filter @workspace/mockup-sandbox... run build
+Line 92: ​
+Line 93:   [31m[1mResolved config[22m[39m
+Line 94:   build:
+Line 95:     command: pnpm --filter @workspace/mockup-sandbox... run build
+Line 96:     commandOrigin: config
+Line 97:     publish: /opt/build/repo/artifacts/mockup-sandbox/dist
+Line 98:     publishOrigin: config
+Line 99: Build failed due to a user error: Build script returned non-zero exit code: 2
+Line 100: Failing build: Failed to build site
+Line 101: Finished processing build request in 23.337s
+Line 102: Failed during stage 'building site': Build script returned non-zero exit code: 2
