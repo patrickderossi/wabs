@@ -1825,7 +1825,7 @@ export default function App() {
             </div>
             <div className="stat-cell">
               <span className="stat-num">{statsVisible ? `${projects_}+` : '—'}</span>
-              <span className="stat-label">Custom Homes</span>
+              <span className="stat-label">Custom Homes Designed</span>
             </div>
             <div className="stat-cell">
               <span className="stat-num">5.0</span>
