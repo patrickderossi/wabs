@@ -267,10 +267,78 @@ export default function ServicePage({ params }: ServicePageProps) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (service) {
-      document.title = `${service.title} — Patrick De Rossi Design & Drafting`;
+    if (!service) return;
+
+    const BASE = 'https://patrickderossi.com.au';
+    const canonical = `${BASE}/services/${service.slug}`;
+    const title = `${service.title} Perth WA | Patrick De Rossi Design & Drafting`;
+    const desc = `${service.overview} Expert ${service.title.toLowerCase()} services across the Perth metropolitan area. Call +61 423 231 515 for a free consultation.`;
+
+    document.title = title;
+
+    const descEl = document.querySelector('meta[name="description"]') as HTMLMetaElement;
+    const origDesc = descEl?.content || '';
+    if (descEl) descEl.content = desc;
+
+    const ogTitle = document.querySelector('meta[property="og:title"]') as HTMLMetaElement;
+    const origOgTitle = ogTitle?.content || '';
+    if (ogTitle) ogTitle.content = title;
+
+    const ogDesc = document.querySelector('meta[property="og:description"]') as HTMLMetaElement;
+    const origOgDesc = ogDesc?.content || '';
+    if (ogDesc) ogDesc.content = desc;
+
+    const ogUrl = document.querySelector('meta[property="og:url"]') as HTMLMetaElement;
+    const origOgUrl = ogUrl?.content || '';
+    if (ogUrl) ogUrl.content = canonical;
+
+    let canonicalEl = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+    const origCanonical = canonicalEl?.href || '';
+    if (!canonicalEl) {
+      canonicalEl = document.createElement('link');
+      canonicalEl.rel = 'canonical';
+      document.head.appendChild(canonicalEl);
     }
-    return () => { document.title = 'Patrick De Rossi Design & Drafting'; };
+    canonicalEl.href = canonical;
+
+    const ldJson = {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: service.title,
+      description: service.overview,
+      url: canonical,
+      provider: {
+        '@type': 'LocalBusiness',
+        name: 'Patrick De Rossi Design & Drafting',
+        telephone: '+61423231515',
+        email: 'info@patrickderossi.com.au',
+        url: BASE,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: '2/35 Westchester Road',
+          addressLocality: 'Malaga',
+          addressRegion: 'WA',
+          postalCode: '6090',
+          addressCountry: 'AU',
+        },
+      },
+      areaServed: { '@type': 'AdministrativeArea', name: 'Perth Metropolitan Area, WA' },
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'service-ld-json';
+    script.text = JSON.stringify(ldJson);
+    document.head.appendChild(script);
+
+    return () => {
+      document.title = 'Patrick De Rossi Design & Drafting | Residential Design Malaga, Perth WA';
+      if (descEl) descEl.content = origDesc;
+      if (ogTitle) ogTitle.content = origOgTitle;
+      if (ogDesc) ogDesc.content = origOgDesc;
+      if (ogUrl) ogUrl.content = origOgUrl;
+      if (canonicalEl) canonicalEl.href = origCanonical;
+      document.getElementById('service-ld-json')?.remove();
+    };
   }, [service]);
 
   if (!service) {
