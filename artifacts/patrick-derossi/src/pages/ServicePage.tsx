@@ -28,7 +28,7 @@ const PAGE_CSS = `
     --dark2: #111111;
     --dark3: #141414;
     --dark4: #1a1a1a;
-    --gray: rgba(255,255,255,0.45);
+    --gray: rgba(255,255,255,0.75);
     --font: 'DM Sans', sans-serif;
   }
   html { scroll-behavior: smooth; }
@@ -114,7 +114,7 @@ const PAGE_CSS = `
     width: 1.6rem; height: 1px; background: var(--gold); transform: translateY(-50%);
   }
   .sp-section-h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 2rem; }
-  .sp-para { font-size: 0.9rem; color: var(--gray); line-height: 1.95; font-weight: 300; margin-bottom: 1.25rem; }
+  .sp-para { font-size: 0.92rem; color: var(--gray); line-height: 1.9; font-weight: 400; margin-bottom: 1.25rem; }
 
   .sp-inclusions-box {
     background: var(--dark3); border: 1px solid rgba(255,255,255,0.07);
@@ -128,7 +128,7 @@ const PAGE_CSS = `
   .sp-inclusion-item {
     display: flex; align-items: flex-start; gap: 0.85rem;
     padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-size: 0.84rem; color: rgba(255,255,255,0.8); font-weight: 300; line-height: 1.4;
+    font-size: 0.84rem; color: rgba(255,255,255,0.85); font-weight: 400; line-height: 1.4;
   }
   .sp-inclusion-item:last-child { border-bottom: none; }
   .sp-inclusion-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; opacity: 0.8; }
@@ -166,7 +166,7 @@ const PAGE_CSS = `
     font-family: serif; opacity: 0.9;
   }
   .sp-feature-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
-  .sp-feature-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.75; font-weight: 300; }
+  .sp-feature-desc { font-size: 0.84rem; color: var(--gray); line-height: 1.75; font-weight: 400; }
 
   /* Testimonials */
   .sp-testimonials { padding: 6rem 0; background: var(--dark); }
@@ -206,7 +206,7 @@ const PAGE_CSS = `
   .sp-faq-q:hover { color: var(--gold); }
   .sp-faq-icon { color: var(--gold); flex-shrink: 0; transition: transform 0.35s ease; }
   .sp-faq-icon.open { transform: rotate(180deg); }
-  .sp-faq-a { font-size: 0.87rem; color: var(--gray); line-height: 1.85; font-weight: 300; max-height: 0; overflow: hidden; transition: max-height 0.45s ease, padding 0.3s ease; }
+  .sp-faq-a { font-size: 0.87rem; color: var(--gray); line-height: 1.85; font-weight: 400; max-height: 0; overflow: hidden; transition: max-height 0.45s ease, padding 0.3s ease; }
   .sp-faq-a.open { max-height: 400px; padding-bottom: 1.75rem; }
 
   /* CTA Band */
