@@ -812,7 +812,7 @@ const CSS = `
   .cta-band-call:hover { opacity: 1; }
 
   /* ── Process Timeline ── */
-  #process { padding: 8rem 0; background: var(--dark2); position: relative; overflow: hidden; }
+  #process { padding: 8rem 0; background: var(--dark2); position: relative; }
 
   /* ── Process Timeline (Aceternity layout) ── */
   .process-tl-rows {
