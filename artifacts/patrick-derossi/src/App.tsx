@@ -62,7 +62,6 @@ const CSS = `
     background: var(--dark);
     z-index: 9000;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     transition: opacity 0.8s ease, visibility 0.8s ease;
@@ -72,37 +71,15 @@ const CSS = `
     visibility: hidden;
     pointer-events: none;
   }
-  .loader-line {
-    width: 0;
-    height: 1px;
-    background: var(--gold);
-    animation: loaderLine 1.2s cubic-bezier(0.77,0,0.18,1) forwards;
-  }
-  .loader-text {
-    font-size: clamp(1.2rem, 3vw, 2rem);
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
+  .loader-logo {
+    height: clamp(56px, 10vw, 96px);
+    width: auto;
     opacity: 0;
-    animation: loaderText 0.6s ease 0.8s forwards;
+    animation: loaderFadeIn 0.7s ease 0.2s forwards;
   }
-  .loader-sub {
-    font-size: 0.65rem;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--gold);
-    opacity: 0;
-    animation: loaderText 0.6s ease 1s forwards;
-    margin-top: 0.5rem;
-  }
-
-  @keyframes loaderLine {
-    from { width: 0; }
-    to { width: min(400px, 80vw); }
-  }
-  @keyframes loaderText {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes loaderFadeIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
   }
 
   /* ── Nav ── */
@@ -1992,9 +1969,7 @@ export default function App() {
 
       {/* Loader */}
       <div id="pdr-loader" className={loaded ? 'hidden' : ''}>
-        <div className="loader-line" style={{ marginBottom: '1.5rem' }} />
-        <div className="loader-text">Patrick De Rossi</div>
-        <div className="loader-sub">Design & Drafting</div>
+        <img src="/logo.webp" alt="Patrick De Rossi Design & Drafting" className="loader-logo" />
       </div>
 
       {/* Navigation */}
