@@ -295,6 +295,7 @@ export default function ServicePage({ params }: ServicePageProps) {
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
+          to_email: 'info@patrickderossi.com.au',
           from_name: formData.name,
           from_email: formData.email,
           phone: formData.phone || 'Not provided',

@@ -1810,6 +1810,7 @@ export default function App() {
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
+          to_email: 'info@patrickderossi.com.au',
           from_name: formData.name,
           from_email: formData.email,
           phone: formData.phone || 'Not provided',
@@ -2413,9 +2414,8 @@ export default function App() {
                   </div>
                 )}
                 {formError && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginBottom: '1rem', padding: '0.8rem 1rem', background: 'rgba(220,50,50,0.08)', border: '1px solid rgba(220,50,50,0.25)', fontSize: '0.8rem', color: '#e07070', letterSpacing: '0.05em' }}>
-                    <span>Something went wrong — please try calling us or emailing directly.</span>
-                    <span style={{ fontSize: '0.7rem', opacity: 0.7, wordBreak: 'break-all' }}>Detail: {formError}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem', padding: '0.8rem 1rem', background: 'rgba(220,50,50,0.08)', border: '1px solid rgba(220,50,50,0.25)', fontSize: '0.8rem', color: '#e07070', letterSpacing: '0.05em' }}>
+                    Something went wrong — please try calling us or emailing directly.
                   </div>
                 )}
                 <button type="submit" className="form-submit" disabled={formLoading} style={{ opacity: formLoading ? 0.65 : 1 }}>
