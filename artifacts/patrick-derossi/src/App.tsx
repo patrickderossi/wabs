@@ -1694,7 +1694,7 @@ export default function App() {
       <div id="pdr-loader" className={loaded ? 'hidden' : ''}>
         <div className="loader-line" style={{ marginBottom: '1.5rem' }} />
         <div className="loader-text">Patrick De Rossi</div>
-        <div className="loader-sub">Design & Drafting — Est. 2007</div>
+        <div className="loader-sub">Design & Drafting</div>
       </div>
 
       {/* Navigation */}
@@ -1886,7 +1886,7 @@ export default function App() {
                 "Fusing creativity with technical precision to bring over 500 clients' projects to life — on time, on budget, and beyond expectations."
               </blockquote>
               <p className="about-body">
-                With 17+ years in the Western Australian building industry, Patrick De Rossi has become a trusted name in residential design and drafting. Based in Malaga and established in 2007, the practice specialises exclusively in residential projects — from custom homes and extensions to granny flats, multi-unit developments, and everything in between.
+                With 17+ years in the Western Australian building industry, Patrick De Rossi has become a trusted name in residential design and drafting. Based in Malaga, the practice specialises exclusively in residential projects — from custom homes and extensions to granny flats, multi-unit developments, and everything in between.
               </p>
               <p className="about-body" style={{ marginTop: '-1rem' }}>
                 Patrick holds registration as a Building Designer and Registered Builder, bringing hands-on expertise and deep local knowledge of Perth's R-Codes, local authority requirements, and council approval processes to every project.
