@@ -234,11 +234,11 @@ const CSS = `
     font-size: 0.72rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.82);
     border-right: 1px solid rgba(255,255,255,0.08);
   }
   .cred-item:last-child { border-right: none; }
-  .cred-item svg { color: var(--gold); opacity: 0.8; flex-shrink: 0; }
+  .cred-item svg { color: var(--gold); opacity: 1; flex-shrink: 0; }
   .cred-dot {
     width: 3px; height: 3px;
     border-radius: 50%;
