@@ -26,11 +26,11 @@ const CSS = `
     --gold: #c9a84c;
     --gold-dim: rgba(201,168,76,0.1);
     --gold-border: rgba(201,168,76,0.32);
-    --dark: #faf8f4;
-    --dark2: #f0ece3;
+    --dark: #f4f5f8;
+    --dark2: #ebeef3;
     --dark3: #ffffff;
-    --dark4: #f5f1ea;
-    --gray: rgba(30,24,14,0.58);
+    --dark4: #f0f2f6;
+    --gray: rgba(26,27,30,0.56);
     --font: 'DM Sans', sans-serif;
   }
 
@@ -38,7 +38,7 @@ const CSS = `
 
   body {
     background: var(--dark);
-    color: #1c1812;
+    color: #1a1b1e;
     font-family: var(--font);
     overflow-x: hidden;
   }
@@ -95,11 +95,11 @@ const CSS = `
     transition: background 0.4s ease, padding 0.4s ease, backdrop-filter 0.4s ease;
   }
   #pdr-nav.scrolled {
-    background: rgba(250,248,244,0.96);
+    background: rgba(244,245,248,0.96);
     backdrop-filter: blur(12px);
     padding: 1rem 3rem;
     border-bottom: 1px solid rgba(201,168,76,0.2);
-    box-shadow: 0 2px 24px rgba(28,23,14,0.06);
+    box-shadow: 0 2px 24px rgba(26,27,30,0.07);
   }
   #pdr-nav.scrolled .nav-link { color: rgba(28,23,14,0.65); }
   #pdr-nav.scrolled .nav-link:hover,
@@ -2101,7 +2101,7 @@ export default function App() {
   ];
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#faf8f4', color: '#1c1812', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#f4f5f8', color: '#1a1b1e', minHeight: '100vh' }}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       {/* Noise overlay */}
       <div id="noise" />

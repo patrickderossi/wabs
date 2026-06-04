@@ -25,24 +25,24 @@ const PAGE_CSS = `
     --gold: #c9a84c;
     --gold-dim: rgba(201,168,76,0.1);
     --gold-border: rgba(201,168,76,0.32);
-    --dark: #faf8f4;
-    --dark2: #f0ece3;
+    --dark: #f4f5f8;
+    --dark2: #ebeef3;
     --dark3: #ffffff;
-    --dark4: #f5f1ea;
-    --gray: rgba(30,24,14,0.58);
+    --dark4: #f0f2f6;
+    --gray: rgba(26,27,30,0.56);
     --font: 'DM Sans', sans-serif;
   }
   html { scroll-behavior: smooth; }
-  body { background: var(--dark); color: #1c1812; font-family: var(--font); overflow-x: hidden; }
+  body { background: var(--dark); color: #1a1b1e; font-family: var(--font); overflow-x: hidden; }
 
   .sp-nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 500;
     padding: 1.2rem 3rem;
     display: flex; align-items: center; justify-content: space-between;
-    background: rgba(250,248,244,0.96);
+    background: rgba(244,245,248,0.96);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(201,168,76,0.2);
-    box-shadow: 0 2px 24px rgba(28,23,14,0.06);
+    box-shadow: 0 2px 24px rgba(26,27,30,0.07);
   }
   @media (max-width: 768px) { .sp-nav { padding: 1rem 1.5rem; } }
   .sp-nav-back {
@@ -369,7 +369,7 @@ export default function ServicePage({ params }: ServicePageProps) {
 
   if (!service) {
     return (
-      <div style={{ background: '#faf8f4', color: '#1c1812', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: "'DM Sans', sans-serif" }}>
+      <div style={{ background: '#f4f5f8', color: '#1a1b1e', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: "'DM Sans', sans-serif" }}>
         <p style={{ fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.7)', marginBottom: '1.5rem' }}>404 — Service Not Found</p>
         <a href="/" style={{ color: '#c9a84c', textDecoration: 'none', fontSize: '0.8rem', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <ArrowLeft size={14} /> Back to Home
@@ -410,7 +410,7 @@ export default function ServicePage({ params }: ServicePageProps) {
   };
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#faf8f4', color: '#1c1812', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#f4f5f8', color: '#1a1b1e', minHeight: '100vh' }}>
       <style dangerouslySetInnerHTML={{ __html: PAGE_CSS }} />
 
       {/* Nav */}
