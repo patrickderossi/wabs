@@ -1383,6 +1383,26 @@ const CSS = `
     color: rgba(26,27,30,0.55);
   }
 
+  /* ── Section grid texture (every other section) ── */
+  #services, #testimonials, #process, #suburbs {
+    position: relative;
+  }
+  #services::before, #testimonials::before, #process::before, #suburbs::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(26,27,30,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,27,30,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  #services > *, #testimonials > *, #process > *, #suburbs > * {
+    position: relative;
+    z-index: 1;
+  }
+
   /* ── Footer 3-col ── */
   #footer {
     background: #1c1a14;
