@@ -2793,7 +2793,7 @@ export default function App() {
         <div className="container">
           <div className="footer-grid">
             <div>
-              <img src="/logo-white.png" alt="WA Building Design" style={{ height: '52px', width: 'auto', display: 'block', marginBottom: '1.25rem' }} />
+              <img src="/logo-white.png" alt="WA Building Design" style={{ height: '104px', width: 'auto', display: 'block', marginBottom: '1.25rem' }} />
               <p className="footer-brand-tag">
                 Perth's trusted residential design and drafting practice. 17+ years, 500+ happy clients, and counting.
               </p>
