@@ -132,6 +132,7 @@ const CSS = `
   #pdr-nav.scrolled .nav-link.active { color: #1c1812; }
   #pdr-nav.scrolled .nav-mobile-btn { color: #1c1812; }
   .nav-wordmark { line-height: 1; }
+  .nav-logo-img { height: 122px; }
   .nav-wordmark-main { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.04em; display: block; }
   .nav-wordmark-sub { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-top: 2px; }
 
@@ -1446,7 +1447,7 @@ const CSS = `
     #pdr-nav { padding: 0.9rem 1.25rem; justify-content: center; }
     #pdr-nav.scrolled { padding: 0.7rem 1.25rem; }
     .nav-wordmark { flex: unset; text-align: center; }
-    .nav-wordmark img { height: 400px !important; }
+    .nav-logo-img { height: 400px; }
     .nav-mobile-btn { position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); }
 
     /* Container */
@@ -2212,7 +2213,8 @@ export default function App() {
           <img
             src={scrolled ? '/logo-dark.png' : '/logo-white.png'}
             alt="WA Building Design"
-            style={{ height: '122px', width: 'auto', display: 'block' }}
+            style={{ width: 'auto', display: 'block' }}
+            className="nav-logo-img"
           />
         </div>
         <div className="nav-contact-block">
