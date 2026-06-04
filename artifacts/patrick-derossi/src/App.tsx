@@ -2191,12 +2191,21 @@ export default function App() {
             <span className="typed-cursor" />
           </p>
 
-          <div className="hero-btn-wrap">
-            <a href="#work" className="hero-btn">
+          <div className="hero-btn-wrap" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', alignItems: 'flex-start' }}>
+            <a href="#contact" className="hero-btn">
               <div className="hero-btn-fill" />
-              <span>View Our Work</span>
+              <span>Get a Free Quote</span>
               <ArrowRight size={14} />
             </a>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+              <a href="#work" style={{ fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', transition: 'color 0.3s ease' }}>
+                View Our Work <ArrowRight size={12} />
+              </a>
+              <span style={{ color: 'rgba(255,255,255,0.2)' }}>·</span>
+              <a href="tel:+61423231515" style={{ fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.45rem', transition: 'color 0.3s ease' }}>
+                <Phone size={12} style={{ color: 'var(--gold)' }} /> 0423 231 515
+              </a>
+            </div>
           </div>
         </div>
 
@@ -2210,15 +2219,19 @@ export default function App() {
         <div className="credentials-inner">
           <div className="cred-item">
             <Award size={14} />
-            Professional Building Designer
+            BSA Registered Building Designer
           </div>
           <div className="cred-item">
             <Shield size={14} />
-            Registered Builder
+            Registered Builder — WA
+          </div>
+          <div className="cred-item">
+            <CheckCircle size={14} />
+            BDAWA Member — Perth's Peak Industry Body
           </div>
           <div className="cred-item">
             <MapPin size={14} />
-            Perth based Business
+            Based in Malaga, Serving All of Perth
           </div>
           <div className="cred-item">
             <span className="cred-live">
@@ -2244,15 +2257,23 @@ export default function App() {
               <span className="stat-num">{statsVisible ? `${projects_}+` : '—'}</span>
               <span className="stat-label">Custom Homes Designed</span>
             </div>
-            <div className="stat-cell">
+            <a
+              href="https://www.google.com/search?q=WA+Building+Design+Patrick+De+Rossi+Perth&hl=en#lrd=0x0:0x0,1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="stat-cell"
+              style={{ textDecoration: 'none', transition: 'background 0.3s ease' }}
+              onMouseEnter={e => (e.currentTarget.style.background = 'var(--dark)')}
+              onMouseLeave={e => (e.currentTarget.style.background = 'var(--dark2)')}
+            >
               <span className="stat-num">5.0</span>
               <span className="stat-label" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
                 <span style={{ display: 'flex', gap: '3px' }}>
                   {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="currentColor" color="var(--gold)" />)}
                 </span>
-                Star Rating
+                Google Rating ↗
               </span>
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -2369,6 +2390,20 @@ export default function App() {
             <TestimonialsColumn testimonials={TESTIMONIALS.slice(3, 6)} duration={22} />
             <TestimonialsColumn testimonials={TESTIMONIALS.slice(6, 9)} duration={20} />
           </div>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
+            <a
+              href="https://www.google.com/search?q=WA+Building+Design+Patrick+De+Rossi+Perth&hl=en#lrd=0x0:0x0,1"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--gold)', border: '1px solid var(--gold-border)', padding: '0.7rem 1.5rem', textDecoration: 'none', transition: 'background 0.3s ease', background: 'transparent' }}
+              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(201,168,76,0.08)')}
+              onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+            >
+              <Star size={13} fill="#c9a84c" color="#c9a84c" />
+              Read All Reviews on Google
+              <ArrowUpRight size={13} />
+            </a>
+          </div>
         </div>
       </section>
       {/* ── PROJECTS ── */}
@@ -2423,6 +2458,27 @@ export default function App() {
             </h2>
           </div>
           <ProcessTimeline />
+          <div className="reveal" style={{ marginTop: '5rem', padding: '3.5rem', background: 'var(--dark3)', border: '1px solid var(--gold-border)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1.25rem' }}>
+            <span style={{ fontSize: '0.65rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: 'var(--gold)' }}>Ready to Begin?</span>
+            <h3 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, margin: 0 }}>
+              Step 1 starts with a free, no-obligation quote.
+            </h3>
+            <p style={{ fontSize: '0.88rem', color: 'var(--gray)', maxWidth: '480px', lineHeight: 1.8, margin: 0 }}>
+              Every project begins with total cost clarity — before a single line is drawn.
+            </p>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '0.5rem' }}>
+              <a href="#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--gold)', color: '#0d0d0d', padding: '1rem 2rem', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', textDecoration: 'none', transition: 'opacity 0.2s' }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
+                onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
+                Get a Free Quote <ArrowRight size={14} />
+              </a>
+              <a href="tel:+61423231515" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', border: '1px solid var(--gold-border)', color: 'var(--gold)', padding: '1rem 2rem', fontSize: '0.75rem', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', textDecoration: 'none', transition: 'background 0.2s' }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(201,168,76,0.08)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
+                <Phone size={14} /> 0423 231 515
+              </a>
+            </div>
+          </div>
         </div>
       </section>
       {/* ── CONTACT ── */}
@@ -2635,9 +2691,25 @@ export default function App() {
               </div>
             </div>
           </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', alignItems: 'center', marginBottom: '1.75rem', paddingBottom: '1.75rem', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+            <span style={{ fontSize: '0.6rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Registrations & Memberships</span>
+            <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.45)', letterSpacing: '0.1em' }}>BSA Registered Building Designer</span>
+            <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.6rem' }}>·</span>
+            <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.45)', letterSpacing: '0.1em' }}>Registered Builder — WA</span>
+            <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.6rem' }}>·</span>
+            <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.45)', letterSpacing: '0.1em' }}>BDAWA Member</span>
+            <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.6rem' }}>·</span>
+            <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.45)', letterSpacing: '0.1em' }}>CPD Accredited — Continuing Professional Development</span>
+          </div>
           <div className="footer-bottom">
             <div className="footer-copy">
-              © {new Date().getFullYear()} WA Building Design. All rights reserved. — ABN registered, WA
+              © {new Date().getFullYear()} WA Building Design Pty Ltd · ABN: 29 669 511 781 · All rights reserved
+              <span style={{ margin: '0 0.75rem', opacity: 0.3 }}>·</span>
+              <a href="/privacy" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none', transition: 'color 0.3s ease' }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'rgba(201,168,76,0.8)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}>
+                Privacy Policy
+              </a>
             </div>
             <button
               className="footer-back-top"
