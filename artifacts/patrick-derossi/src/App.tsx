@@ -1390,32 +1390,7 @@ const CSS = `
     padding: 5rem 0 3rem;
     color: rgba(255,255,255,0.85);
     --gray: rgba(255,255,255,0.58);
-    position: relative;
-    overflow: hidden;
   }
-  #footer-bg {
-    position: absolute;
-    inset: -15%;
-    width: 130%;
-    height: 130%;
-    object-fit: cover;
-    object-position: center 40%;
-    opacity: 0.1;
-    will-change: transform;
-    display: block;
-    pointer-events: none;
-    filter: grayscale(40%);
-  }
-  #footer-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(201,168,76,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201,168,76,0.06) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-  }
-  #footer > .container { position: relative; z-index: 2; }
   .footer-grid {
     display: grid;
     grid-template-columns: 1.2fr 1fr 1.2fr;
@@ -2096,7 +2071,6 @@ export default function App() {
     }
   };
   const heroBgRef = useRef<HTMLElement>(null);
-  const footerBgRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const heroWordsRef = useRef<HTMLSpanElement[]>([]);
   const mousePos = useRef({ x: 0, y: 0 });
@@ -2187,14 +2161,6 @@ export default function App() {
       const y = window.scrollY;
       if (heroBgRef.current) {
         heroBgRef.current.style.transform = `translateX(8%) translateY(${y * 0.35}px) scale(1.12)`;
-      }
-      if (footerBgRef.current) {
-        const footer = document.getElementById('footer');
-        if (footer) {
-          const rect = footer.getBoundingClientRect();
-          const offset = (window.innerHeight - rect.top) * 0.15;
-          footerBgRef.current.style.transform = `translateY(${-offset}px) scale(1.15)`;
-        }
       }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -2824,8 +2790,6 @@ export default function App() {
       </section>
       {/* ── FOOTER ── */}
       <footer id="footer">
-        <img id="footer-bg" ref={footerBgRef as React.RefObject<HTMLImageElement>} src="/house-bg.webp" alt="" aria-hidden="true" />
-        <div id="footer-grid" />
         <div className="container">
           <div className="footer-grid">
             <div>
