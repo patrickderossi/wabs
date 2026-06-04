@@ -12,7 +12,7 @@ import imgBuildingPermit from '@assets/Building_Permit_1774258217636.jpeg';
 import {
   Menu, X, ArrowRight, ArrowUpRight,
   Star, Clock, FileCheck, MapPin, Phone, Mail,
-  Facebook, Award, Shield, CheckCircle
+  Facebook, Award, Shield, CheckCircle, Info
 } from 'lucide-react';
 
 /* ─── STYLES ──────────────────────────────────────────────────────── */
@@ -1383,6 +1383,114 @@ const CSS = `
     color: rgba(26,27,30,0.55);
   }
 
+  /* ── Pricing ── */
+  #pricing { background: #fff; }
+  .pricing-notice {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: #8a6f28;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin: 3rem 0 2.5rem;
+  }
+  @media (max-width: 1024px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .pricing-grid { grid-template-columns: 1fr; } }
+  .pricing-card {
+    border: 1px solid rgba(26,27,30,0.1);
+    border-top: 3px solid var(--gold);
+    padding: 2rem 1.75rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: #fff;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .pricing-card:hover {
+    box-shadow: 0 12px 48px rgba(26,27,30,0.1);
+    transform: translateY(-4px);
+  }
+  .pricing-card-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .pricing-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1c1812;
+    line-height: 1.35;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+  .pricing-card-includes {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+  }
+  .pricing-card-includes li {
+    font-size: 0.8rem;
+    color: var(--gray);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1.5;
+  }
+  .pricing-card-includes li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .pricing-card-price {
+    border-top: 1px solid rgba(26,27,30,0.08);
+    padding-top: 1.25rem;
+    margin-top: auto;
+  }
+  .pricing-card-range {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #1c1812;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .pricing-card-gst {
+    font-size: 0.7rem;
+    color: var(--gray);
+    margin-top: 0.3rem;
+    letter-spacing: 0.05em;
+  }
+  .pricing-disclaimer {
+    background: rgba(26,27,30,0.03);
+    border-left: 3px solid rgba(201,168,76,0.4);
+    padding: 1.25rem 1.5rem;
+    font-size: 0.78rem;
+    color: var(--gray);
+    line-height: 1.8;
+  }
+  .pricing-disclaimer strong { color: #1c1812; font-weight: 600; }
+
   /* ── Section grid texture (every other section) ── */
   #services, #testimonials, #process, #suburbs {
     position: relative;
@@ -2162,7 +2270,7 @@ export default function App() {
         const max = document.body.scrollHeight - window.innerHeight;
         progressRef.current.style.transform = `scaleX(${y / max})`;
       }
-      const sections = ['hero', 'services', 'about', 'testimonials', 'work', 'process', 'contact'];
+      const sections = ['hero', 'services', 'about', 'testimonials', 'pricing', 'work', 'process', 'contact'];
       for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top < window.innerHeight / 2) {
@@ -2591,6 +2699,84 @@ export default function App() {
           </div>
         </div>
       </section>
+      {/* ── PRICING ── */}
+      <section id="pricing">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
+            <div className="pricing-notice">
+              <Info size={12} />
+              Example Pricing Guide — Not Fixed Quotes
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
+              <div>
+                <p className="section-eyebrow">Investment</p>
+                <h2 className="section-title" style={{ maxWidth: '520px' }}>What Does Building Design Cost?</h2>
+              </div>
+              <p style={{ fontSize: '0.88rem', color: 'var(--gray)', maxWidth: '340px', lineHeight: '1.7', textAlign: 'right' }}>
+                These figures are indicative only, based on typical projects. Every project is unique — get in touch for a tailored quote.
+              </p>
+            </div>
+          </motion.div>
+
+          <div className="pricing-grid">
+            {[
+              {
+                label: 'Granny Flat',
+                title: '70 m² Granny Flat',
+                includes: ['Concept Design', 'Working Drawings'],
+                range: '$2,500 – $3,500',
+              },
+              {
+                label: 'Single Storey',
+                title: '250 m² Single-Storey Home — 4 Bed, 2 Bath',
+                includes: ['Concept Design', 'DA Plans', 'Working Drawings'],
+                range: '$5,000 – $7,000',
+              },
+              {
+                label: 'Double Storey',
+                title: '350 m² Double-Storey Home — 4 Bed, 2 Bath',
+                includes: ['Concept Design', 'DA Plans', 'Working Drawings'],
+                range: '$10,000 – $12,000',
+              },
+              {
+                label: 'Development',
+                title: '3-Unit Single-Storey Development — 3 Bed, 2 Bath Each',
+                includes: ['3 Unique Designs', 'Concept Design', 'DA Plans', 'Working Drawings'],
+                range: '$13,000 – $15,000',
+              },
+            ].map((card, i) => (
+              <motion.div
+                key={i}
+                className="pricing-card"
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 }}
+              >
+                <div className="pricing-card-label">{card.label}</div>
+                <div className="pricing-card-title">{card.title}</div>
+                <ul className="pricing-card-includes">
+                  {card.includes.map((item, j) => <li key={j}>{item}</li>)}
+                </ul>
+                <div className="pricing-card-price">
+                  <div className="pricing-card-range">{card.range}</div>
+                  <div className="pricing-card-gst">+ GST &nbsp;·&nbsp; Indicative only</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="pricing-disclaimer">
+            <strong>Important:</strong> The prices shown above are indicative estimates based on typical projects of similar scope and are provided as a general guide only. They are <strong>not fixed quotes or guaranteed pricing</strong>. Final fees depend on a range of factors including design complexity, site constraints, council requirements, number of design revisions, and project-specific documentation needs. All fees are subject to a formal written proposal. Prices exclude GST, council lodgement fees, surveying, engineering, and any other third-party costs. Contact us for an obligation-free discussion and tailored fee estimate.
+          </div>
+        </div>
+      </section>
+
       {/* ── PROJECTS ── */}
       <section id="work">
         <div className="container">
