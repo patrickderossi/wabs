@@ -2133,27 +2133,16 @@ export default function App() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  /* ── Mouse parallax ── */
+  /* ── Scroll parallax ── */
   useEffect(() => {
-    const onMove = (e: MouseEvent) => { mousePos.current = { x: e.clientX, y: e.clientY }; };
-    window.addEventListener('mousemove', onMove);
-    return () => window.removeEventListener('mousemove', onMove);
-  }, []);
-
-  useEffect(() => {
-    let raf: number;
-    const animate = () => {
+    const onScroll = () => {
       if (heroBgRef.current) {
-        const cx = window.innerWidth / 2;
-        const cy = window.innerHeight / 2;
-        const dx = (mousePos.current.x - cx) / cx;
-        const dy = (mousePos.current.y - cy) / cy;
-        heroBgRef.current.style.transform = `translate(${dx * -12}px, ${dy * -8}px) scale(1.12)`;
+        const y = window.scrollY;
+        heroBgRef.current.style.transform = `translateY(${y * 0.35}px) scale(1.12)`;
       }
-      raf = requestAnimationFrame(animate);
     };
-    raf = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(raf);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   /* ── Intersection Observer for reveals ── */
