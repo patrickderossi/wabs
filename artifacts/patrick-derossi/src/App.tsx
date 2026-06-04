@@ -347,8 +347,9 @@ const CSS = `
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(13,13,13,0.2) 0%,
-      rgba(13,13,13,0.4) 40%,
+      rgba(13,13,13,0.72) 0%,
+      rgba(13,13,13,0.55) 18%,
+      rgba(13,13,13,0.35) 40%,
       rgba(13,13,13,0.85) 75%,
       rgba(13,13,13,1) 100%
     );
