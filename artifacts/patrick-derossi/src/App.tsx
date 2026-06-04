@@ -1971,10 +1971,8 @@ export default function App() {
   return (
     <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#0d0d0d', color: '#fff', minHeight: '100vh' }}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
-
       {/* Noise overlay */}
       <div id="noise" />
-
       {/* ── STICKY CTA ── */}
       <div id="sticky-cta" className={showSticky ? 'visible' : ''}>
         <a href="tel:+61423231515" className="sticky-cta-btn" style={{ background: 'transparent', border: '1px solid var(--gold-border)', color: 'rgba(255,255,255,0.75)', gap: '0.5rem' }}>
@@ -1987,15 +1985,12 @@ export default function App() {
           <ArrowUpRight size={14} />
         </a>
       </div>
-
       {/* Scroll progress */}
       <div id="scroll-progress" ref={progressRef} />
-
       {/* Loader */}
       <div id="pdr-loader" className={loaded ? 'hidden' : ''}>
         <img src="/logo-white.png" alt="WA Building Design" className="loader-logo" />
       </div>
-
       {/* Navigation */}
       <nav id="pdr-nav" className={scrolled ? 'scrolled' : ''}>
         <div className="nav-wordmark">
@@ -2019,14 +2014,12 @@ export default function App() {
           {mobileOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
       </nav>
-
       {/* Mobile menu */}
       <div id="mobile-menu" className={mobileOpen ? 'open' : ''}>
         {navLinks.map(l => (
           <a key={l.id} href={l.href} className="mobile-link" onClick={() => setMobileOpen(false)}>{l.label}</a>
         ))}
       </div>
-
       {/* ── HERO ── */}
       <section id="hero">
         <img
@@ -2080,8 +2073,6 @@ export default function App() {
           <div className="hero-scroll-line" />
         </div>
       </section>
-
-
       {/* ── CREDENTIALS STRIP ── */}
       <div id="credentials-strip">
         <div className="credentials-inner">
@@ -2105,7 +2096,6 @@ export default function App() {
           </div>
         </div>
       </div>
-
       {/* ── STATS BAR ── */}
       <div id="stats-bar">
         <div className="container">
@@ -2134,16 +2124,14 @@ export default function App() {
           </div>
         </div>
       </div>
-
       {/* ── SERVICES ── */}
       <section id="services">
         <div className="section-grid-bg" />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ marginBottom: '4rem' }} className="reveal">
             <span className="section-eyebrow">What We Do</span>
-            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, maxWidth: '500px' }}>
-              Comprehensive Residential Drafting
-            </h2>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, maxWidth: '500px' }}>Comprehensive Residential 
+            Design & Drafting</h2>
           </div>
           <div className="service-grid">
             {SERVICES.map((s, i) => (
@@ -2170,7 +2158,6 @@ export default function App() {
           </div>
         </div>
       </section>
-
       {/* ── ABOUT ── */}
       <section id="about">
         <div className="container">
@@ -2222,7 +2209,6 @@ export default function App() {
           </div>
         </div>
       </section>
-
       {/* ── TESTIMONIALS ── */}
       <section id="testimonials">
         <div className="container">
@@ -2253,7 +2239,6 @@ export default function App() {
           </div>
         </div>
       </section>
-
       {/* ── PROJECTS ── */}
       <section id="work">
         <div className="container">
@@ -2273,7 +2258,6 @@ export default function App() {
           </div>
         </div>
       </section>
-
       {/* ── CTA BAND ── */}
       <section id="cta-band" className="cta-band reveal">
         <div className="cta-band-inner">
@@ -2296,7 +2280,6 @@ export default function App() {
         </div>
         <div className="cta-band-rule" />
       </section>
-
       {/* ── PROCESS ── */}
       <section id="process">
         <div className="section-grid-bg" />
@@ -2310,7 +2293,6 @@ export default function App() {
           <ProcessTimeline />
         </div>
       </section>
-
       {/* ── CONTACT ── */}
       <section id="contact">
         <div className="container">
@@ -2423,7 +2405,6 @@ export default function App() {
           </div>
         </div>
       </section>
-
       {/* ── SERVICE AREAS ── */}
       <section id="suburbs">
         <div className="container">
@@ -2454,7 +2435,6 @@ export default function App() {
           </div>
         </div>
       </section>
-
       {/* ── FOOTER ── */}
       <footer id="footer">
         <div className="container">
@@ -2536,7 +2516,6 @@ export default function App() {
           </div>
         </div>
       </footer>
-
       {/* ── LIGHTBOX ── */}
       {lightbox && (
         <div className="lightbox-overlay" onClick={() => setLightbox(null)}>
