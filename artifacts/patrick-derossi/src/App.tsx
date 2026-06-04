@@ -1195,6 +1195,7 @@ const CSS = `
   .sticky-cta-btn {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.75rem;
     background: var(--gold);
     color: #1c1812;
@@ -1211,6 +1212,24 @@ const CSS = `
     background: #b89440;
     transform: translateY(-2px);
     box-shadow: 0 12px 40px rgba(201,168,76,0.5);
+  }
+  @media (max-width: 768px) {
+    #sticky-cta {
+      right: 0; left: 0; bottom: 0;
+      flex-direction: row;
+      gap: 0;
+      border-top: 1px solid rgba(201,168,76,0.25);
+      box-shadow: 0 -4px 24px rgba(26,27,30,0.12);
+    }
+    .sticky-cta-btn {
+      flex: 1;
+      padding: 1.1rem 1rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .sticky-cta-btn:hover { transform: none; }
   }
   .sticky-cta-pulse {
     width: 8px; height: 8px;
@@ -2191,8 +2210,8 @@ export default function App() {
       <div id="noise" />
       {/* ── STICKY CTA ── */}
       <div id="sticky-cta" className={showSticky ? 'visible' : ''}>
-        <a href="tel:+61423231515" className="sticky-cta-btn" style={{ background: 'transparent', border: '1px solid rgba(26,27,30,0.2)', color: 'rgba(28,23,14,0.65)', gap: '0.5rem' }}>
-          <Phone size={13} style={{ color: 'rgba(26,27,30,0.5)' }} />
+        <a href="tel:+61423231515" className="sticky-cta-btn" style={{ background: '#1a1b1e', color: '#fff', gap: '0.5rem' }}>
+          <Phone size={13} style={{ color: 'var(--gold)' }} />
           0423 231 515
         </a>
         <a href="#contact" className="sticky-cta-btn">
