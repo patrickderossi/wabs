@@ -339,7 +339,7 @@ const CSS = `
     width: 110%;
     height: 110%;
     object-fit: cover;
-    object-position: 65% center;
+    object-position: 75% center;
     will-change: transform;
     display: block;
     filter: contrast(0.95) brightness(0.9);
