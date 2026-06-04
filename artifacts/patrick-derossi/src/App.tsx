@@ -1446,7 +1446,7 @@ const CSS = `
     #pdr-nav { padding: 0.9rem 1.25rem; justify-content: center; }
     #pdr-nav.scrolled { padding: 0.7rem 1.25rem; }
     .nav-wordmark { flex: unset; text-align: center; }
-    .nav-wordmark img { height: 200px !important; }
+    .nav-wordmark img { height: 400px !important; }
     .nav-mobile-btn { position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); }
 
     /* Container */
