@@ -1810,7 +1810,7 @@ export default function App() {
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
-          to_email: 'info@patrickderossi.com.au',
+          to_email: 'patrick@wabd.com.au',
           from_name: formData.name,
           from_email: formData.email,
           phone: formData.phone || 'Not provided',
@@ -2177,8 +2177,8 @@ export default function App() {
                 <a href="tel:+61423231515" className="about-contact-link">
                   <Phone size={16} /><span>+61 423 231 515</span>
                 </a>
-                <a href="mailto:info@patrickderossi.com.au" className="about-contact-link">
-                  <Mail size={16} /><span>info@patrickderossi.com.au</span>
+                <a href="mailto:patrick@wabd.com.au" className="about-contact-link">
+                  <Mail size={16} /><span>patrick@wabd.com.au</span>
                 </a>
                 <span className="about-contact-link" style={{ cursor: 'default' }}>
                   <MapPin size={16} style={{ color: 'var(--gold)' }} /><span>2/35 Westchester Road, Malaga WA 6090</span>
@@ -2314,7 +2314,7 @@ export default function App() {
                 <div>
                   <div className="contact-detail-label">Email</div>
                   <div className="contact-detail-value" style={{ fontSize: '0.95rem' }}>
-                    <a href="mailto:info@patrickderossi.com.au">info@patrickderossi.com.au</a>
+                    <a href="mailto:patrick@wabd.com.au">patrick@wabd.com.au</a>
                   </div>
                 </div>
               </div>
@@ -2483,7 +2483,7 @@ export default function App() {
                 <div>
                   <div className="footer-contact-label">Email</div>
                   <div className="footer-contact-value" style={{ fontSize: '0.8rem' }}>
-                    <a href="mailto:info@patrickderossi.com.au">info@patrickderossi.com.au</a>
+                    <a href="mailto:patrick@wabd.com.au">patrick@wabd.com.au</a>
                   </div>
                 </div>
               </div>

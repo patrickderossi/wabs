@@ -319,7 +319,7 @@ export default function ServicePage({ params }: ServicePageProps) {
         '@type': 'LocalBusiness',
         name: 'WA Building Design',
         telephone: '+61423231515',
-        email: 'info@patrickderossi.com.au',
+        email: 'patrick@wabd.com.au',
         url: BASE,
         address: {
           '@type': 'PostalAddress',
@@ -388,7 +388,7 @@ export default function ServicePage({ params }: ServicePageProps) {
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
-          to_email: 'info@patrickderossi.com.au',
+          to_email: 'patrick@wabd.com.au',
           from_name: formData.name,
           from_email: formData.email,
           phone: formData.phone || 'Not provided',
