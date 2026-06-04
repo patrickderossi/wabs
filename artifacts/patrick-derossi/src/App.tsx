@@ -1444,7 +1444,7 @@ const CSS = `
     #pdr-nav { padding: 0.9rem 1.25rem; justify-content: center; }
     #pdr-nav.scrolled { padding: 0.7rem 1.25rem; }
     .nav-wordmark { flex: unset; text-align: center; }
-    .nav-wordmark img { height: 140px !important; }
+    .nav-wordmark img { height: 200px !important; }
     .nav-mobile-btn { position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); }
 
     /* Container */
@@ -1559,10 +1559,11 @@ const CSS = `
     .testi-columns-wrap { max-height: 560px; }
 
     /* Process — stack vertically on mobile */
-    .process-tl-row { flex-direction: column; gap: 0.75rem; }
-    .process-tl-sticky { position: relative; top: unset; width: 100%; flex-direction: row; align-items: center; gap: 0.75rem; }
-    .process-tl-dot { position: relative; left: unset; flex-shrink: 0; }
-    .process-tl-content { padding-left: 1rem; }
+    .process-tl-row { flex-direction: column; gap: 1rem; padding-top: 2.5rem; }
+    .process-tl-sticky { display: none; }
+    .process-tl-content { padding-left: 0; }
+    .process-tl-num-mob { font-size: 1.25rem; color: var(--gold); opacity: 0.8; margin-bottom: 0.5rem; }
+    .process-tl-line-wrap { display: none; }
   }
 `;
 
