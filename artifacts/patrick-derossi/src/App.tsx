@@ -1993,15 +1993,15 @@ export default function App() {
 
       {/* Loader */}
       <div id="pdr-loader" className={loaded ? 'hidden' : ''}>
-        <img src="/logo.webp" alt="Patrick De Rossi Design & Drafting" className="loader-logo" />
+        <img src="/logo-white.png" alt="WA Building Design" className="loader-logo" />
       </div>
 
       {/* Navigation */}
       <nav id="pdr-nav" className={scrolled ? 'scrolled' : ''}>
         <div className="nav-wordmark">
           <img
-            src="/logo.webp"
-            alt="Patrick De Rossi Design & Drafting"
+            src="/logo-white.png"
+            alt="WA Building Design"
             style={{ height: '81px', width: 'auto', display: 'block' }}
           />
         </div>
@@ -2181,7 +2181,7 @@ export default function App() {
                 "Fusing creativity with technical precision to bring over 500 clients' projects to life — on time, on budget, and beyond expectations."
               </blockquote>
               <p className="about-body">
-                With 17+ years in the Western Australian building industry, Patrick De Rossi has become a trusted name in residential design and drafting. Based in Malaga, the practice specialises exclusively in residential projects — from custom homes and extensions to granny flats, multi-unit developments, and everything in between.
+                With 17+ years in the Western Australian building industry, Patrick De Rossi has become a trusted name in residential design. Based in Malaga, WA Building Design specialises exclusively in residential projects — from custom homes and extensions to granny flats, multi-unit developments, and everything in between.
               </p>
               <p className="about-body" style={{ marginTop: '-1rem' }}>
                 Patrick holds registration as a Building Designer and Registered Builder, bringing hands-on expertise and deep local knowledge of Perth's R-Codes, local authority requirements, and council approval processes to every project.
@@ -2460,7 +2460,7 @@ export default function App() {
         <div className="container">
           <div className="footer-grid">
             <div>
-              <img src="/logo.webp" alt="Patrick De Rossi Design & Drafting" style={{ height: '52px', width: 'auto', display: 'block', marginBottom: '1.25rem' }} />
+              <img src="/logo-white.png" alt="WA Building Design" style={{ height: '52px', width: 'auto', display: 'block', marginBottom: '1.25rem' }} />
               <p className="footer-brand-tag">
                 Perth's trusted residential design and drafting practice. 17+ years, 500+ happy clients, and counting.
               </p>
@@ -2525,7 +2525,7 @@ export default function App() {
           </div>
           <div className="footer-bottom">
             <div className="footer-copy">
-              © {new Date().getFullYear()} Patrick De Rossi Design & Drafting. All rights reserved. — ABN registered, WA
+              © {new Date().getFullYear()} WA Building Design. All rights reserved. — ABN registered, WA
             </div>
             <button
               className="footer-back-top"

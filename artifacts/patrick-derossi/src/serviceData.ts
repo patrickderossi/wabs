@@ -23,7 +23,7 @@ export const SERVICES_DATA: ServiceData[] = [
     cardImg: 'https://cdn.builder.io/api/v1/image/assets%2F0df748b9b86d4bc5af1be6fda4f6f0d0%2F6049763deb68490486b31b8246cd37d6?format=webp&width=700',
     overview: 'Full home design — from concept to council — for new builds across the Perth metropolitan area.',
     paragraphs: [
-      'Building a new home is one of the most significant decisions you\'ll ever make. Getting the design right from the start saves money, time, and frustration. At Patrick De Rossi Design & Drafting, we work with you from the very first conversation through to a complete, council-ready drawing package.',
+      'Building a new home is one of the most significant decisions you\'ll ever make. Getting the design right from the start saves money, time, and frustration. At WA Building Design, we work with you from the very first conversation through to a complete, council-ready drawing package.',
       'Every residential design begins with understanding how you live. Your block, your lifestyle, your budget, and your vision — these four things drive every decision we make. We listen first, design second.',
       'With 17+ years designing homes across Perth\'s diverse suburbs, we have the local R-Code knowledge to make sure your design not only looks exceptional but meets every requirement first time. No back-and-forth with council. No costly redesigns. Just a smooth, efficient path from concept to permit.',
     ],

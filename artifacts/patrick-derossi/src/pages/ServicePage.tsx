@@ -271,7 +271,7 @@ export default function ServicePage({ params }: ServicePageProps) {
 
     const BASE = 'https://patrickderossi.com.au';
     const canonical = `${BASE}/services/${service.slug}`;
-    const title = `${service.title} Perth WA | Patrick De Rossi Design & Drafting`;
+    const title = `${service.title} Perth WA | WA Building Design`;
     const desc = `${service.overview} Expert ${service.title.toLowerCase()} services across the Perth metropolitan area. Call +61 423 231 515 for a free consultation.`;
 
     document.title = title;
@@ -317,7 +317,7 @@ export default function ServicePage({ params }: ServicePageProps) {
       url: canonical,
       provider: {
         '@type': 'LocalBusiness',
-        name: 'Patrick De Rossi Design & Drafting',
+        name: 'WA Building Design',
         telephone: '+61423231515',
         email: 'info@patrickderossi.com.au',
         url: BASE,
@@ -354,7 +354,7 @@ export default function ServicePage({ params }: ServicePageProps) {
     });
 
     return () => {
-      document.title = 'Patrick De Rossi Design & Drafting | Residential Design Malaga, Perth WA';
+      document.title = 'WA Building Design | Residential Design Malaga, Perth WA';
       if (descEl) descEl.content = origDesc;
       if (ogTitle) ogTitle.content = origOgTitle;
       if (ogDesc) ogDesc.content = origOgDesc;
@@ -418,7 +418,7 @@ export default function ServicePage({ params }: ServicePageProps) {
           <ArrowLeft size={13} /> All Services
         </a>
         <a href="/" className="sp-nav-logo">
-          <img src="/logo.webp" alt="Patrick De Rossi Design & Drafting" />
+          <img src="/logo-white.png" alt="WA Building Design" />
         </a>
         <a href="/#contact" className="sp-nav-cta">
           <Phone size={12} /> Get a Quote
@@ -589,7 +589,7 @@ export default function ServicePage({ params }: ServicePageProps) {
       <footer className="sp-footer">
         <div className="sp-container">
           <div className="sp-footer-inner">
-            <span className="sp-footer-brand">© {new Date().getFullYear()} Patrick De Rossi Design &amp; Drafting — South Perth, WA</span>
+            <span className="sp-footer-brand">© {new Date().getFullYear()} WA Building Design — South Perth, WA</span>
             <nav className="sp-footer-links">
               <a href="/" className="sp-footer-link">Home</a>
               <a href="/#services" className="sp-footer-link">Services</a>
