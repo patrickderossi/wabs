@@ -1395,6 +1395,128 @@ const CSS = `
     font-family: var(--font);
   }
   .footer-back-top:hover { color: var(--gold); }
+
+  /* ─── MOBILE IMPROVEMENTS ─────────────────────────────────────── */
+  @media (max-width: 768px) {
+    /* Nav */
+    #pdr-nav { padding: 0.9rem 1.25rem; }
+    #pdr-nav.scrolled { padding: 0.7rem 1.25rem; }
+    .nav-wordmark img { height: 72px !important; }
+
+    /* Container */
+    .container { padding: 0 1.25rem; }
+
+    /* Section vertical spacing */
+    #services, #work, #why, #testimonials, #about, #contact, #process, #suburbs { padding: 4.5rem 0; }
+    #stats-bar { padding: 1.75rem 0; }
+    #footer { padding: 3.5rem 0 2rem; }
+
+    /* Hero */
+    #hero { padding-bottom: 5vh; min-height: 100svh; }
+    .hero-headline { font-size: clamp(2.5rem, 10vw, 4.5rem); }
+    .hero-sub { font-size: 0.7rem; letter-spacing: 0.2em; }
+    .hero-scroll { display: none; }
+    .hero-badge { font-size: 0.6rem; }
+
+    /* Credentials strip — horizontal scroll, no wrap */
+    .credentials-inner {
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 0 1.25rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .credentials-inner::-webkit-scrollbar { display: none; }
+    .cred-item { white-space: nowrap; flex-shrink: 0; padding: 0 1rem; font-size: 0.65rem; }
+
+    /* Stats */
+    .stat-cell { padding: 1.5rem 1rem; }
+    .stat-num { font-size: clamp(2rem, 8vw, 3rem); }
+
+    /* Services */
+    .service-grid { gap: 1rem; }
+    .service-body { padding: 1.25rem 1.25rem 1.75rem; }
+
+    /* Gallery */
+    .gallery-columns { column-gap: 4px; }
+    .gallery-item { margin-bottom: 4px; }
+
+    /* Why — review badge */
+    .review-badge { padding: 1rem 1.25rem; width: 100%; box-sizing: border-box; }
+
+    /* CTA band */
+    .cta-band-inner { padding: 3rem 1.25rem; }
+    .cta-band-actions { width: 100%; }
+    .cta-band-btn { width: 100%; justify-content: center; }
+
+    /* Testimonials */
+    .testi-columns-wrap { margin-top: 2.5rem; }
+
+    /* About */
+    .about-img-wrap > div[style*="top: -20px"] { display: none; }
+
+    /* Contact */
+    .contact-headline { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+    .contact-detail-value { font-size: 0.95rem; }
+
+    /* Form */
+    .form-submit { width: 100%; }
+
+    /* Sticky CTA */
+    #sticky-cta { right: 1rem; }
+    .sticky-cta-btn { padding: 0.8rem 1.2rem; font-size: 0.68rem; letter-spacing: 0.12em; }
+
+    /* Footer */
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .footer-grid { gap: 2rem; }
+
+    /* Mobile menu */
+    .mobile-link { font-size: 2rem; }
+
+    /* Sections — section-eyebrow spacing */
+    .section-eyebrow { margin-bottom: 1rem; }
+  }
+
+  @media (max-width: 480px) {
+    /* Nav logo */
+    .nav-wordmark img { height: 60px !important; }
+
+    /* Tighter sections */
+    #services, #work, #why, #testimonials, #about, #contact, #process, #suburbs { padding: 3.5rem 0; }
+
+    /* Hero */
+    .hero-headline { font-size: clamp(2.2rem, 11vw, 3.5rem); }
+    .hero-btn { padding: 1rem 1.75rem; font-size: 0.7rem; }
+
+    /* Stats */
+    .stat-cell { padding: 1.1rem 0.75rem; }
+    .stat-num { font-size: 1.9rem; }
+    .stat-label { font-size: 0.58rem; }
+
+    /* Service card image */
+    .service-img-wrap { height: 160px; }
+
+    /* About badge */
+    .about-img-badge { padding: 1rem 1.25rem; }
+    .about-img-badge-name { font-size: 0.88rem; }
+    .about-img-badge-title { font-size: 0.65rem; }
+
+    /* Review badge */
+    .review-score { font-size: 2rem; }
+
+    /* Contact details */
+    .contact-headline { font-size: clamp(1.6rem, 9vw, 2.4rem); }
+
+    /* Footer bottom */
+    .footer-copy { font-size: 0.6rem; }
+
+    /* Testimonials column max-height */
+    .testi-columns-wrap { max-height: 560px; }
+
+    /* Process */
+    .process-tl-content { padding-left: 4rem; }
+  }
 `;
 
 /* ─── COUNTER HOOK ───────────────────────────────────────────────── */
