@@ -83,18 +83,61 @@ const CSS = `
     to   { opacity: 1; transform: scale(1); }
   }
 
+  /* ── Top info bar ── */
+  #nav-top-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 501;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.6);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    pointer-events: auto;
+  }
+  #nav-top-bar.scrolled {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .nav-top-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+  }
+  .nav-top-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav-top-item:hover { color: rgba(255,255,255,0.9); }
+  .nav-top-sep {
+    width: 1px; height: 12px;
+    background: rgba(255,255,255,0.18);
+    flex-shrink: 0;
+  }
+  @media (max-width: 768px) { #nav-top-bar { display: none; } }
+
   /* ── Nav ── */
   #pdr-nav {
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 38px; left: 0; right: 0;
     z-index: 500;
     padding: 1.5rem 3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    transition: background 0.4s ease, padding 0.4s ease, backdrop-filter 0.4s ease;
+    transition: background 0.4s ease, padding 0.4s ease, backdrop-filter 0.4s ease, top 0.4s ease;
   }
   #pdr-nav.scrolled {
+    top: 0;
     background: rgba(244,245,248,0.96);
     backdrop-filter: blur(12px);
     padding: 1rem 3rem;
@@ -2180,6 +2223,24 @@ export default function App() {
       {/* Loader */}
       <div id="pdr-loader" className={loaded ? 'hidden' : ''}>
         <img src="/logo-dark.png" alt="WA Building Design" className="loader-logo" />
+      </div>
+      {/* ── TOP INFO BAR ── */}
+      <div id="nav-top-bar" className={scrolled ? 'scrolled' : ''}>
+        <div className="nav-top-inner">
+          <a href="tel:+61423231515" className="nav-top-item">
+            <Phone size={11} />
+            0423 231 515
+          </a>
+          <div className="nav-top-sep" />
+          <span className="nav-top-item">
+            <MapPin size={11} />
+            Malaga WA 6090
+          </span>
+          <div className="nav-top-sep" />
+          <span className="nav-top-item">
+            ACN 698 749 692
+          </span>
+        </div>
       </div>
       {/* Navigation */}
       <nav id="pdr-nav" className={scrolled ? 'scrolled' : ''}>
