@@ -2774,6 +2774,41 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── PROCESS ── */}
+      <section id="process">
+        <div className="section-grid-bg" />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{ marginBottom: '5rem' }} className="reveal">
+            <span className="section-eyebrow">How It Works</span>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+              <SplitText text="Our Proven Process" />
+            </h2>
+          </div>
+          <ProcessTimeline />
+          <div className="reveal" style={{ marginTop: '5rem', padding: '3.5rem', background: 'var(--dark3)', border: '1px solid var(--gold-border)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1.25rem' }}>
+            <span style={{ fontSize: '0.65rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: 'rgba(26,27,30,0.5)' }}>Ready to Begin?</span>
+            <h3 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, margin: 0 }}>
+              Step 1 starts with a free, no-obligation quote.
+            </h3>
+            <p style={{ fontSize: '0.88rem', color: 'var(--gray)', maxWidth: '480px', lineHeight: 1.8, margin: 0 }}>
+              Every project begins with total cost clarity — before a single line is drawn.
+            </p>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '0.5rem' }}>
+              <a href="#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--gold)', color: '#0d0d0d', padding: '1rem 2rem', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', textDecoration: 'none', transition: 'opacity 0.2s' }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
+                onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
+                Get a Free Quote <ArrowRight size={14} />
+              </a>
+              <a href="tel:+61423231515" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', border: '1px solid var(--gold-border)', color: 'var(--gold)', padding: '1rem 2rem', fontSize: '0.75rem', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', textDecoration: 'none', transition: 'background 0.2s' }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(201,168,76,0.08)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
+                <Phone size={14} /> 0423 231 515
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── PROJECTS ── */}
       <section id="work">
         <div className="container">
@@ -2814,40 +2849,6 @@ export default function App() {
           </div>
         </div>
         <div className="cta-band-rule" />
-      </section>
-      {/* ── PROCESS ── */}
-      <section id="process">
-        <div className="section-grid-bg" />
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ marginBottom: '5rem' }} className="reveal">
-            <span className="section-eyebrow">How It Works</span>
-            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-              <SplitText text="Our Proven Process" />
-            </h2>
-          </div>
-          <ProcessTimeline />
-          <div className="reveal" style={{ marginTop: '5rem', padding: '3.5rem', background: 'var(--dark3)', border: '1px solid var(--gold-border)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1.25rem' }}>
-            <span style={{ fontSize: '0.65rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: 'rgba(26,27,30,0.5)' }}>Ready to Begin?</span>
-            <h3 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, margin: 0 }}>
-              Step 1 starts with a free, no-obligation quote.
-            </h3>
-            <p style={{ fontSize: '0.88rem', color: 'var(--gray)', maxWidth: '480px', lineHeight: 1.8, margin: 0 }}>
-              Every project begins with total cost clarity — before a single line is drawn.
-            </p>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '0.5rem' }}>
-              <a href="#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--gold)', color: '#0d0d0d', padding: '1rem 2rem', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', textDecoration: 'none', transition: 'opacity 0.2s' }}
-                onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
-                onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
-                Get a Free Quote <ArrowRight size={14} />
-              </a>
-              <a href="tel:+61423231515" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', border: '1px solid var(--gold-border)', color: 'var(--gold)', padding: '1rem 2rem', fontSize: '0.75rem', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', textDecoration: 'none', transition: 'background 0.2s' }}
-                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(201,168,76,0.08)')}
-                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
-                <Phone size={14} /> 0423 231 515
-              </a>
-            </div>
-          </div>
-        </div>
       </section>
       {/* ── CONTACT ── */}
       <section id="contact">
