@@ -2214,33 +2214,6 @@ export default function App() {
           <div className="hero-scroll-line" />
         </div>
       </section>
-      {/* ── CREDENTIALS STRIP ── */}
-      <div id="credentials-strip">
-        <div className="credentials-inner">
-          <div className="cred-item">
-            <Award size={14} />
-            BSA Registered Building Designer
-          </div>
-          <div className="cred-item">
-            <Shield size={14} />
-            Registered Builder — WA
-          </div>
-          <div className="cred-item">
-            <CheckCircle size={14} />
-            BDAWA Member — Perth's Peak Industry Body
-          </div>
-          <div className="cred-item">
-            <MapPin size={14} />
-            Based in Malaga, Serving All of Perth
-          </div>
-          <div className="cred-item">
-            <span className="cred-live">
-              <span className="cred-live-dot" />
-              Currently Accepting New Projects
-            </span>
-          </div>
-        </div>
-      </div>
       {/* ── STATS BAR ── */}
       <div id="stats-bar">
         <div className="container">
