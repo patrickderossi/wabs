@@ -114,16 +114,17 @@ const CSS = `
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: rgba(255,255,255,0.65);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.9);
     text-decoration: none;
     transition: color 0.2s ease;
     white-space: nowrap;
-    line-height: 1.4;
+    line-height: 1.5;
+    font-weight: 400;
   }
-  a.nav-contact-row:hover { color: rgba(255,255,255,0.95); }
-  #pdr-nav.scrolled .nav-contact-row { color: rgba(26,27,30,0.45); }
+  a.nav-contact-row:hover { color: #fff; }
+  #pdr-nav.scrolled .nav-contact-row { color: rgba(26,27,30,0.7); }
   #pdr-nav.scrolled a.nav-contact-row:hover { color: #1a1b1e; }
   @media (max-width: 1024px) { .nav-contact-block { display: none; } }
   #pdr-nav.scrolled .nav-link { color: rgba(28,23,14,0.65); }
