@@ -341,7 +341,7 @@ const CSS = `
     object-fit: cover;
     will-change: transform;
     display: block;
-    filter: grayscale(100%) contrast(1.25);
+    filter: grayscale(100%) contrast(0.65);
   }
   #hero-overlay {
     position: absolute;
