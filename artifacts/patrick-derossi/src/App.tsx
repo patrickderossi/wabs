@@ -1441,9 +1441,11 @@ const CSS = `
   /* ─── MOBILE IMPROVEMENTS ─────────────────────────────────────── */
   @media (max-width: 768px) {
     /* Nav */
-    #pdr-nav { padding: 0.9rem 1.25rem; }
+    #pdr-nav { padding: 0.9rem 1.25rem; justify-content: center; }
     #pdr-nav.scrolled { padding: 0.7rem 1.25rem; }
-    .nav-wordmark img { height: 72px !important; }
+    .nav-wordmark { flex: unset; text-align: center; }
+    .nav-wordmark img { height: 140px !important; }
+    .nav-mobile-btn { position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); }
 
     /* Container */
     .container { padding: 0 1.25rem; }
@@ -1556,8 +1558,11 @@ const CSS = `
     /* Testimonials column max-height */
     .testi-columns-wrap { max-height: 560px; }
 
-    /* Process */
-    .process-tl-content { padding-left: 4rem; }
+    /* Process — stack vertically on mobile */
+    .process-tl-row { flex-direction: column; gap: 0.75rem; }
+    .process-tl-sticky { position: relative; top: unset; width: 100%; flex-direction: row; align-items: center; gap: 0.75rem; }
+    .process-tl-dot { position: relative; left: unset; flex-shrink: 0; }
+    .process-tl-content { padding-left: 1rem; }
   }
 `;
 
