@@ -2101,7 +2101,7 @@ export default function App() {
   ];
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#0d0d0d', color: '#fff', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#faf8f4', color: '#1c1812', minHeight: '100vh' }}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       {/* Noise overlay */}
       <div id="noise" />
