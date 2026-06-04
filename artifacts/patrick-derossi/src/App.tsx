@@ -2717,9 +2717,6 @@ export default function App() {
                 <p className="section-eyebrow">Investment</p>
                 <h2 className="section-title" style={{ maxWidth: '520px' }}>What Does Building Design Cost?</h2>
               </div>
-              <p style={{ fontSize: '0.88rem', color: 'var(--gray)', maxWidth: '340px', lineHeight: '1.7', textAlign: 'right' }}>
-                These figures are indicative only, based on typical projects. Every project is unique — get in touch for a tailored quote.
-              </p>
             </div>
           </motion.div>
 
@@ -2765,7 +2762,7 @@ export default function App() {
                 </ul>
                 <div className="pricing-card-price">
                   <div className="pricing-card-range">{card.range}</div>
-                  <div className="pricing-card-gst">+ GST &nbsp;·&nbsp; Indicative only</div>
+                  <div className="pricing-card-gst">+ GST</div>
                 </div>
               </motion.div>
             ))}
