@@ -191,11 +191,11 @@ const CSS = `
     letter-spacing: 0.3em;
     text-transform: uppercase;
     font-weight: 400;
-    color: rgba(201,168,76,0.7);
+    color: rgba(26,27,30,0.45);
   }
   .marquee-dot {
     width: 3px; height: 3px;
-    background: rgba(201,168,76,0.4);
+    background: rgba(26,27,30,0.25);
     border-radius: 50%;
     flex-shrink: 0;
   }
@@ -276,8 +276,8 @@ const CSS = `
     font-size: 0.65rem;
     letter-spacing: 0.4em;
     text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 400;
+    color: rgba(26,27,30,0.5);
+    font-weight: 500;
     margin-bottom: 1.5rem;
     position: relative;
     padding-left: 2.5rem;
@@ -287,9 +287,13 @@ const CSS = `
     position: absolute;
     left: 0; top: 50%;
     width: 1.8rem; height: 1px;
-    background: var(--gold);
+    background: rgba(26,27,30,0.3);
     transform: translateY(-50%);
   }
+  #hero .section-eyebrow { color: var(--gold); }
+  #hero .section-eyebrow::before { background: var(--gold); }
+  #footer .section-eyebrow { color: var(--gold); }
+  #footer .section-eyebrow::before { background: var(--gold); }
 
   /* ── Hero ── */
   #hero {
@@ -471,7 +475,7 @@ const CSS = `
     font-size: clamp(2.2rem, 4vw, 3.5rem);
     font-weight: 800;
     line-height: 1;
-    color: var(--gold);
+    color: #1a1b1e;
     letter-spacing: -0.02em;
     display: block;
     margin-bottom: 0.5rem;
@@ -561,7 +565,7 @@ const CSS = `
     top: 1rem; left: 1.25rem;
     font-size: 0.6rem;
     letter-spacing: 0.3em;
-    color: var(--gold);
+    color: rgba(255,255,255,0.75);
     font-weight: 500;
     background: rgba(13,13,13,0.7);
     padding: 0.25rem 0.6rem;
@@ -589,7 +593,7 @@ const CSS = `
     font-size: 0.65rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: #1a1b1e;
     opacity: 0;
     transform: translateX(-6px);
     transition: all 0.4s ease;
@@ -713,7 +717,7 @@ const CSS = `
   }
   .pillar:hover { padding-left: 1rem; }
   .pillar:hover::before { height: 100%; }
-  .pillar-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+  .pillar-icon { color: #1a1b1e; flex-shrink: 0; margin-top: 2px; opacity: 0.6; }
   .pillar-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; }
   .pillar-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.7; font-weight: 300; }
 
@@ -858,8 +862,8 @@ const CSS = `
     height: 0.875rem;
     width: 0.875rem;
     border-radius: 50%;
-    background: rgba(201,168,76,0.18);
-    border: 1px solid rgba(201,168,76,0.55);
+    background: rgba(26,27,30,0.1);
+    border: 1px solid rgba(26,27,30,0.3);
   }
 
   /* Big step number — desktop only */
@@ -867,7 +871,7 @@ const CSS = `
     display: none;
     font-size: clamp(2.5rem, 4vw, 3.75rem);
     font-weight: 800;
-    color: rgba(201,168,76,0.45);
+    color: rgba(26,27,30,0.15);
     padding-left: 5rem;
     line-height: 1;
     letter-spacing: -0.04em;
@@ -888,7 +892,7 @@ const CSS = `
     display: block;
     font-size: 1.5rem;
     font-weight: 800;
-    color: rgba(201,168,76,0.4);
+    color: rgba(26,27,30,0.2);
     margin-bottom: 0.75rem;
   }
   @media (min-width: 768px) { .process-tl-num-mob { display: none; } }
@@ -937,7 +941,7 @@ const CSS = `
   .process-tl-line-bg {
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.2) 10%, rgba(201,168,76,0.2) 90%, transparent);
+    background: linear-gradient(to bottom, transparent, rgba(26,27,30,0.12) 10%, rgba(26,27,30,0.12) 90%, transparent);
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
   }
@@ -968,7 +972,7 @@ const CSS = `
     transition: color 0.3s ease;
   }
   .about-contact-link:hover { color: var(--gold); }
-  .about-contact-link svg { color: var(--gold); flex-shrink: 0; }
+  .about-contact-link svg { color: #1a1b1e; opacity: 0.45; flex-shrink: 0; }
 
   .about-img-wrap { position: relative; }
   .about-img-frame {
@@ -1005,7 +1009,7 @@ const CSS = `
   .contact-sub { font-size: 0.9rem; color: var(--gray); font-weight: 300; margin-bottom: 3rem; }
 
   .contact-detail { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem; }
-  .contact-detail-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+  .contact-detail-icon { color: #1a1b1e; opacity: 0.5; flex-shrink: 0; margin-top: 2px; }
   .contact-detail-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.3rem; }
   .contact-detail-value { font-size: 1.1rem; font-weight: 300; }
   .contact-detail-value a { color: #1c1812; text-decoration: none; transition: color 0.3s ease; }
@@ -1249,8 +1253,8 @@ const CSS = `
   .testi-quote-mark {
     font-size: 3rem;
     line-height: 0.9;
-    color: var(--gold);
-    opacity: 0.2;
+    color: #1a1b1e;
+    opacity: 0.12;
     font-family: Georgia, serif;
     margin-bottom: 0.75rem;
     display: block;
@@ -1279,7 +1283,7 @@ const CSS = `
     flex-shrink: 0;
   }
   .testi-name { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.15rem; }
-  .testi-meta { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); opacity: 0.8; }
+  .testi-meta { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(26,27,30,0.45); }
 
   /* ── Suburbs ── */
   #suburbs { padding: 8rem 0; background: var(--dark); }
@@ -1320,13 +1324,13 @@ const CSS = `
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    border: 1px solid var(--gold-border);
+    border: 1px solid rgba(26,27,30,0.15);
     padding: 0.8rem 1.5rem;
     margin-top: 1.5rem;
     font-size: 0.72rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: rgba(26,27,30,0.55);
   }
 
   /* ── Footer 3-col ── */
@@ -1898,7 +1902,7 @@ function ProcessTimeline() {
               left: 0,
               width: '2px',
               borderRadius: '9999px',
-              background: 'linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.5), transparent)',
+              background: 'linear-gradient(to bottom, rgba(26,27,30,0.4), rgba(26,27,30,0.15), transparent)',
               height: heightTransform,
               opacity: opacityTransform,
             }}
@@ -2107,8 +2111,8 @@ export default function App() {
       <div id="noise" />
       {/* ── STICKY CTA ── */}
       <div id="sticky-cta" className={showSticky ? 'visible' : ''}>
-        <a href="tel:+61423231515" className="sticky-cta-btn" style={{ background: 'transparent', border: '1px solid var(--gold-border)', color: 'rgba(28,23,14,0.65)', gap: '0.5rem' }}>
-          <Phone size={13} style={{ color: 'var(--gold)' }} />
+        <a href="tel:+61423231515" className="sticky-cta-btn" style={{ background: 'transparent', border: '1px solid rgba(26,27,30,0.2)', color: 'rgba(28,23,14,0.65)', gap: '0.5rem' }}>
+          <Phone size={13} style={{ color: 'rgba(26,27,30,0.5)' }} />
           0423 231 515
         </a>
         <a href="#contact" className="sticky-cta-btn">
@@ -2307,7 +2311,7 @@ export default function App() {
                   <Mail size={16} /><span>patrick@wabd.com.au</span>
                 </a>
                 <span className="about-contact-link" style={{ cursor: 'default' }}>
-                  <MapPin size={16} style={{ color: 'var(--gold)' }} /><span>2/35 Westchester Road, Malaga WA 6090</span>
+                  <MapPin size={16} style={{ color: 'rgba(26,27,30,0.45)' }} /><span>2/35 Westchester Road, Malaga WA 6090</span>
                 </span>
               </div>
             </div>
@@ -2353,7 +2357,7 @@ export default function App() {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
               {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="#c9a84c" color="#c9a84c" />)}
-              <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--gold)', letterSpacing: '-0.02em' }}>5.0</span>
+              <span style={{ fontSize: '1.4rem', fontWeight: 800, color: '#1a1b1e', letterSpacing: '-0.02em' }}>5.0</span>
               <span style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gray)' }}>Google Rating</span>
             </div>
           </motion.div>
@@ -2368,7 +2372,7 @@ export default function App() {
               href="https://www.google.com/search?q=WA+Building+Design+Patrick+De+Rossi+Perth&hl=en#lrd=0x0:0x0,1"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--gold)', border: '1px solid var(--gold-border)', padding: '0.7rem 1.5rem', textDecoration: 'none', transition: 'background 0.3s ease', background: 'transparent' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#1a1b1e', border: '1px solid rgba(26,27,30,0.2)', padding: '0.7rem 1.5rem', textDecoration: 'none', transition: 'background 0.3s ease', background: 'transparent' }}
               onMouseEnter={e => (e.currentTarget.style.background = 'rgba(201,168,76,0.08)')}
               onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
             >
@@ -2402,7 +2406,7 @@ export default function App() {
       <section id="cta-band" className="cta-band reveal">
         <div className="cta-band-inner">
           <div className="cta-band-text">
-            <span className="section-eyebrow" style={{ color: 'rgba(201,168,76,0.7)' }}>Start Today</span>
+            <span className="section-eyebrow">Start Today</span>
             <h2 className="cta-band-heading">Have a project in mind?<br />Let's bring it to life.</h2>
             <p className="cta-band-sub">
               Free initial consultation. No obligation. Perth-wide service.
@@ -2432,7 +2436,7 @@ export default function App() {
           </div>
           <ProcessTimeline />
           <div className="reveal" style={{ marginTop: '5rem', padding: '3.5rem', background: 'var(--dark3)', border: '1px solid var(--gold-border)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1.25rem' }}>
-            <span style={{ fontSize: '0.65rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: 'var(--gold)' }}>Ready to Begin?</span>
+            <span style={{ fontSize: '0.65rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: 'rgba(26,27,30,0.5)' }}>Ready to Begin?</span>
             <h3 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, margin: 0 }}>
               Step 1 starts with a free, no-obligation quote.
             </h3>
@@ -2544,7 +2548,7 @@ export default function App() {
                   />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem', color: 'rgba(28,23,14,0.52)', fontSize: '0.72rem', letterSpacing: '0.05em' }}>
-                  <CheckCircle size={13} style={{ color: 'var(--gold)', opacity: 0.7, flexShrink: 0 }} />
+                  <CheckCircle size={13} style={{ color: 'rgba(26,27,30,0.45)', flexShrink: 0 }} />
                   We respond to all enquiries within 1 business day.
                 </div>
                 {formSent && (
