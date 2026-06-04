@@ -23,31 +23,32 @@ const PAGE_CSS = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --gold: #c9a84c;
-    --gold-dim: rgba(201,168,76,0.12);
-    --gold-border: rgba(201,168,76,0.3);
-    --dark: #0d0d0d;
-    --dark2: #111111;
-    --dark3: #141414;
-    --dark4: #1a1a1a;
-    --gray: rgba(255,255,255,0.75);
+    --gold-dim: rgba(201,168,76,0.1);
+    --gold-border: rgba(201,168,76,0.32);
+    --dark: #faf8f4;
+    --dark2: #f0ece3;
+    --dark3: #ffffff;
+    --dark4: #f5f1ea;
+    --gray: rgba(30,24,14,0.58);
     --font: 'DM Sans', sans-serif;
   }
   html { scroll-behavior: smooth; }
-  body { background: var(--dark); color: #fff; font-family: var(--font); overflow-x: hidden; }
+  body { background: var(--dark); color: #1c1812; font-family: var(--font); overflow-x: hidden; }
 
   .sp-nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 500;
     padding: 1.2rem 3rem;
     display: flex; align-items: center; justify-content: space-between;
-    background: rgba(13,13,13,0.95);
+    background: rgba(250,248,244,0.96);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--gold-border);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    box-shadow: 0 2px 24px rgba(28,23,14,0.06);
   }
   @media (max-width: 768px) { .sp-nav { padding: 1rem 1.5rem; } }
   .sp-nav-back {
     display: inline-flex; align-items: center; gap: 0.6rem;
     font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: rgba(255,255,255,0.6); text-decoration: none;
+    color: rgba(28,23,14,0.6); text-decoration: none;
     transition: color 0.3s ease;
   }
   .sp-nav-back:hover { color: var(--gold); }
@@ -59,7 +60,7 @@ const PAGE_CSS = `
     border: 1px solid var(--gold-border); padding: 0.55rem 1.2rem;
     transition: all 0.3s ease;
   }
-  .sp-nav-cta:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+  .sp-nav-cta:hover { background: var(--gold); color: #1c1812; border-color: var(--gold); }
 
   /* Hero */
   .sp-hero {
@@ -94,7 +95,7 @@ const PAGE_CSS = `
     font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 800;
     line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1.5rem;
   }
-  .sp-tagline { font-size: clamp(0.85rem, 1.5vw, 1.05rem); color: rgba(255,255,255,0.65); max-width: 560px; line-height: 1.65; font-weight: 300; }
+  .sp-tagline { font-size: clamp(0.85rem, 1.5vw, 1.05rem); color: rgba(255,255,255,0.72); max-width: 560px; line-height: 1.65; font-weight: 300; }
 
   /* Container */
   .sp-container { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
@@ -117,7 +118,7 @@ const PAGE_CSS = `
   .sp-para { font-size: 0.92rem; color: var(--gray); line-height: 1.9; font-weight: 400; margin-bottom: 1.25rem; }
 
   .sp-inclusions-box {
-    background: var(--dark3); border: 1px solid rgba(255,255,255,0.07);
+    background: var(--dark3); border: 1px solid rgba(28,23,14,0.1);
     padding: 2.5rem; position: sticky; top: 100px;
   }
   .sp-inclusions-title {
@@ -127,14 +128,14 @@ const PAGE_CSS = `
   .sp-inclusions-title::before { content: ''; display: inline-block; width: 1.2rem; height: 1px; background: var(--gold); }
   .sp-inclusion-item {
     display: flex; align-items: flex-start; gap: 0.85rem;
-    padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-size: 0.84rem; color: rgba(255,255,255,0.85); font-weight: 400; line-height: 1.4;
+    padding: 0.75rem 0; border-bottom: 1px solid rgba(28,23,14,0.08);
+    font-size: 0.84rem; color: rgba(28,23,14,0.82); font-weight: 400; line-height: 1.4;
   }
   .sp-inclusion-item:last-child { border-bottom: none; }
   .sp-inclusion-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; opacity: 0.8; }
   .sp-cta-inline {
     margin-top: 2rem; display: block; padding: 1.1rem 1.5rem;
-    background: var(--gold); color: var(--dark); text-decoration: none;
+    background: var(--gold); color: #1c1812; text-decoration: none;
     font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
     text-transform: uppercase; text-align: center;
     display: flex; align-items: center; justify-content: center; gap: 0.5rem;
@@ -153,7 +154,7 @@ const PAGE_CSS = `
   }
   .sp-features-inner { position: relative; z-index: 1; }
   .sp-features-head { margin-bottom: 3.5rem; }
-  .sp-feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.05); }
+  .sp-feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(28,23,14,0.08); }
   @media (max-width: 900px) { .sp-feature-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) { .sp-feature-grid { grid-template-columns: 1fr; } }
   .sp-feature-cell {
@@ -173,7 +174,7 @@ const PAGE_CSS = `
   .sp-testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
   @media (max-width: 768px) { .sp-testi-grid { grid-template-columns: 1fr; } }
   .sp-testi-card {
-    background: var(--dark3); border: 1px solid rgba(255,255,255,0.07);
+    background: var(--dark3); border: 1px solid rgba(28,23,14,0.1);
     padding: 2.25rem; position: relative;
     transition: border-color 0.4s ease;
   }
@@ -186,8 +187,8 @@ const PAGE_CSS = `
   .sp-testi-card:hover::before { height: 100%; }
   .sp-testi-quote { font-size: 3rem; line-height: 0.9; color: var(--gold); opacity: 0.18; font-family: Georgia, serif; margin-bottom: 0.75rem; }
   .sp-testi-stars { display: flex; gap: 3px; margin-bottom: 1rem; }
-  .sp-testi-text { font-size: 0.87rem; color: rgba(255,255,255,0.73); line-height: 1.8; font-weight: 300; font-style: italic; margin-bottom: 1.5rem; }
-  .sp-testi-author { display: flex; align-items: center; gap: 0.85rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.06); }
+  .sp-testi-text { font-size: 0.87rem; color: rgba(28,23,14,0.68); line-height: 1.8; font-weight: 300; font-style: italic; margin-bottom: 1.5rem; }
+  .sp-testi-author { display: flex; align-items: center; gap: 0.85rem; padding-top: 1.25rem; border-top: 1px solid rgba(28,23,14,0.1); }
   .sp-testi-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-border); flex-shrink: 0; }
   .sp-testi-name { font-size: 0.87rem; font-weight: 700; margin-bottom: 0.15rem; }
   .sp-testi-role { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); opacity: 0.8; }
@@ -195,11 +196,11 @@ const PAGE_CSS = `
   /* FAQ */
   .sp-faq { padding: 6rem 0; background: var(--dark2); }
   .sp-faq-list { margin-top: 3.5rem; max-width: 820px; }
-  .sp-faq-item { border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .sp-faq-item { border-bottom: 1px solid rgba(28,23,14,0.1); }
   .sp-faq-q {
     width: 100%; display: flex; align-items: center; justify-content: space-between;
     padding: 1.75rem 0; gap: 1rem;
-    background: none; border: none; color: #fff; font-family: var(--font);
+    background: none; border: none; color: #1c1812; font-family: var(--font);
     font-size: 0.95rem; font-weight: 600; text-align: left; cursor: pointer;
     transition: color 0.3s ease;
   }
@@ -219,7 +220,7 @@ const PAGE_CSS = `
   .sp-cta-btn {
     white-space: nowrap; font-size: 0.8rem; padding: 1rem 2rem;
     display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--gold); color: #0d0d0d; text-decoration: none;
+    background: var(--gold); color: #1c1812; text-decoration: none;
     font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
     transition: opacity 0.2s ease;
   }
@@ -228,21 +229,21 @@ const PAGE_CSS = `
   .sp-cta-call:hover { opacity: 1; }
 
   /* Footer */
-  .sp-footer { background: #050505; border-top: 1px solid var(--gold-border); padding: 2.5rem 0; }
+  .sp-footer { background: #1c1a14; border-top: 1px solid var(--gold-border); padding: 2.5rem 0; }
   .sp-footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-  .sp-footer-brand { font-size: 0.72rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.3); text-transform: uppercase; }
+  .sp-footer-brand { font-size: 0.72rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.35); text-transform: uppercase; }
   .sp-footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
-  .sp-footer-link { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.3s ease; }
+  .sp-footer-link { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.3s ease; }
   .sp-footer-link:hover { color: var(--gold); }
 
   /* Services nav strip */
-  .sp-services-strip { padding: 5rem 0; background: var(--dark3); border-top: 1px solid rgba(255,255,255,0.05); }
-  .sp-services-strip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.05); margin-top: 3rem; }
+  .sp-services-strip { padding: 5rem 0; background: var(--dark3); border-top: 1px solid rgba(28,23,14,0.08); }
+  .sp-services-strip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(28,23,14,0.08); margin-top: 3rem; }
   @media (max-width: 900px) { .sp-services-strip-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) { .sp-services-strip-grid { grid-template-columns: 1fr; } }
   .sp-other-service {
     background: var(--dark3); padding: 2rem;
-    text-decoration: none; color: #fff;
+    text-decoration: none; color: #1c1812;
     display: flex; align-items: center; justify-content: space-between;
     border-bottom: 2px solid transparent;
     transition: border-color 0.3s ease, background 0.3s ease;
@@ -368,7 +369,7 @@ export default function ServicePage({ params }: ServicePageProps) {
 
   if (!service) {
     return (
-      <div style={{ background: '#0d0d0d', color: '#fff', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: "'DM Sans', sans-serif" }}>
+      <div style={{ background: '#faf8f4', color: '#1c1812', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: "'DM Sans', sans-serif" }}>
         <p style={{ fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.7)', marginBottom: '1.5rem' }}>404 — Service Not Found</p>
         <a href="/" style={{ color: '#c9a84c', textDecoration: 'none', fontSize: '0.8rem', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <ArrowLeft size={14} /> Back to Home
@@ -409,7 +410,7 @@ export default function ServicePage({ params }: ServicePageProps) {
   };
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#0d0d0d', color: '#fff', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#faf8f4', color: '#1c1812', minHeight: '100vh' }}>
       <style dangerouslySetInnerHTML={{ __html: PAGE_CSS }} />
 
       {/* Nav */}

@@ -19,18 +19,18 @@ import {
 const CSS = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  ::selection { background: rgba(201,168,76,0.3); color: #fff; }
-  ::-moz-selection { background: rgba(201,168,76,0.3); color: #fff; }
+  ::selection { background: rgba(201,168,76,0.35); color: #1c1812; }
+  ::-moz-selection { background: rgba(201,168,76,0.35); color: #1c1812; }
 
   :root {
     --gold: #c9a84c;
-    --gold-dim: rgba(201,168,76,0.15);
-    --gold-border: rgba(201,168,76,0.3);
-    --dark: #0d0d0d;
-    --dark2: #111111;
-    --dark3: #141414;
-    --dark4: #1a1a1a;
-    --gray: rgba(255,255,255,0.72);
+    --gold-dim: rgba(201,168,76,0.1);
+    --gold-border: rgba(201,168,76,0.32);
+    --dark: #faf8f4;
+    --dark2: #f0ece3;
+    --dark3: #ffffff;
+    --dark4: #f5f1ea;
+    --gray: rgba(30,24,14,0.58);
     --font: 'DM Sans', sans-serif;
   }
 
@@ -38,7 +38,7 @@ const CSS = `
 
   body {
     background: var(--dark);
-    color: #fff;
+    color: #1c1812;
     font-family: var(--font);
     overflow-x: hidden;
   }
@@ -95,11 +95,16 @@ const CSS = `
     transition: background 0.4s ease, padding 0.4s ease, backdrop-filter 0.4s ease;
   }
   #pdr-nav.scrolled {
-    background: rgba(13,13,13,0.92);
+    background: rgba(250,248,244,0.96);
     backdrop-filter: blur(12px);
     padding: 1rem 3rem;
-    border-bottom: 1px solid var(--gold-border);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    box-shadow: 0 2px 24px rgba(28,23,14,0.06);
   }
+  #pdr-nav.scrolled .nav-link { color: rgba(28,23,14,0.65); }
+  #pdr-nav.scrolled .nav-link:hover,
+  #pdr-nav.scrolled .nav-link.active { color: #1c1812; }
+  #pdr-nav.scrolled .nav-mobile-btn { color: #1c1812; }
   .nav-wordmark { line-height: 1; }
   .nav-wordmark-main { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.04em; display: block; }
   .nav-wordmark-sub { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-top: 2px; }
@@ -158,7 +163,7 @@ const CSS = `
     font-size: 2.5rem;
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: rgba(255,255,255,0.85);
+    color: rgba(28,23,14,0.82);
     text-decoration: none;
     transition: color 0.3s ease;
   }
@@ -202,7 +207,8 @@ const CSS = `
   /* ── Credentials strip ── */
   #credentials-strip {
     background: var(--dark3);
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(28,23,14,0.08);
+    border-top: 1px solid rgba(28,23,14,0.06);
     padding: 1.1rem 0;
   }
   .credentials-inner {
@@ -220,8 +226,8 @@ const CSS = `
     font-size: 0.72rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.82);
-    border-right: 1px solid rgba(255,255,255,0.08);
+    color: rgba(28,23,14,0.68);
+    border-right: 1px solid rgba(28,23,14,0.1);
   }
   .cred-item:last-child { border-right: none; }
   .cred-item svg { color: var(--gold); opacity: 1; flex-shrink: 0; }
@@ -294,6 +300,8 @@ const CSS = `
     display: flex;
     align-items: flex-end;
     padding-bottom: 8vh;
+    color: #fff;
+    --gray: rgba(255,255,255,0.72);
   }
   #hero-bg {
     position: absolute;
@@ -502,7 +510,7 @@ const CSS = `
 
   .service-card {
     background: var(--dark3);
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(28,23,14,0.1);
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -687,7 +695,7 @@ const CSS = `
   .why-pillars { display: flex; flex-direction: column; gap: 0; }
   .pillar {
     padding: 2rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(28,23,14,0.1);
     display: flex;
     gap: 1.5rem;
     align-items: flex-start;
@@ -888,7 +896,7 @@ const CSS = `
   .process-tl-step-name {
     font-size: 1.2rem;
     font-weight: 700;
-    color: #fff;
+    color: #1c1812;
     margin-bottom: 0.65rem;
     letter-spacing: -0.02em;
   }
@@ -944,7 +952,7 @@ const CSS = `
     font-weight: 300;
     font-style: italic;
     line-height: 1.5;
-    color: rgba(255,255,255,0.85);
+    color: rgba(28,23,14,0.82);
     padding-left: 2rem;
     border-left: 2px solid var(--gold);
     margin-bottom: 2.5rem;
@@ -955,7 +963,7 @@ const CSS = `
   .about-contact-row { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
   .about-contact-link {
     display: inline-flex; align-items: center; gap: 0.75rem;
-    font-size: 0.85rem; color: rgba(255,255,255,0.6);
+    font-size: 0.85rem; color: rgba(28,23,14,0.6);
     text-decoration: none;
     transition: color 0.3s ease;
   }
@@ -975,7 +983,7 @@ const CSS = `
     position: absolute;
     bottom: -1px; left: -1px;
     background: var(--gold);
-    color: var(--dark);
+    color: #1c1812;
     padding: 1.25rem 1.75rem;
   }
   .about-img-badge-name { font-size: 1rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
@@ -989,7 +997,7 @@ const CSS = `
   }
 
   /* ── Contact ── */
-  #contact { padding: 8rem 0; background: #0a0a0a; }
+  #contact { padding: 8rem 0; background: var(--dark2); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; }
   @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 3rem; } }
 
@@ -1000,7 +1008,7 @@ const CSS = `
   .contact-detail-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
   .contact-detail-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.3rem; }
   .contact-detail-value { font-size: 1.1rem; font-weight: 300; }
-  .contact-detail-value a { color: #fff; text-decoration: none; transition: color 0.3s ease; }
+  .contact-detail-value a { color: #1c1812; text-decoration: none; transition: color 0.3s ease; }
   .contact-detail-value a:hover { color: var(--gold); }
 
   /* Form */
@@ -1011,10 +1019,10 @@ const CSS = `
   .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
   .form-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gray); }
   .form-input, .form-select, .form-textarea {
-    background: var(--dark4);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--dark3);
+    border: 1px solid rgba(28,23,14,0.14);
     padding: 1rem 1.25rem;
-    color: #fff;
+    color: #1c1812;
     font-family: var(--font);
     font-size: 0.9rem;
     transition: border-color 0.3s ease, background 0.3s ease;
@@ -1031,14 +1039,14 @@ const CSS = `
   }
   .form-input:focus, .form-select:focus, .form-textarea:focus {
     border-color: var(--gold);
-    background: var(--dark3);
+    background: #fff;
   }
   .form-textarea { resize: none; }
-  .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(28,23,14,0.3); }
 
   .form-submit {
     background: var(--gold);
-    color: var(--dark);
+    color: #1c1812;
     border: none;
     padding: 1.2rem 2.5rem;
     font-family: var(--font);
@@ -1154,7 +1162,7 @@ const CSS = `
     align-items: center;
     gap: 0.75rem;
     background: var(--gold);
-    color: var(--dark);
+    color: #1c1812;
     text-decoration: none;
     padding: 0.9rem 1.6rem;
     font-size: 0.72rem;
@@ -1172,7 +1180,7 @@ const CSS = `
   .sticky-cta-pulse {
     width: 8px; height: 8px;
     border-radius: 50%;
-    background: var(--dark);
+    background: #1c1812;
     position: relative;
     flex-shrink: 0;
   }
@@ -1181,7 +1189,7 @@ const CSS = `
     position: absolute;
     inset: -3px;
     border-radius: 50%;
-    border: 1.5px solid var(--dark);
+    border: 1.5px solid #1c1812;
     animation: pulseRing 1.5s ease-out infinite;
     opacity: 0;
   }
@@ -1221,7 +1229,7 @@ const CSS = `
 
   .testi-card {
     background: var(--dark3);
-    border: 1px solid rgba(255,255,255,0.07);
+    border: 1px solid rgba(28,23,14,0.1);
     padding: 2rem;
     position: relative;
     flex-shrink: 0;
@@ -1250,7 +1258,7 @@ const CSS = `
   .testi-text {
     font-size: 0.88rem;
     line-height: 1.75;
-    color: rgba(255,255,255,0.75);
+    color: rgba(28,23,14,0.68);
     font-weight: 300;
     font-style: italic;
     margin-bottom: 1.5rem;
@@ -1261,7 +1269,7 @@ const CSS = `
     align-items: center;
     gap: 0.85rem;
     padding-top: 1.25rem;
-    border-top: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid rgba(28,23,14,0.1);
   }
   .testi-avatar {
     width: 40px; height: 40px;
@@ -1292,11 +1300,11 @@ const CSS = `
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(28,23,14,0.12);
     font-size: 0.72rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.55);
+    color: rgba(28,23,14,0.52);
     cursor: default;
     transition: border-color 0.3s ease, color 0.3s ease;
   }
@@ -1323,16 +1331,18 @@ const CSS = `
 
   /* ── Footer 3-col ── */
   #footer {
-    background: #050505;
+    background: #1c1a14;
     border-top: 1px solid var(--gold-border);
     padding: 5rem 0 3rem;
+    color: rgba(255,255,255,0.85);
+    --gray: rgba(255,255,255,0.58);
   }
   .footer-grid {
     display: grid;
     grid-template-columns: 1.2fr 1fr 1.2fr;
     gap: 4rem;
     padding-bottom: 3rem;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
     margin-bottom: 2.5rem;
   }
   @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
@@ -1365,7 +1375,7 @@ const CSS = `
     align-items: center;
     gap: 0.5rem;
   }
-  .footer-nav-link:hover { color: #fff; }
+  .footer-nav-link:hover { color: var(--gold); }
   .footer-contact-item {
     display: flex;
     align-items: flex-start;
@@ -2097,7 +2107,7 @@ export default function App() {
       <div id="noise" />
       {/* ── STICKY CTA ── */}
       <div id="sticky-cta" className={showSticky ? 'visible' : ''}>
-        <a href="tel:+61423231515" className="sticky-cta-btn" style={{ background: 'transparent', border: '1px solid var(--gold-border)', color: 'rgba(255,255,255,0.75)', gap: '0.5rem' }}>
+        <a href="tel:+61423231515" className="sticky-cta-btn" style={{ background: 'transparent', border: '1px solid var(--gold-border)', color: 'rgba(28,23,14,0.65)', gap: '0.5rem' }}>
           <Phone size={13} style={{ color: 'var(--gold)' }} />
           0423 231 515
         </a>
@@ -2111,13 +2121,13 @@ export default function App() {
       <div id="scroll-progress" ref={progressRef} />
       {/* Loader */}
       <div id="pdr-loader" className={loaded ? 'hidden' : ''}>
-        <img src="/logo-white.png" alt="WA Building Design" className="loader-logo" />
+        <img src="/logo-dark.png" alt="WA Building Design" className="loader-logo" />
       </div>
       {/* Navigation */}
       <nav id="pdr-nav" className={scrolled ? 'scrolled' : ''}>
         <div className="nav-wordmark">
           <img
-            src="/logo-white.png"
+            src={scrolled ? '/logo-dark.png' : '/logo-white.png'}
             alt="WA Building Design"
             style={{ height: '122px', width: 'auto', display: 'block' }}
           />
@@ -2504,7 +2514,7 @@ export default function App() {
                     onChange={e => setFormData(f => ({ ...f, message: e.target.value }))}
                   />
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem', color: 'rgba(255,255,255,0.65)', fontSize: '0.72rem', letterSpacing: '0.05em' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem', color: 'rgba(28,23,14,0.52)', fontSize: '0.72rem', letterSpacing: '0.05em' }}>
                   <CheckCircle size={13} style={{ color: 'var(--gold)', opacity: 0.7, flexShrink: 0 }} />
                   We respond to all enquiries within 1 business day.
                 </div>
