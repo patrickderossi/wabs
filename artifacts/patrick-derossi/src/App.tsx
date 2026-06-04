@@ -73,7 +73,7 @@ const CSS = `
     pointer-events: none;
   }
   .loader-logo {
-    height: clamp(56px, 10vw, 96px);
+    height: clamp(112px, 20vw, 192px);
     width: auto;
     opacity: 0;
     animation: loaderFadeIn 0.7s ease 0.2s forwards;
@@ -2002,7 +2002,7 @@ export default function App() {
           <img
             src="/logo-white.png"
             alt="WA Building Design"
-            style={{ height: '81px', width: 'auto', display: 'block' }}
+            style={{ height: '122px', width: 'auto', display: 'block' }}
           />
         </div>
         <div className="nav-links">
