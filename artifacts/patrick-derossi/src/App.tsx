@@ -1527,7 +1527,7 @@ const CSS = `
 
   @media (max-width: 480px) {
     /* Nav logo */
-    .nav-wordmark img { height: 60px !important; }
+    .nav-logo-img { height: 400px; }
 
     /* Tighter sections */
     #services, #work, #why, #testimonials, #about, #contact, #process, #suburbs { padding: 3.5rem 0; }
