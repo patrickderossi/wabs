@@ -343,7 +343,7 @@ const CSS = `
     will-change: transform;
     display: block;
     filter: contrast(0.95) brightness(0.9);
-    transform: translateX(18%) scale(1.12);
+    transform: translateX(8%) scale(1.12);
   }
   #hero-overlay {
     position: absolute;
@@ -2140,7 +2140,7 @@ export default function App() {
     const onScroll = () => {
       if (heroBgRef.current) {
         const y = window.scrollY;
-        heroBgRef.current.style.transform = `translateX(18%) translateY(${y * 0.35}px) scale(1.12)`;
+        heroBgRef.current.style.transform = `translateX(8%) translateY(${y * 0.35}px) scale(1.12)`;
       }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
