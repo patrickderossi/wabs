@@ -1797,6 +1797,15 @@ const TYPED_PHRASES = [
   'Council Approvals',
 ];
 
+const HERO_PHRASES = [
+  'Granny Flat.',
+  'Custom Home.',
+  'Home Extension.',
+  'Duplex.',
+  'Renovation.',
+  'New Build.',
+];
+
 /* ─── TESTIMONIALS COLUMN ────────────────────────────────────────── */
 function TestimonialsColumn({
   testimonials,
@@ -1967,6 +1976,7 @@ export default function App() {
   const [statsVisible, setStatsVisible] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
   const [typedText, setTypedText] = useState('');
+  const [heroPhaseIdx, setHeroPhaseIdx] = useState(0);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: '', message: '' });
   const [formSent, setFormSent] = useState(false);
   const [formError, setFormError] = useState<string | false>(false);
@@ -2055,6 +2065,15 @@ export default function App() {
     heroWordsRef.current.forEach((el, i) => {
       if (el) setTimeout(() => el.classList.add('play'), i * 160);
     });
+  }, [loaded]);
+
+  /* ── Hero phrase cycling ── */
+  useEffect(() => {
+    if (!loaded) return;
+    const id = setInterval(() => {
+      setHeroPhaseIdx(n => (n + 1) % HERO_PHRASES.length);
+    }, 2800);
+    return () => clearInterval(id);
   }, [loaded]);
 
   /* ── Scroll ── */
@@ -2204,7 +2223,7 @@ export default function App() {
 
         <div className="hero-content container">
           <h1 className="hero-headline" style={{ marginBottom: '1.75rem' }}>
-            {['Every', 'Line'].map((w, i) => (
+            {['Expert', 'Residential'].map((w, i) => (
               <React.Fragment key={i}>
                 <span
                   className="headline-word"
@@ -2214,7 +2233,7 @@ export default function App() {
               </React.Fragment>
             ))}
             <br />
-            {['Drawn', 'With', <span key="purpose" style={{ color: 'var(--gold)' }}>Purpose.</span>].map((w, i) => (
+            {['Building', 'Designer'].map((w, i) => (
               <React.Fragment key={i + 2}>
                 <span
                   className="headline-word"
@@ -2223,11 +2242,35 @@ export default function App() {
                 >{w}</span>
               </React.Fragment>
             ))}
+            <br />
+            {['for', 'your', 'next'].map((w, i) => (
+              <React.Fragment key={i + 4}>
+                <span
+                  className="headline-word"
+                  ref={el => { if (el) heroWordsRef.current[i + 4] = el; }}
+                  style={{ animationDelay: `${(i + 4) * 0.18}s`, marginRight: '0.25em' }}
+                >{w}</span>
+              </React.Fragment>
+            ))}
+            <br />
+            <span style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom', lineHeight: 'inherit' }}>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={heroPhaseIdx}
+                  initial={{ y: '105%' }}
+                  animate={{ y: 0 }}
+                  exit={{ y: '-105%' }}
+                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ display: 'inline-block', color: 'var(--gold)', marginRight: '0.25em' }}
+                >
+                  {HERO_PHRASES[heroPhaseIdx]}
+                </motion.span>
+              </AnimatePresence>
+            </span>
           </h1>
 
-          <p className="hero-sub" style={{ marginBottom: '2.5rem', minHeight: '1.4em' }}>
-            <span>{typedText}</span>
-            <span className="typed-cursor" />
+          <p className="hero-sub" style={{ marginBottom: '2.5rem' }}>
+            Perth's trusted residential building designer — 17+ years, 500+ homes.
           </p>
 
           <div className="hero-btn-wrap" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', alignItems: 'flex-start' }}>
