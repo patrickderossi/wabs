@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import imgFormalQuote from '@assets/Formal_Quote_1774258217637.jpeg';
 import imgInitialConsult from '@assets/Initial_Consultation_1774258217637.jpeg';
 import imgConceptDesign from '@assets/Concept_Design_1774258217636.jpeg';
@@ -1534,6 +1534,34 @@ const CSS = `
 `;
 
 /* ─── COUNTER HOOK ───────────────────────────────────────────────── */
+/* ─── SPLIT TEXT ─────────────────────────────────────────────────── */
+function SplitText({ text, style }: { text: string; style?: React.CSSProperties }) {
+  const words = text.split(' ');
+  return (
+    <motion.span
+      style={{ display: 'inline', ...style }}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-60px' }}
+      variants={{ visible: { transition: { staggerChildren: 0.07 } } }}
+    >
+      {words.map((word, i) => (
+        <span key={i} style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom' }}>
+          <motion.span
+            style={{ display: 'inline-block', marginRight: '0.28em' }}
+            variants={{
+              hidden: { y: '105%', opacity: 0 },
+              visible: { y: 0, opacity: 1, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }
+            }}
+          >
+            {word}
+          </motion.span>
+        </span>
+      ))}
+    </motion.span>
+  );
+}
+
 function useCounter(target: number, duration = 1800, started = false) {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -1868,7 +1896,14 @@ function ProcessTimeline() {
       <div ref={ref} className="process-tl-rows">
 
         {PROCESS.map((step, i) => (
-          <div key={i} className="process-tl-row">
+          <motion.div
+            key={i}
+            className="process-tl-row"
+            initial={{ opacity: 0, x: -32 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: i * 0.04 }}
+          >
 
             {/* ── Left sticky label ── */}
             <div className="process-tl-sticky">
@@ -1889,7 +1924,7 @@ function ProcessTimeline() {
               </div>
             </div>
 
-          </div>
+          </motion.div>
         ))}
 
         {/* ── Animated vertical line ── */}
@@ -2221,20 +2256,31 @@ export default function App() {
       {/* ── STATS BAR ── */}
       <div id="stats-bar">
         <div className="container">
-          <div className="stats-grid">
-            <div className="stat-cell">
-              <span className="stat-num">{statsVisible ? `${years}+` : '—'}</span>
-              <span className="stat-label">Years Experience</span>
-            </div>
-            <div className="stat-cell">
-              <span className="stat-num">{statsVisible ? `${reviews}+` : '—'}</span>
-              <span className="stat-label">Happy Clients</span>
-            </div>
-            <div className="stat-cell">
-              <span className="stat-num">{statsVisible ? `${projects_}+` : '—'}</span>
-              <span className="stat-label">Custom Homes Designed</span>
-            </div>
-            <a
+          <motion.div
+            className="stats-grid"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
+          >
+            {[
+              { num: statsVisible ? `${years}+` : '0', label: 'Years Experience' },
+              { num: statsVisible ? `${reviews}+` : '0', label: 'Happy Clients' },
+              { num: statsVisible ? `${projects_}+` : '0', label: 'Custom Homes Designed' },
+            ].map((s, i) => (
+              <motion.div
+                key={i}
+                className="stat-cell"
+                variants={{
+                  hidden: { opacity: 0, y: 24 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } }
+                }}
+              >
+                <span className="stat-num">{s.num}</span>
+                <span className="stat-label">{s.label}</span>
+              </motion.div>
+            ))}
+            <motion.a
               href="https://www.google.com/search?q=WA+Building+Design+Patrick+De+Rossi+Perth&hl=en#lrd=0x0:0x0,1"
               target="_blank"
               rel="noopener noreferrer"
@@ -2242,6 +2288,10 @@ export default function App() {
               style={{ textDecoration: 'none', transition: 'background 0.3s ease' }}
               onMouseEnter={e => (e.currentTarget.style.background = 'var(--dark)')}
               onMouseLeave={e => (e.currentTarget.style.background = 'var(--dark2)')}
+              variants={{
+                hidden: { opacity: 0, y: 24 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } }
+              }}
             >
               <span className="stat-num">5.0</span>
               <span className="stat-label" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
@@ -2250,26 +2300,43 @@ export default function App() {
                 </span>
                 Google Rating ↗
               </span>
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
         </div>
       </div>
       {/* ── SERVICES ── */}
       <section id="services">
         <div className="section-grid-bg" />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ marginBottom: '4rem' }} className="reveal">
+          <motion.div
+            style={{ marginBottom: '4rem' }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
             <span className="section-eyebrow">What We Do</span>
-            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, maxWidth: '500px' }}>Comprehensive Residential 
-            Design & Drafting</h2>
-          </div>
-          <div className="service-grid">
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.15, maxWidth: '560px' }}>
+              <SplitText text="Comprehensive Residential Design & Drafting" />
+            </h2>
+          </motion.div>
+          <motion.div
+            className="service-grid"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-80px' }}
+            variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+          >
             {SERVICES.map((s, i) => (
-              <a
+              <motion.a
                 key={i}
                 href={`/services/${s.slug}`}
-                className="service-card reveal"
-                style={{ transitionDelay: `${i * 80}ms`, textDecoration: 'none', color: 'inherit' }}
+                className="service-card"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+                variants={{
+                  hidden: { opacity: 0, y: 50 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } }
+                }}
               >
                 <div className="service-img-wrap">
                   <img src={s.img} alt={s.title} className="service-img" loading="lazy" />
@@ -2283,9 +2350,9 @@ export default function App() {
                     Learn More <ArrowUpRight size={13} />
                   </div>
                 </div>
-              </a>
+              </motion.a>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
       {/* ── ABOUT ── */}
@@ -2352,7 +2419,7 @@ export default function App() {
             <div>
               <span className="section-eyebrow">Client Stories</span>
               <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-                What Our Clients Say
+                <SplitText text="What Our Clients Say" />
               </h2>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
@@ -2362,11 +2429,29 @@ export default function App() {
             </div>
           </motion.div>
 
-          <div className="testi-columns-wrap">
-            <TestimonialsColumn testimonials={TESTIMONIALS.slice(0, 3)} duration={18} />
-            <TestimonialsColumn testimonials={TESTIMONIALS.slice(3, 6)} duration={22} />
-            <TestimonialsColumn testimonials={TESTIMONIALS.slice(6, 9)} duration={20} />
-          </div>
+          <motion.div
+            className="testi-columns-wrap"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
+          >
+            {[
+              { slice: [0, 3] as [number, number], duration: 18 },
+              { slice: [3, 6] as [number, number], duration: 22 },
+              { slice: [6, 9] as [number, number], duration: 20 },
+            ].map((col, i) => (
+              <motion.div
+                key={i}
+                variants={{
+                  hidden: { opacity: 0, y: 40 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+                }}
+              >
+                <TestimonialsColumn testimonials={TESTIMONIALS.slice(...col.slice)} duration={col.duration} />
+              </motion.div>
+            ))}
+          </motion.div>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
             <a
               href="https://www.google.com/search?q=WA+Building+Design+Patrick+De+Rossi+Perth&hl=en#lrd=0x0:0x0,1"
@@ -2431,7 +2516,7 @@ export default function App() {
           <div style={{ marginBottom: '5rem' }} className="reveal">
             <span className="section-eyebrow">How It Works</span>
             <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-              Our Proven Process
+              <SplitText text="Our Proven Process" />
             </h2>
           </div>
           <ProcessTimeline />
