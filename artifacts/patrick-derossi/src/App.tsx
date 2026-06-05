@@ -634,6 +634,29 @@ const CSS = `
   /* ── Work Gallery ── */
   #work { padding: 8rem 0; background: var(--dark2); overflow: hidden; }
 
+  .gallery-tabs {
+    display: flex; gap: 0; flex-wrap: wrap;
+    border-bottom: 1px solid rgba(28,23,14,0.1);
+    margin-bottom: 3rem;
+  }
+  .gallery-tab {
+    padding: 0.85rem 1.4rem;
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;
+    color: var(--gray); background: transparent; border: none; cursor: pointer;
+    position: relative; transition: color 0.25s ease;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+  }
+  .gallery-tab:hover { color: #1c1812; }
+  .gallery-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .gallery-tab-count {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: rgba(201,168,76,0.12); color: var(--gold);
+    font-size: 0.6rem; font-weight: 700; margin-left: 0.5rem;
+    transition: background 0.25s ease;
+  }
+  .gallery-tab.active .gallery-tab-count { background: rgba(201,168,76,0.25); }
+
   .gallery-columns {
     columns: 3;
     column-gap: 6px;
@@ -1809,36 +1832,107 @@ const SERVICES = [
   },
 ];
 
-const PROJECTS = [
-  '/work/hf_20260323_081853_a9abd25a-13fd-4200-8234-27d580877cbc.jpeg',
-  '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_a30a969b7eec4e6883563ee4cd4697cd.webp',
-  '/work/hf_20260323_082012_96376417-4a22-4cf9-b495-bc0e126643fc.jpeg',
-  '/work/hf_20260323_081901_ea00b3e7-6c73-498c-9617-33bcd86db8e1.jpeg',
-  '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_6049763deb68490486b31b8246cd37d6.webp',
-  '/work/hf_20260323_082031_7a2112cc-742e-4787-b400-e45ba544c2da.jpeg',
-  '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_83cae82e0ee742dda2d6173e8479c294.webp',
-  '/work/hf_20260323_081937_8b6a4a00-10f2-4619-8715-7e7d2b32829d.jpeg',
-  '/work/hf_20260323_082002_4f2a3604-b204-46be-9e84-ffb7015998e4.jpeg',
-  '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_33c2aa76642549618267469fa5e26c21.webp',
-  '/work/hf_20260323_082024_45687288-c047-4cdd-be66-e2c8b9d487ac.jpeg',
-  '/work/hf_20260323_082031_72a2b3f0-7978-4bf4-abbe-bb9d0bd083ff.jpeg',
-  '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_770263cef6b341a1ae40de5ccb00c55a.webp',
-  '/work/hf_20260323_082753_0566c62d-774a-44a2-96fb-d4a9c1b50038.jpeg',
-  '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_2f9c9e1825124fbeac92185e4bc780fd.webp',
-  '/work/hf_20260323_082804_3582fc46-accb-4f6c-9ed9-2227fe2a2d9e.jpeg',
-  '/work/hf_20260323_083114_e23f4dc5-7a4e-4774-b92d-fd0a9e38fd70.jpeg',
-  '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_961edb2bb9604a9ca51df1fbc2f4af5c.webp',
-  '/work/hf_20260323_083404_de107e6d-d2b2-4982-bd20-f394fc950ed7.jpeg',
-  '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_181b6ffbcaa74668ba08247fed116f79.webp',
-  '/work/hf_20260323_083709_1efd4373-03c7-4836-bcea-4a12bab0c4b7.jpeg',
-  '/work/hf_20260323_081943_7c9bd4c9-38a1-46ad-9e32-af14538bd654.png',
-  '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_e5cba90f172f410b9a2994fe505853ac.webp',
-  '/work/hf_20260323_081943_95bd6880-0d6e-4d43-b73a-07adc17a6c1e.png',
-  '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_e3137891e848424087fc94cb31d18b6b.webp',
-  '/work/hf_20260323_081953_857763cc-1f2d-4cc6-8b83-332ffc92a278.jpeg',
-  '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_fbf95bcdfe2e444fbd7917fac577ca24.webp',
-  '/work/hf_20260323_082007_1f24dd96-c285-4c12-98e3-c159886e9828.jpeg',
-  '/work/nomadic-house.png',
+const GALLERY_CATEGORIES = [
+  {
+    label: 'All',
+    slug: 'all',
+    images: [
+      '/work/hf_20260323_081853_a9abd25a-13fd-4200-8234-27d580877cbc.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_a30a969b7eec4e6883563ee4cd4697cd.webp',
+      '/work/hf_20260323_082012_96376417-4a22-4cf9-b495-bc0e126643fc.jpeg',
+      '/work/hf_20260323_081901_ea00b3e7-6c73-498c-9617-33bcd86db8e1.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_6049763deb68490486b31b8246cd37d6.webp',
+      '/work/hf_20260323_082031_7a2112cc-742e-4787-b400-e45ba544c2da.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_83cae82e0ee742dda2d6173e8479c294.webp',
+      '/work/hf_20260323_081937_8b6a4a00-10f2-4619-8715-7e7d2b32829d.jpeg',
+      '/work/hf_20260323_082002_4f2a3604-b204-46be-9e84-ffb7015998e4.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_33c2aa76642549618267469fa5e26c21.webp',
+      '/work/hf_20260323_082024_45687288-c047-4cdd-be66-e2c8b9d487ac.jpeg',
+      '/work/hf_20260323_082031_72a2b3f0-7978-4bf4-abbe-bb9d0bd083ff.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_770263cef6b341a1ae40de5ccb00c55a.webp',
+      '/work/hf_20260323_082753_0566c62d-774a-44a2-96fb-d4a9c1b50038.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_2f9c9e1825124fbeac92185e4bc780fd.webp',
+      '/work/hf_20260323_082804_3582fc46-accb-4f6c-9ed9-2227fe2a2d9e.jpeg',
+      '/work/hf_20260323_083114_e23f4dc5-7a4e-4774-b92d-fd0a9e38fd70.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_961edb2bb9604a9ca51df1fbc2f4af5c.webp',
+      '/work/hf_20260323_083404_de107e6d-d2b2-4982-bd20-f394fc950ed7.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_181b6ffbcaa74668ba08247fed116f79.webp',
+      '/work/hf_20260323_083709_1efd4373-03c7-4836-bcea-4a12bab0c4b7.jpeg',
+      '/work/hf_20260323_081943_7c9bd4c9-38a1-46ad-9e32-af14538bd654.png',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_e5cba90f172f410b9a2994fe505853ac.webp',
+      '/work/hf_20260323_081943_95bd6880-0d6e-4d43-b73a-07adc17a6c1e.png',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_e3137891e848424087fc94cb31d18b6b.webp',
+      '/work/hf_20260323_081953_857763cc-1f2d-4cc6-8b83-332ffc92a278.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_fbf95bcdfe2e444fbd7917fac577ca24.webp',
+      '/work/hf_20260323_082007_1f24dd96-c285-4c12-98e3-c159886e9828.jpeg',
+      '/work/nomadic-house.png',
+    ],
+  },
+  {
+    label: 'Single Storey',
+    slug: 'single-storey',
+    images: [
+      '/work/hf_20260323_081853_a9abd25a-13fd-4200-8234-27d580877cbc.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_a30a969b7eec4e6883563ee4cd4697cd.webp',
+      '/work/hf_20260323_082012_96376417-4a22-4cf9-b495-bc0e126643fc.jpeg',
+      '/work/hf_20260323_081901_ea00b3e7-6c73-498c-9617-33bcd86db8e1.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_6049763deb68490486b31b8246cd37d6.webp',
+      '/work/hf_20260323_082031_7a2112cc-742e-4787-b400-e45ba544c2da.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_83cae82e0ee742dda2d6173e8479c294.webp',
+      '/work/hf_20260323_081937_8b6a4a00-10f2-4619-8715-7e7d2b32829d.jpeg',
+      '/work/hf_20260323_082002_4f2a3604-b204-46be-9e84-ffb7015998e4.jpeg',
+    ],
+  },
+  {
+    label: 'Double Storey',
+    slug: 'double-storey',
+    images: [
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_33c2aa76642549618267469fa5e26c21.webp',
+      '/work/hf_20260323_082024_45687288-c047-4cdd-be66-e2c8b9d487ac.jpeg',
+      '/work/hf_20260323_082031_72a2b3f0-7978-4bf4-abbe-bb9d0bd083ff.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_770263cef6b341a1ae40de5ccb00c55a.webp',
+      '/work/hf_20260323_082753_0566c62d-774a-44a2-96fb-d4a9c1b50038.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_2f9c9e1825124fbeac92185e4bc780fd.webp',
+    ],
+  },
+  {
+    label: 'Developments',
+    slug: 'developments',
+    images: [
+      '/work/hf_20260323_082804_3582fc46-accb-4f6c-9ed9-2227fe2a2d9e.jpeg',
+      '/work/hf_20260323_083114_e23f4dc5-7a4e-4774-b92d-fd0a9e38fd70.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_961edb2bb9604a9ca51df1fbc2f4af5c.webp',
+      '/work/hf_20260323_083404_de107e6d-d2b2-4982-bd20-f394fc950ed7.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_181b6ffbcaa74668ba08247fed116f79.webp',
+    ],
+  },
+  {
+    label: 'Granny Flats',
+    slug: 'granny-flats',
+    images: [
+      '/work/hf_20260323_083709_1efd4373-03c7-4836-bcea-4a12bab0c4b7.jpeg',
+      '/work/hf_20260323_081943_7c9bd4c9-38a1-46ad-9e32-af14538bd654.png',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_e5cba90f172f410b9a2994fe505853ac.webp',
+      '/work/hf_20260323_081943_95bd6880-0d6e-4d43-b73a-07adc17a6c1e.png',
+    ],
+  },
+  {
+    label: 'Renovations',
+    slug: 'renovations',
+    images: [
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_e3137891e848424087fc94cb31d18b6b.webp',
+      '/work/hf_20260323_081953_857763cc-1f2d-4cc6-8b83-332ffc92a278.jpeg',
+      '/work/assets_0df748b9b86d4bc5af1be6fda4f6f0d0_fbf95bcdfe2e444fbd7917fac577ca24.webp',
+    ],
+  },
+  {
+    label: 'Outdoor Structures',
+    slug: 'outdoor-structures',
+    images: [
+      '/work/hf_20260323_082007_1f24dd96-c285-4c12-98e3-c159886e9828.jpeg',
+      '/work/nomadic-house.png',
+    ],
+  },
 ];
 
 const PROCESS = [
@@ -2147,6 +2241,7 @@ export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [lightbox, setLightbox] = useState<string | null>(null);
+  const [galleryTab, setGalleryTab] = useState('all');
 
   useEffect(() => {
     if (!lightbox) return;
@@ -2808,15 +2903,34 @@ export default function App() {
       {/* ── PROJECTS ── */}
       <section id="work">
         <div className="container">
-          <div style={{ marginBottom: '3.5rem' }} className="reveal">
+          <div style={{ marginBottom: '3rem' }} className="reveal">
             <span className="section-eyebrow">Our Work</span>
-            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: '0.5rem' }}>
               Selected Projects
             </h2>
+            <p style={{ fontSize: '0.9rem', color: 'var(--gray)', lineHeight: 1.75 }}>
+              Browse by project type — click any image to view full size.
+            </p>
           </div>
+          {/* Tab Filter */}
+          <div className="gallery-tabs reveal">
+            {GALLERY_CATEGORIES.map(cat => (
+              <button
+                key={cat.slug}
+                className={`gallery-tab${galleryTab === cat.slug ? ' active' : ''}`}
+                onClick={() => setGalleryTab(cat.slug)}
+              >
+                {cat.label}
+                {cat.slug !== 'all' && (
+                  <span className="gallery-tab-count">{cat.images.length}</span>
+                )}
+              </button>
+            ))}
+          </div>
+          {/* Gallery Grid */}
           <div className="gallery-columns reveal">
-            {PROJECTS.map((src, i) => (
-              <div key={i} className="gallery-item" onClick={() => setLightbox(src)}>
+            {(GALLERY_CATEGORIES.find(c => c.slug === galleryTab)?.images ?? []).map((src, i) => (
+              <div key={src} className="gallery-item" onClick={() => setLightbox(src)}>
                 <img src={src} alt={`Project ${i + 1}`} loading="lazy" />
                 <div className="gallery-shimmer" />
               </div>
