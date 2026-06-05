@@ -2708,10 +2708,6 @@ export default function App() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
           >
-            <div className="pricing-notice">
-              <Info size={12} />
-              Example Pricing Guide — Not Fixed Quotes
-            </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
               <div>
                 <p className="section-eyebrow">Investment</p>
