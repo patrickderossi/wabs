@@ -94,6 +94,7 @@ const PAGE_CSS = `
   .sp-title {
     font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 800;
     line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1.5rem;
+    color: #ffffff;
   }
   .sp-tagline { font-size: clamp(0.85rem, 1.5vw, 1.05rem); color: rgba(255,255,255,0.72); max-width: 560px; line-height: 1.65; font-weight: 300; }
 
