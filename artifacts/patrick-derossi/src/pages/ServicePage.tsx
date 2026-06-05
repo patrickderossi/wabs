@@ -64,8 +64,8 @@ const PAGE_CSS = `
 
   /* Hero */
   .sp-hero {
-    position: relative; height: 65vh; min-height: 480px; overflow: hidden;
-    display: flex; align-items: flex-end; padding-bottom: 6vh;
+    position: relative; height: 85vh; min-height: 580px; overflow: hidden;
+    display: flex; align-items: flex-end; padding-bottom: 0;
     margin-top: 0;
   }
   .sp-hero-bg {
@@ -75,28 +75,69 @@ const PAGE_CSS = `
   }
   .sp-hero-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgba(13,13,13,0.3) 0%, rgba(13,13,13,0.5) 40%, rgba(13,13,13,0.92) 80%, rgba(13,13,13,1) 100%);
+    background: linear-gradient(135deg, rgba(13,13,13,0.55) 0%, rgba(13,13,13,0.2) 50%, rgba(13,13,13,0.1) 100%),
+                linear-gradient(to bottom, rgba(13,13,13,0.1) 0%, rgba(13,13,13,0.4) 50%, rgba(13,13,13,0.97) 100%);
   }
   .sp-hero-grid {
     position: absolute; inset: 0;
-    background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
     background-size: 60px 60px; pointer-events: none;
   }
-  .sp-hero-content { position: relative; z-index: 10; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
-  @media (max-width: 768px) { .sp-hero-content { padding: 0 1.5rem; } }
+  .sp-hero-content {
+    position: relative; z-index: 10; width: 100%; max-width: 1200px; margin: 0 auto;
+    padding: 0 3rem 5rem;
+  }
+  @media (max-width: 768px) { .sp-hero-content { padding: 0 1.5rem 4rem; } }
   .sp-breadcrumb {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 1.5rem;
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); margin-bottom: 2rem;
   }
   .sp-breadcrumb-sep { color: rgba(255,255,255,0.2); }
-  .sp-num { font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.75rem; }
+  .sp-num {
+    font-size: 0.6rem; letter-spacing: 0.45em; text-transform: uppercase;
+    color: var(--gold); display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .sp-num::before { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--gold); }
   .sp-title {
-    font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 800;
-    line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1.5rem;
+    font-size: clamp(3.5rem, 7vw, 7rem); font-weight: 800;
+    line-height: 0.9; letter-spacing: -0.04em; margin-bottom: 2rem;
     color: #ffffff;
   }
-  .sp-tagline { font-size: clamp(0.85rem, 1.5vw, 1.05rem); color: rgba(255,255,255,0.72); max-width: 560px; line-height: 1.65; font-weight: 300; }
+  .sp-hero-rule { width: 4rem; height: 2px; background: var(--gold); margin-bottom: 1.75rem; }
+  .sp-tagline {
+    font-size: clamp(0.9rem, 1.4vw, 1.05rem); color: rgba(255,255,255,0.65);
+    max-width: 500px; line-height: 1.7; font-weight: 300;
+    margin-bottom: 3rem;
+  }
+  .sp-hero-cta {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--gold); color: #1c1812;
+    padding: 1rem 2rem; text-decoration: none;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    transition: opacity 0.2s ease;
+  }
+  .sp-hero-cta:hover { opacity: 0.88; }
+
+  /* Stats strip */
+  .sp-stats-strip {
+    background: #1c1812; border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 0;
+  }
+  .sp-stats-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 3rem;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: 768px) { .sp-stats-inner { grid-template-columns: repeat(2, 1fr); padding: 0 1.5rem; } }
+  .sp-stat {
+    padding: 2rem 1.5rem; text-align: center;
+    border-right: 1px solid rgba(201,168,76,0.15);
+  }
+  .sp-stat:last-child { border-right: none; }
+  @media (max-width: 768px) { .sp-stat:nth-child(2) { border-right: none; } .sp-stat:nth-child(3) { border-top: 1px solid rgba(201,168,76,0.15); } .sp-stat:nth-child(4) { border-top: 1px solid rgba(201,168,76,0.15); border-right: none; } }
+  .sp-stat-num { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; color: var(--gold); line-height: 1; margin-bottom: 0.4rem; }
+  .sp-stat-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
 
   /* Container */
   .sp-container { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
@@ -119,25 +160,25 @@ const PAGE_CSS = `
   .sp-para { font-size: 0.92rem; color: var(--gray); line-height: 1.9; font-weight: 400; margin-bottom: 1.25rem; }
 
   .sp-inclusions-box {
-    background: var(--dark3); border: 1px solid rgba(28,23,14,0.1);
-    padding: 2.5rem; position: sticky; top: 100px;
+    background: #1c1812; border: 1px solid rgba(201,168,76,0.25);
+    padding: 2.5rem; position: sticky; top: 148px;
   }
   .sp-inclusions-title {
-    font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase;
+    font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
     color: var(--gold); margin-bottom: 1.75rem; display: flex; align-items: center; gap: 0.75rem;
   }
   .sp-inclusions-title::before { content: ''; display: inline-block; width: 1.2rem; height: 1px; background: var(--gold); }
   .sp-inclusion-item {
     display: flex; align-items: flex-start; gap: 0.85rem;
-    padding: 0.75rem 0; border-bottom: 1px solid rgba(28,23,14,0.08);
-    font-size: 0.84rem; color: rgba(28,23,14,0.82); font-weight: 400; line-height: 1.4;
+    padding: 0.85rem 0; border-bottom: 1px solid rgba(201,168,76,0.1);
+    font-size: 0.84rem; color: rgba(255,255,255,0.72); font-weight: 400; line-height: 1.4;
   }
   .sp-inclusion-item:last-child { border-bottom: none; }
-  .sp-inclusion-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; opacity: 0.8; }
+  .sp-inclusion-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; }
   .sp-cta-inline {
-    margin-top: 2rem; display: block; padding: 1.1rem 1.5rem;
+    margin-top: 2rem; padding: 1.1rem 1.5rem;
     background: var(--gold); color: #1c1812; text-decoration: none;
-    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em;
     text-transform: uppercase; text-align: center;
     display: flex; align-items: center; justify-content: center; gap: 0.5rem;
     transition: opacity 0.2s ease;
@@ -212,22 +253,27 @@ const PAGE_CSS = `
   .sp-faq-a.open { max-height: 400px; padding-bottom: 1.75rem; }
 
   /* CTA Band */
-  .sp-cta-band { padding: 5rem 0; background: var(--dark); border-top: 1px solid var(--gold-border); }
-  .sp-cta-band-inner { display: flex; align-items: center; justify-content: space-between; gap: 3rem; }
+  .sp-cta-band { padding: 6rem 0; background: #1c1812; border-top: 1px solid rgba(201,168,76,0.25); position: relative; overflow: hidden; }
+  .sp-cta-band::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px; pointer-events: none;
+  }
+  .sp-cta-band-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 3rem; }
   @media (max-width: 800px) { .sp-cta-band-inner { flex-direction: column; align-items: flex-start; gap: 2rem; } }
-  .sp-cta-heading { font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin: 0.5rem 0 1rem; }
-  .sp-cta-sub { font-size: 0.85rem; color: var(--gray); margin: 0; }
+  .sp-cta-heading { font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin: 0.5rem 0 1rem; color: #fff; }
+  .sp-cta-sub { font-size: 0.85rem; color: rgba(255,255,255,0.45); margin: 0; }
   .sp-cta-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 1.2rem; flex-shrink: 0; }
   .sp-cta-btn {
-    white-space: nowrap; font-size: 0.8rem; padding: 1rem 2rem;
+    white-space: nowrap; font-size: 0.75rem; padding: 1.1rem 2.2rem;
     display: inline-flex; align-items: center; gap: 0.5rem;
     background: var(--gold); color: #1c1812; text-decoration: none;
-    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
     transition: opacity 0.2s ease;
   }
   .sp-cta-btn:hover { opacity: 0.88; }
-  .sp-cta-call { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--gold); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.12em; font-weight: 500; opacity: 0.8; transition: opacity 0.2s ease; }
-  .sp-cta-call:hover { opacity: 1; }
+  .sp-cta-call { display: inline-flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.12em; font-weight: 400; transition: color 0.2s ease; }
+  .sp-cta-call:hover { color: var(--gold); }
 
   /* Footer */
   .sp-footer { background: #1c1a14; border-top: 1px solid var(--gold-border); padding: 2.5rem 0; }
@@ -428,7 +474,7 @@ export default function ServicePage({ params }: ServicePageProps) {
       </nav>
 
       {/* Hero */}
-      <section className="sp-hero" style={{ paddingTop: '72px' }}>
+      <section className="sp-hero">
         <div className="sp-hero-bg" style={{ backgroundImage: `url('${service.heroImg}')` }} />
         <div className="sp-hero-overlay" />
         <div className="sp-hero-grid" />
@@ -440,11 +486,37 @@ export default function ServicePage({ params }: ServicePageProps) {
             <span className="sp-breadcrumb-sep">/</span>
             <span>{service.title}</span>
           </div>
-          <span className="sp-num">Service {service.num}</span>
+          <div className="sp-num">Service {service.num}</div>
           <h1 className="sp-title">{service.title}</h1>
+          <div className="sp-hero-rule" />
           <p className="sp-tagline">{service.tagline}</p>
+          <a href="/#contact" className="sp-hero-cta">
+            Get a Free Quote <ArrowRight size={14} />
+          </a>
         </div>
       </section>
+
+      {/* Stats Strip */}
+      <div className="sp-stats-strip">
+        <div className="sp-stats-inner">
+          <div className="sp-stat">
+            <div className="sp-stat-num">17+</div>
+            <div className="sp-stat-label">Years Experience</div>
+          </div>
+          <div className="sp-stat">
+            <div className="sp-stat-num">500+</div>
+            <div className="sp-stat-label">Projects Completed</div>
+          </div>
+          <div className="sp-stat">
+            <div className="sp-stat-num">5.0</div>
+            <div className="sp-stat-label">Google Rating</div>
+          </div>
+          <div className="sp-stat">
+            <div className="sp-stat-num">Perth</div>
+            <div className="sp-stat-label">Metro Wide Service</div>
+          </div>
+        </div>
+      </div>
 
       {/* Overview */}
       <section className="sp-overview">
