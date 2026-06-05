@@ -2371,7 +2371,7 @@ export default function App() {
           </a>
           <span className="nav-contact-row">
             <MapPin size={10} strokeWidth={1.5} />
-            Malaga WA 6090
+            Burswood WA 6100
           </span>
           <span className="nav-contact-row">
             <Shield size={10} strokeWidth={1.5} />
@@ -2596,7 +2596,7 @@ export default function App() {
                 "Fusing creativity with technical precision to bring over 500 clients' projects to life — on time, on budget, and beyond expectations."
               </blockquote>
               <p className="about-body">
-                With 17+ years in the Western Australian building industry, Patrick De Rossi has become a trusted name in residential design. Based in Malaga, WA Building Design specialises exclusively in residential projects — from custom homes and extensions to granny flats, multi-unit developments, and everything in between.
+                With 17+ years in the Western Australian building industry, Patrick De Rossi has become a trusted name in residential design. Based in Burswood, WA Building Design specialises exclusively in residential projects — from custom homes and extensions to granny flats, multi-unit developments, and everything in between.
               </p>
               <p className="about-body" style={{ marginTop: '-1rem' }}>
                 Patrick holds registration as a Building Designer and Registered Builder, bringing hands-on expertise and deep local knowledge of Perth's R-Codes, local authority requirements, and council approval processes to every project.
@@ -2609,7 +2609,7 @@ export default function App() {
                   <Mail size={16} /><span>patrick@wabd.com.au</span>
                 </a>
                 <span className="about-contact-link" style={{ cursor: 'default' }}>
-                  <MapPin size={16} style={{ color: 'rgba(26,27,30,0.45)' }} /><span>2/35 Westchester Road, Malaga WA 6090</span>
+                  <MapPin size={16} style={{ color: 'rgba(26,27,30,0.45)' }} /><span>30 The Circus, Burswood WA 6100</span>
                 </span>
               </div>
             </div>
@@ -2875,7 +2875,7 @@ export default function App() {
                 <div className="contact-detail-icon"><MapPin size={18} strokeWidth={1.5} /></div>
                 <div>
                   <div className="contact-detail-label">Address</div>
-                  <div className="contact-detail-value" style={{ fontSize: '0.95rem', color: 'var(--gray)' }}>2/35 Westchester Road, Malaga WA 6090</div>
+                  <div className="contact-detail-value" style={{ fontSize: '0.95rem', color: 'var(--gray)' }}>30 The Circus, Burswood WA 6100</div>
                 </div>
               </div>
               <div className="contact-detail">
@@ -2968,11 +2968,11 @@ export default function App() {
                 Serving Greater Perth
               </h2>
               <p style={{ fontSize: '0.88rem', color: 'var(--gray)', lineHeight: 1.9, fontWeight: 300, maxWidth: '320px', marginBottom: '1.75rem' }}>
-                Based in Malaga, we design for residential clients across the entire Perth metropolitan area — from Joondalup to Fremantle.
+                Based in Burswood, we design for residential clients across the entire Perth metropolitan area — from Joondalup to Fremantle.
               </p>
               <div className="suburbs-radius-badge">
                 <MapPin size={14} />
-                50km Service Radius from Malaga
+                50km Service Radius from Burswood
               </div>
             </div>
             <div className="reveal-right">
@@ -3044,7 +3044,7 @@ export default function App() {
                 <MapPin size={15} strokeWidth={1.5} />
                 <div>
                   <div className="footer-contact-label">Location</div>
-                  <div className="footer-contact-value">2/35 Westchester Road, Malaga WA 6090</div>
+                  <div className="footer-contact-value">30 The Circus, Burswood WA 6100</div>
                 </div>
               </div>
               <div className="footer-contact-item">
