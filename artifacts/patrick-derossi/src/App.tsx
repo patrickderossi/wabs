@@ -1384,7 +1384,7 @@ const CSS = `
   }
 
   /* ── Pricing ── */
-  #pricing { background: #fff; }
+  #pricing { background: #fff; padding: 7rem 0; }
   .pricing-notice {
     display: inline-flex;
     align-items: center;

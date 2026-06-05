@@ -37,14 +37,14 @@ const PAGE_CSS = `
 
   .sp-nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 500;
-    padding: 1.2rem 3rem;
+    padding: 0.6rem 3rem;
     display: flex; align-items: center; justify-content: space-between;
     background: rgba(244,245,248,0.96);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(201,168,76,0.2);
     box-shadow: 0 2px 24px rgba(26,27,30,0.07);
   }
-  @media (max-width: 768px) { .sp-nav { padding: 1rem 1.5rem; } }
+  @media (max-width: 768px) { .sp-nav { padding: 0.5rem 1.5rem; } }
   .sp-nav-back {
     display: inline-flex; align-items: center; gap: 0.6rem;
     font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
@@ -52,7 +52,7 @@ const PAGE_CSS = `
     transition: color 0.3s ease;
   }
   .sp-nav-back:hover { color: var(--gold); }
-  .sp-nav-logo img { height: 48px; width: auto; display: block; }
+  .sp-nav-logo img { height: 120px; width: auto; display: block; }
   .sp-nav-cta {
     display: inline-flex; align-items: center; gap: 0.5rem;
     font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
@@ -419,7 +419,7 @@ export default function ServicePage({ params }: ServicePageProps) {
           <ArrowLeft size={13} /> All Services
         </a>
         <a href="/" className="sp-nav-logo">
-          <img src="/logo-white.png" alt="WA Building Design" />
+          <img src="/logo-dark.png" alt="WA Building Design" />
         </a>
         <a href="/#contact" className="sp-nav-cta">
           <Phone size={12} /> Get a Quote
