@@ -2609,7 +2609,7 @@ export default function App() {
                   <Mail size={16} /><span>patrick@wabd.com.au</span>
                 </a>
                 <span className="about-contact-link" style={{ cursor: 'default' }}>
-                  <MapPin size={16} style={{ color: 'rgba(26,27,30,0.45)' }} /><span>30 The Circus, Burswood WA 6100</span>
+                  <MapPin size={16} style={{ color: 'rgba(26,27,30,0.45)' }} /><span>30 The Circus, Burswood WA 6100 (by appointment only)</span>
                 </span>
               </div>
             </div>
@@ -2875,7 +2875,7 @@ export default function App() {
                 <div className="contact-detail-icon"><MapPin size={18} strokeWidth={1.5} /></div>
                 <div>
                   <div className="contact-detail-label">Address</div>
-                  <div className="contact-detail-value" style={{ fontSize: '0.95rem', color: 'var(--gray)' }}>30 The Circus, Burswood WA 6100</div>
+                  <div className="contact-detail-value" style={{ fontSize: '0.95rem', color: 'var(--gray)' }}>30 The Circus, Burswood WA 6100 (by appointment only)</div>
                 </div>
               </div>
               <div className="contact-detail">
@@ -3044,7 +3044,7 @@ export default function App() {
                 <MapPin size={15} strokeWidth={1.5} />
                 <div>
                   <div className="footer-contact-label">Location</div>
-                  <div className="footer-contact-value">30 The Circus, Burswood WA 6100</div>
+                  <div className="footer-contact-value">30 The Circus, Burswood WA 6100 (by appointment only)</div>
                 </div>
               </div>
               <div className="footer-contact-item">
