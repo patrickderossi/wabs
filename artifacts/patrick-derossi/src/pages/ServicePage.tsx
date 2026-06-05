@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
-import { ArrowLeft, ArrowRight, Phone, Mail, MapPin, Clock, ChevronDown, Star, CheckCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Phone, Mail, MapPin, Clock, ChevronDown, Star, CheckCircle, ShieldCheck, ScanSearch, FileCheck, LayoutGrid, Users, Ruler, MessageSquare, Award, Zap, Home, Calendar, ClipboardList } from 'lucide-react';
 import { SERVICES_DATA } from '../serviceData';
+
+const FEATURE_ICONS = [ShieldCheck, ScanSearch, FileCheck, LayoutGrid, Users, Ruler];
+
+const SERVICE_TIMELINES: Record<string, { weeks: string; steps: number; note: string }> = {
+  'residential-design':       { weeks: '8–14 weeks', steps: 9,  note: 'From brief to permit-ready drawings' },
+  'construction-drawings':    { weeks: '3–5 weeks',  steps: 7,  note: 'From confirmed design to full doc set' },
+  'multi-unit-development':   { weeks: '12–20 weeks',steps: 10, note: 'Including WAPC/council assessment' },
+  'renovation-extension':     { weeks: '6–12 weeks', steps: 10, note: 'From as-built survey to approval' },
+  'granny-flats':             { weeks: '4–8 weeks',  steps: 10, note: 'Faster turnaround than a full new build' },
+  'carports-alfrescos-sheds': { weeks: '2–4 weeks',  steps: 8,  note: 'Our fastest and most efficient service' },
+};
 
 const TESTIMONIALS = [
   { text: "If you need a draftsman, look no further. Patrick is amazing to work with. He took my rough sketches and ideas and turned them into professional permit ready plans. He was so patient and made the entire process stress-free. Highly Recommended.", name: 'Sukhpal Singh', role: 'Google Review', image: 'https://ui-avatars.com/api/?name=Sukhpal+Singh&background=1a1a1a&color=c9a84c&size=80' },
@@ -283,21 +294,108 @@ const PAGE_CSS = `
   .sp-footer-link { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.3s ease; }
   .sp-footer-link:hover { color: var(--gold); }
 
+  /* How We Work strip */
+  .sp-how-strip { background: var(--dark2); border-top: 1px solid rgba(28,23,14,0.07); border-bottom: 1px solid rgba(28,23,14,0.07); padding: 5rem 0; position: relative; overflow: hidden; }
+  .sp-how-strip-bg {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(201,168,76,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.035) 1px, transparent 1px);
+    background-size: 56px 56px; pointer-events: none;
+  }
+  .sp-how-head { position: relative; z-index: 1; margin-bottom: 3.5rem; }
+  .sp-how-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  @media (max-width: 900px) { .sp-how-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .sp-how-grid { grid-template-columns: 1fr; } }
+  .sp-how-step {
+    padding: 2.5rem 2rem; border-right: 1px solid rgba(28,23,14,0.09);
+    position: relative;
+  }
+  .sp-how-step:last-child { border-right: none; }
+  @media (max-width: 900px) { .sp-how-step:nth-child(2) { border-right: none; } .sp-how-step:nth-child(3) { border-top: 1px solid rgba(28,23,14,0.09); } .sp-how-step:nth-child(4) { border-right: none; border-top: 1px solid rgba(28,23,14,0.09); } }
+  .sp-how-num {
+    font-size: 3.5rem; font-weight: 800; line-height: 1;
+    color: var(--gold); opacity: 0.18; letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+  .sp-how-icon { color: var(--gold); margin-bottom: 1rem; }
+  .sp-how-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
+  .sp-how-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.75; font-weight: 400; }
+  .sp-how-connector {
+    position: absolute; top: 2.5rem; right: -1px;
+    width: 0; height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid rgba(201,168,76,0.25);
+    display: none;
+  }
+
+  /* Timeline callout */
+  .sp-timeline-callout {
+    background: #1c1812; border: 1px solid rgba(201,168,76,0.25);
+    padding: 2rem; margin-bottom: 2rem;
+  }
+  .sp-timeline-label { font-size: 0.58rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .sp-timeline-label::before { content: ''; display: inline-block; width: 1rem; height: 1px; background: var(--gold); }
+  .sp-timeline-weeks { font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 0.3rem; }
+  .sp-timeline-note { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+  .sp-timeline-divider { height: 1px; background: rgba(201,168,76,0.15); margin: 1.25rem 0; }
+  .sp-timeline-row { display: flex; justify-content: space-between; align-items: center; }
+  .sp-timeline-steps-num { font-size: 1.4rem; font-weight: 800; color: var(--gold); }
+  .sp-timeline-steps-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .sp-timeline-consult { font-size: 0.72rem; color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 0.4rem; margin-top: 1.25rem; }
+
+  /* Feature cards – upgraded */
+  .sp-feature-cell {
+    background: var(--dark2); padding: 3rem 2.5rem;
+    transition: background 0.3s ease, transform 0.3s ease;
+    position: relative; overflow: hidden;
+  }
+  .sp-feature-cell::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .sp-feature-cell:hover { background: var(--dark3); }
+  .sp-feature-cell:hover::after { transform: scaleX(1); }
+  .sp-feature-icon-wrap {
+    width: 48px; height: 48px; border-radius: 0;
+    background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem; color: var(--gold);
+    transition: background 0.3s ease;
+  }
+  .sp-feature-cell:hover .sp-feature-icon-wrap { background: rgba(201,168,76,0.18); }
+  .sp-feature-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+  .sp-feature-desc { font-size: 0.84rem; color: var(--gray); line-height: 1.8; font-weight: 400; }
+
+  /* Testimonial – full width quote style */
+  .sp-testi-full {
+    background: var(--dark3); border: 1px solid rgba(28,23,14,0.08);
+    padding: 3rem; position: relative;
+    border-left: 3px solid var(--gold);
+  }
+  .sp-testi-full-quote { font-size: 5rem; line-height: 0.8; color: var(--gold); opacity: 0.15; font-family: Georgia, serif; margin-bottom: 1rem; }
+  .sp-testi-full-text { font-size: clamp(1rem, 1.5vw, 1.2rem); color: rgba(28,23,14,0.75); line-height: 1.75; font-weight: 300; font-style: italic; margin-bottom: 2rem; }
+  .sp-testi-full-author { display: flex; align-items: center; gap: 1rem; }
+  .sp-testi-full-avatar { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold-border); flex-shrink: 0; }
+  .sp-testi-full-name { font-size: 0.9rem; font-weight: 700; }
+  .sp-testi-full-role { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+
   /* Services nav strip */
   .sp-services-strip { padding: 5rem 0; background: var(--dark3); border-top: 1px solid rgba(28,23,14,0.08); }
   .sp-services-strip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(28,23,14,0.08); margin-top: 3rem; }
   @media (max-width: 900px) { .sp-services-strip-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) { .sp-services-strip-grid { grid-template-columns: 1fr; } }
   .sp-other-service {
-    background: var(--dark3); padding: 2rem;
+    background: var(--dark3); padding: 2.5rem 2rem;
     text-decoration: none; color: #1c1812;
     display: flex; align-items: center; justify-content: space-between;
-    border-bottom: 2px solid transparent;
+    border-bottom: 3px solid transparent;
     transition: border-color 0.3s ease, background 0.3s ease;
   }
   .sp-other-service:hover { border-color: var(--gold); background: var(--dark4); }
-  .sp-other-service-num { font-size: 0.58rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem; display: block; }
-  .sp-other-service-title { font-size: 0.92rem; font-weight: 700; }
+  .sp-other-service-num { font-size: 0.58rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+  .sp-other-service-title { font-size: 0.95rem; font-weight: 700; }
+  .sp-other-service-desc { font-size: 0.78rem; color: var(--gray); margin-top: 0.3rem; font-weight: 400; }
 `;
 
 interface ServicePageProps {
@@ -518,6 +616,32 @@ export default function ServicePage({ params }: ServicePageProps) {
         </div>
       </div>
 
+      {/* How We Work */}
+      <section className="sp-how-strip">
+        <div className="sp-how-strip-bg" />
+        <div className="sp-container">
+          <div className="sp-how-head">
+            <span className="sp-section-eyebrow">Our Process</span>
+            <h2 className="sp-section-h2">How we work together</h2>
+          </div>
+          <div className="sp-how-grid">
+            {[
+              { icon: <MessageSquare size={20} />, title: 'Free Consultation', desc: 'We discuss your project, site, and goals — no commitment required. You leave knowing exactly what\'s achievable.' },
+              { icon: <ClipboardList size={20} />, title: 'Design Brief', desc: 'We define the scope, budget, and design direction together. A clear brief means no surprises later in the process.' },
+              { icon: <Ruler size={20} />, title: 'Design & Documentation', desc: 'We produce your drawings to council and permit-ready standard — coordinated, accurate, and complete from the first submission.' },
+              { icon: <CheckCircle size={20} />, title: 'Approvals & Handover', desc: 'We manage lodgement, respond to council queries, and deliver your final signed drawing set ready for your builder.' },
+            ].map((step, i) => (
+              <div key={i} className="sp-how-step">
+                <div className="sp-how-num">0{i + 1}</div>
+                <div className="sp-how-icon">{step.icon}</div>
+                <div className="sp-how-title">{step.title}</div>
+                <p className="sp-how-desc">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Overview */}
       <section className="sp-overview">
         <div className="sp-container">
@@ -530,6 +654,31 @@ export default function ServicePage({ params }: ServicePageProps) {
               ))}
             </div>
             <div>
+              {(() => {
+                const tl = SERVICE_TIMELINES[service.slug];
+                return tl ? (
+                  <div className="sp-timeline-callout">
+                    <div className="sp-timeline-label"><Calendar size={12} /> Typical Timeline</div>
+                    <div className="sp-timeline-weeks">{tl.weeks}</div>
+                    <div className="sp-timeline-note">{tl.note}</div>
+                    <div className="sp-timeline-divider" />
+                    <div className="sp-timeline-row">
+                      <div>
+                        <div className="sp-timeline-steps-num">{tl.steps}</div>
+                        <div className="sp-timeline-steps-label">Deliverables included</div>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <div className="sp-timeline-steps-num" style={{ color: '#fff' }}>Free</div>
+                        <div className="sp-timeline-steps-label">Initial consultation</div>
+                      </div>
+                    </div>
+                    <div className="sp-timeline-consult">
+                      <CheckCircle size={12} style={{ color: 'var(--gold)', flexShrink: 0 }} />
+                      No commitment required — just a conversation
+                    </div>
+                  </div>
+                ) : null;
+              })()}
               <div className="sp-inclusions-box">
                 <div className="sp-inclusions-title">What's Included</div>
                 {service.inclusions.map((item, i) => (
@@ -554,15 +703,23 @@ export default function ServicePage({ params }: ServicePageProps) {
           <div className="sp-features-head">
             <span className="sp-section-eyebrow">Why Choose Us</span>
             <h2 className="sp-section-h2">What sets our {service.title.toLowerCase()} service apart</h2>
+            <p style={{ fontSize: '0.9rem', color: 'var(--gray)', maxWidth: '560px', lineHeight: 1.8, marginTop: '-0.5rem' }}>
+              Six reasons our clients choose WA Building Design — and come back for every project that follows.
+            </p>
           </div>
           <div className="sp-feature-grid">
-            {service.features.map((f, i) => (
-              <div key={i} className="sp-feature-cell">
-                <span className="sp-feature-icon">{f.icon}</span>
-                <div className="sp-feature-title">{f.title}</div>
-                <p className="sp-feature-desc">{f.desc}</p>
-              </div>
-            ))}
+            {service.features.map((f, i) => {
+              const Icon = FEATURE_ICONS[i % FEATURE_ICONS.length];
+              return (
+                <div key={i} className="sp-feature-cell">
+                  <div className="sp-feature-icon-wrap">
+                    <Icon size={20} />
+                  </div>
+                  <div className="sp-feature-title">{f.title}</div>
+                  <p className="sp-feature-desc">{f.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -571,28 +728,25 @@ export default function ServicePage({ params }: ServicePageProps) {
       <section className="sp-testimonials">
         <div className="sp-container">
           <span className="sp-section-eyebrow">Client Stories</span>
-          <h2 className="sp-section-h2" style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <h2 className="sp-section-h2" style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
             What clients say
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '1rem', fontWeight: 400 }}>
               {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="#c9a84c" color="#c9a84c" />)}
               <span style={{ color: '#c9a84c', fontWeight: 800, fontSize: '1rem' }}>5.0</span>
             </span>
           </h2>
-          <div className="sp-testi-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
             {service.testimonialIndices.slice(0, 2).map(idx => {
               const t = TESTIMONIALS[idx];
               return (
-                <div key={idx} className="sp-testi-card">
-                  <div className="sp-testi-quote">"</div>
-                  <div className="sp-testi-stars">
-                    {[...Array(5)].map((_, i) => <Star key={i} size={12} fill="#c9a84c" color="#c9a84c" />)}
-                  </div>
-                  <p className="sp-testi-text">"{t.text}"</p>
-                  <div className="sp-testi-author">
-                    <img src={t.image} alt={t.name} className="sp-testi-avatar" loading="lazy" />
+                <div key={idx} className="sp-testi-full">
+                  <div className="sp-testi-full-quote">"</div>
+                  <p className="sp-testi-full-text">{t.text}</p>
+                  <div className="sp-testi-full-author">
+                    <img src={t.image} alt={t.name} className="sp-testi-full-avatar" loading="lazy" />
                     <div>
-                      <div className="sp-testi-name">{t.name}</div>
-                      <div className="sp-testi-role">{t.role}</div>
+                      <div className="sp-testi-full-name">{t.name}</div>
+                      <div className="sp-testi-full-role">{t.role}</div>
                     </div>
                   </div>
                 </div>
@@ -634,8 +788,9 @@ export default function ServicePage({ params }: ServicePageProps) {
                 <div>
                   <span className="sp-other-service-num">{s.num}</span>
                   <span className="sp-other-service-title">{s.title}</span>
+                  <div className="sp-other-service-desc">{s.tagline}</div>
                 </div>
-                <ArrowRight size={16} style={{ color: 'var(--gold)', opacity: 0.6, flexShrink: 0 }} />
+                <ArrowRight size={16} style={{ color: 'var(--gold)', opacity: 0.6, flexShrink: 0, marginLeft: '1rem' }} />
               </a>
             ))}
           </div>
