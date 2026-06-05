@@ -2715,7 +2715,7 @@ export default function App() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
               <div>
                 <p className="section-eyebrow">Investment</p>
-                <h2 className="section-title" style={{ maxWidth: '520px' }}>What Does Building Design Cost?</h2>
+                <h2 className="section-title" style={{ maxWidth: '520px', fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}>What Does Building Design Cost?</h2>
               </div>
             </div>
           </motion.div>
