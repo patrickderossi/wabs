@@ -6,12 +6,12 @@ import { SERVICES_DATA } from '../serviceData';
 const FEATURE_ICONS = [ShieldCheck, ScanSearch, FileCheck, LayoutGrid, Users, Ruler];
 
 const SERVICE_TIMELINES: Record<string, { weeks: string; steps: number; note: string }> = {
-  'residential-design':       { weeks: '8–14 weeks', steps: 9,  note: 'From brief to permit-ready drawings' },
-  'construction-drawings':    { weeks: '3–5 weeks',  steps: 7,  note: 'From confirmed design to full doc set' },
-  'multi-unit-development':   { weeks: '12–20 weeks',steps: 10, note: 'Including WAPC/council assessment' },
-  'renovation-extension':     { weeks: '6–12 weeks', steps: 10, note: 'From as-built survey to approval' },
-  'granny-flats':             { weeks: '4–8 weeks',  steps: 10, note: 'Faster turnaround than a full new build' },
-  'carports-alfrescos-sheds': { weeks: '2–4 weeks',  steps: 8,  note: 'Our fastest and most efficient service' },
+  'residential-design':       { weeks: '2–8 weeks',  steps: 9,  note: 'From brief to permit-ready drawings (depending on project complexity)' },
+  'construction-drawings':    { weeks: '1–3 weeks',  steps: 7,  note: 'From confirmed design to full doc set (depending on project complexity)' },
+  'multi-unit-development':   { weeks: '4–10 weeks', steps: 10, note: 'Including WAPC/council assessment (depending on project complexity)' },
+  'renovation-extension':     { weeks: '2–6 weeks',  steps: 10, note: 'From as-built survey to approval (depending on project complexity)' },
+  'granny-flats':             { weeks: '1–4 weeks',  steps: 10, note: 'Fast turnaround on ancillary dwelling designs (depending on project complexity)' },
+  'carports-alfrescos-sheds': { weeks: '1–2 weeks',  steps: 8,  note: 'Our fastest and most efficient service (depending on project complexity)' },
 };
 
 const TESTIMONIALS = [
