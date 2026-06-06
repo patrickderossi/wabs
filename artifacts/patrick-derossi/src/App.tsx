@@ -1893,7 +1893,25 @@ const GALLERY_SECTIONS = [
     ],
   },
   { label: 'Renovations', images: [] },
-  { label: 'Outdoor Structures', images: [] },
+  {
+    label: 'Carports, Alfrescos & Sheds',
+    images: [
+      '/gallery/cafs/cafs_01.webp',
+      '/gallery/cafs/cafs_02.jpeg',
+      '/gallery/cafs/cafs_03.jpeg',
+      '/gallery/cafs/cafs_04.jpeg',
+      '/gallery/cafs/cafs_05.png',
+      '/gallery/cafs/cafs_06.png',
+      '/gallery/cafs/cafs_07.jpeg',
+      '/gallery/cafs/cafs_08.jpeg',
+      '/gallery/cafs/cafs_09.jpeg',
+      '/gallery/cafs/cafs_10.png',
+      '/gallery/cafs/cafs_11.jpeg',
+      '/gallery/cafs/cafs_12.jpeg',
+      '/gallery/cafs/cafs_13.jpeg',
+      '/gallery/cafs/cafs_14.jpeg',
+    ],
+  },
 ];
 
 const PROCESS = [
