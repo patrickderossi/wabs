@@ -1883,6 +1883,17 @@ const GALLERY_SECTIONS = [
     ],
   },
   {
+    label: 'Renovations & Additions',
+    images: [
+      '/gallery/renovations/ren_01.webp',
+      '/gallery/renovations/ren_02.webp',
+      '/gallery/renovations/ren_03.png',
+      '/gallery/renovations/ren_04.png',
+      '/gallery/renovations/ren_05.jpeg',
+      '/gallery/renovations/ren_06.jpeg',
+    ],
+  },
+  {
     label: 'Granny Flats',
     images: [
       '/gallery/granny-flats/gf_01.webp',
@@ -1892,7 +1903,6 @@ const GALLERY_SECTIONS = [
       '/gallery/granny-flats/gf_05.png',
     ],
   },
-  { label: 'Renovations', images: [] },
   {
     label: 'Carports, Alfrescos & Sheds',
     images: [
