@@ -1882,7 +1882,16 @@ const GALLERY_SECTIONS = [
       '/gallery/developments/dev_10.webp',
     ],
   },
-  { label: 'Granny Flats', images: [] },
+  {
+    label: 'Granny Flats',
+    images: [
+      '/gallery/granny-flats/gf_01.webp',
+      '/gallery/granny-flats/gf_02.jpeg',
+      '/gallery/granny-flats/gf_03.jpeg',
+      '/gallery/granny-flats/gf_04.png',
+      '/gallery/granny-flats/gf_05.png',
+    ],
+  },
   { label: 'Renovations', images: [] },
   { label: 'Outdoor Structures', images: [] },
 ];
