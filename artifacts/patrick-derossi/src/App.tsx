@@ -1617,7 +1617,7 @@ const CSS = `
     #pdr-nav { padding: 0.9rem 1.25rem; justify-content: center; }
     #pdr-nav.scrolled { padding: 0.7rem 1.25rem; }
     .nav-wordmark { flex: unset; text-align: center; }
-    .nav-logo-img { height: 80px; width: auto; max-width: none; }
+    .nav-logo-img { height: 96px; width: auto; max-width: none; }
     .nav-mobile-btn { position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); }
 
     /* Container */
@@ -1697,7 +1697,7 @@ const CSS = `
 
   @media (max-width: 480px) {
     /* Nav logo */
-    .nav-logo-img { height: 72px; width: auto; max-width: none; }
+    .nav-logo-img { height: 88px; width: auto; max-width: none; }
 
     /* Tighter sections */
     #services, #work, #why, #testimonials, #about, #contact, #process, #suburbs { padding: 3.5rem 0; }
