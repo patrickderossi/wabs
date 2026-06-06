@@ -63,7 +63,7 @@ const PAGE_CSS = `
   }
   .sp-nav-back:hover { color: var(--gold); }
   .sp-nav-logo { flex-shrink: 0; }
-  .sp-nav-logo img { height: 80px; width: auto; max-width: none; display: block; object-fit: contain; }
+  .sp-nav-logo img { height: 160px; width: auto; max-width: none; display: block; object-fit: contain; }
   .sp-nav-cta {
     display: inline-flex; align-items: center; gap: 0.5rem;
     font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
@@ -74,14 +74,14 @@ const PAGE_CSS = `
   .sp-nav-cta:hover { background: var(--gold); color: #1c1812; border-color: var(--gold); }
   @media (max-width: 768px) {
     .sp-nav { padding: 0.5rem 1rem; gap: 0.5rem; }
-    .sp-nav-logo img { height: 56px; }
+    .sp-nav-logo img { height: 112px; }
     .sp-nav-back { font-size: 0.62rem; letter-spacing: 0.08em; gap: 0.35rem; }
     .sp-nav-cta { font-size: 0.62rem; letter-spacing: 0.08em; padding: 0.45rem 0.75rem; gap: 0.35rem; }
   }
   @media (max-width: 480px) {
     .sp-nav { padding: 0.5rem 0.75rem; }
     .sp-nav-back span { display: none; }
-    .sp-nav-logo img { height: 48px; }
+    .sp-nav-logo img { height: 96px; }
     .sp-nav-cta { font-size: 0.6rem; padding: 0.4rem 0.6rem; }
   }
 
