@@ -55,23 +55,35 @@ const PAGE_CSS = `
     border-bottom: 1px solid rgba(201,168,76,0.2);
     box-shadow: 0 2px 24px rgba(26,27,30,0.07);
   }
-  @media (max-width: 768px) { .sp-nav { padding: 0.5rem 1.5rem; } }
   .sp-nav-back {
     display: inline-flex; align-items: center; gap: 0.6rem;
     font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
     color: rgba(28,23,14,0.6); text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease; white-space: nowrap; flex-shrink: 0;
   }
   .sp-nav-back:hover { color: var(--gold); }
+  .sp-nav-logo { flex-shrink: 0; }
   .sp-nav-logo img { height: 80px; width: auto; max-width: none; display: block; object-fit: contain; }
   .sp-nav-cta {
     display: inline-flex; align-items: center; gap: 0.5rem;
     font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--gold); text-decoration: none;
+    color: var(--gold); text-decoration: none; white-space: nowrap; flex-shrink: 0;
     border: 1px solid var(--gold-border); padding: 0.55rem 1.2rem;
     transition: all 0.3s ease;
   }
   .sp-nav-cta:hover { background: var(--gold); color: #1c1812; border-color: var(--gold); }
+  @media (max-width: 768px) {
+    .sp-nav { padding: 0.5rem 1rem; gap: 0.5rem; }
+    .sp-nav-logo img { height: 56px; }
+    .sp-nav-back { font-size: 0.62rem; letter-spacing: 0.08em; gap: 0.35rem; }
+    .sp-nav-cta { font-size: 0.62rem; letter-spacing: 0.08em; padding: 0.45rem 0.75rem; gap: 0.35rem; }
+  }
+  @media (max-width: 480px) {
+    .sp-nav { padding: 0.5rem 0.75rem; }
+    .sp-nav-back span { display: none; }
+    .sp-nav-logo img { height: 48px; }
+    .sp-nav-cta { font-size: 0.6rem; padding: 0.4rem 0.6rem; }
+  }
 
   /* Hero */
   .sp-hero {
@@ -561,13 +573,13 @@ export default function ServicePage({ params }: ServicePageProps) {
       {/* Nav */}
       <nav className="sp-nav">
         <a href="/#services" className="sp-nav-back">
-          <ArrowLeft size={13} /> All Services
+          <ArrowLeft size={13} /><span>All Services</span>
         </a>
         <a href="/" className="sp-nav-logo">
           <img src="/logo-dark.png" alt="WA Building Design" />
         </a>
         <a href="/#contact" className="sp-nav-cta">
-          <Phone size={12} /> Get a Quote
+          <Phone size={12} /><span>Get a Quote</span>
         </a>
       </nav>
 
