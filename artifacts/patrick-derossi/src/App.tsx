@@ -637,9 +637,9 @@ const CSS = `
   .gallery-section { margin-bottom: 5rem; }
   .gallery-section-heading {
     font-size: clamp(1.3rem, 2.5vw, 1.9rem);
-    font-weight: 700; letter-spacing: -0.02em; color: #fff;
+    font-weight: 700; letter-spacing: -0.02em; color: #1c1812;
     margin-bottom: 1.5rem; padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(201,168,76,0.2);
+    border-bottom: 1px solid rgba(201,168,76,0.35);
     position: relative;
   }
   .gallery-section-heading::after {
