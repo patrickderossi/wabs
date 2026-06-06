@@ -63,7 +63,7 @@ const PAGE_CSS = `
     transition: color 0.3s ease;
   }
   .sp-nav-back:hover { color: var(--gold); }
-  .sp-nav-logo img { height: 120px; width: auto; display: block; }
+  .sp-nav-logo img { height: 80px; width: auto; max-width: none; display: block; object-fit: contain; }
   .sp-nav-cta {
     display: inline-flex; align-items: center; gap: 0.5rem;
     font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;

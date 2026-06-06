@@ -131,8 +131,8 @@ const CSS = `
   #pdr-nav.scrolled .nav-link:hover,
   #pdr-nav.scrolled .nav-link.active { color: #1c1812; }
   #pdr-nav.scrolled .nav-mobile-btn { color: #1c1812; }
-  .nav-wordmark { line-height: 1; }
-  .nav-logo-img { height: 122px; width: auto; }
+  .nav-wordmark { line-height: 1; flex-shrink: 0; }
+  .nav-logo-img { height: 122px; width: auto; display: block; object-fit: contain; max-width: none; }
   .nav-wordmark-main { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.04em; display: block; }
   .nav-wordmark-sub { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-top: 2px; }
 
@@ -1617,7 +1617,7 @@ const CSS = `
     #pdr-nav { padding: 0.9rem 1.25rem; justify-content: center; }
     #pdr-nav.scrolled { padding: 0.7rem 1.25rem; }
     .nav-wordmark { flex: unset; text-align: center; }
-    .nav-logo-img { height: 100px; width: auto; }
+    .nav-logo-img { height: 80px; width: auto; max-width: none; }
     .nav-mobile-btn { position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); }
 
     /* Container */
@@ -1697,7 +1697,7 @@ const CSS = `
 
   @media (max-width: 480px) {
     /* Nav logo */
-    .nav-logo-img { height: 100px; width: auto; }
+    .nav-logo-img { height: 72px; width: auto; max-width: none; }
 
     /* Tighter sections */
     #services, #work, #why, #testimonials, #about, #contact, #process, #suburbs { padding: 3.5rem 0; }
