@@ -2806,10 +2806,10 @@ export default function App() {
           <div className="team-grid">
             {[
               {
-                img: null,
-                name: 'Team Member One',
-                role: 'Role / Title',
-                bio: 'A short bio about this person will go here — their background, experience, and what they bring to the team.',
+                img: '/team/patrick.png',
+                name: 'Patrick De Rossi',
+                role: 'Founder & Principal Building Designer',
+                bio: 'Patrick is the founder and Principal Building Designer of WA Building Design, bringing over 17 years of experience in residential design, drafting, and construction. With a Diploma in Building Design & Technology and a strong background in planning approvals, working drawings, and development projects, he has helped hundreds of homeowners, builders, owner-builders, and property developers bring their ideas to life. As a registered builder and experienced designer, Patrick combines creative design thinking with practical construction knowledge to deliver homes that are both functional and buildable.',
                 imgStyle: {},
               },
               {
