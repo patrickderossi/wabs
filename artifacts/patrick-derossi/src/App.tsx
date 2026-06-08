@@ -2824,7 +2824,7 @@ export default function App() {
                 name: 'Kenneth Herman',
                 role: 'Senior Architectural Designer',
                 bio: 'Kenneth brings extensive experience in residential design, planning, and construction documentation — from granny flats and custom homes to multi-unit developments. Specialising in concept design, DA documentation, and detailed working drawings, he is known for a strong eye for detail and a practical approach that delivers accurate, compliant, and buildable design solutions.',
-                imgStyle: { transform: 'scale(0.8)', transformOrigin: 'center 20%' },
+                imgStyle: { transform: 'scale(1.0)', transformOrigin: 'center 20%' },
               },
             ].map((member, i) => (
               <div key={i} className="team-card reveal" style={{ transitionDelay: `${i * 0.12}s` }}>
