@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import imgFormalQuote from '@assets/Formal_Quote_1774258217637.jpeg';
-import imgInitialConsult from '@assets/Initial_Consultation_1774258217637.jpeg';
-import imgConceptDesign from '@assets/Concept_Design_1774258217636.jpeg';
-import imgPlanningApproval from '@assets/Planning_Approval_1774258217638.png';
-import imgWorkingDrawings from '@assets/Working_Drawings_1774258217638.jpeg';
-import imgThirdParty from '@assets/3rd_Party_Plans_1774258217635.png';
-import imgDesignCompliance from '@assets/Design_Compliance_1774258217637.jpeg';
-import imgBuildingPermit from '@assets/Building_Permit_1774258217636.jpeg';
+const imgFormalQuote = '/process/formal-quote.webp';
+const imgInitialConsult = '/process/initial-consult.webp';
+const imgConceptDesign = '/process/concept-design.webp';
+const imgPlanningApproval = '/process/planning-approval.webp';
+const imgWorkingDrawings = '/process/working-drawings.webp';
+const imgThirdParty = '/process/third-party-plans.webp';
+const imgDesignCompliance = '/process/design-compliance.webp';
+const imgBuildingPermit = '/process/building-permit.webp';
 import {
   Menu, X, ArrowRight, ArrowUpRight,
   Star, Clock, FileCheck, MapPin, Phone, Mail,
