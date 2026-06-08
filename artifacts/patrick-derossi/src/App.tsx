@@ -2817,7 +2817,7 @@ export default function App() {
                 name: 'Roy Gabata',
                 role: 'Senior Architectural Draftsperson',
                 bio: 'Roy brings over 10 years of experience in residential design, construction documentation, and 3D visualisation. Specialising in ArchiCAD and Australian drafting standards, he transforms concepts into accurate, buildable, and compliant designs — known for his meticulous attention to detail and clear documentation that keeps every project moving from concept through to construction.',
-                imgStyle: { transform: 'scale(1.45)', transformOrigin: 'center 20%' },
+                imgStyle: { transform: 'scale(1.26)', transformOrigin: 'center 20%' },
               },
               {
                 img: '/team/kenneth.png',
