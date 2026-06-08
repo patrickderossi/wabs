@@ -1862,28 +1862,28 @@ const SERVICES = [
     slug: 'residential-design',
   },
   {
-    img: '/svc-construction-plans.jpg',
+    img: '/svc-construction-plans.webp',
     title: 'Construction Drawings',
     desc: 'Comprehensive working drawing sets covering floor plans, elevations, sections, site plans and structural details. Every package is built to satisfy building permit and local authority requirements from the outset.',
     num: '02',
     slug: 'construction-drawings',
   },
   {
-    img: '/svc-multi-unit.jpg',
+    img: '/svc-multi-unit.webp',
     title: 'Multi-Unit Development',
     desc: 'Duplex, triplex, grouped dwelling and apartments designed to maximise yield within your site\'s development potential. We navigate WAPC and local planning policy to make your investment work harder.',
     num: '03',
     slug: 'multi-unit-development',
   },
   {
-    img: '/svc-renovations.jpg',
+    img: '/svc-renovations.webp',
     title: 'Renovation & Extension',
     desc: 'Thoughtful alterations and additions that respect your home\'s existing character while delivering the space you need. From rear extensions to full internal reconfigurations and second-storey additions.',
     num: '04',
     slug: 'renovation-extension',
   },
   {
-    img: '/svc-granny-flat.jpg',
+    img: '/svc-granny-flat.webp',
     title: 'Granny Flats',
     desc: 'Ancillary dwelling designs that comply with Perth\'s R-Codes and maximise liveable space within the allowable footprint. An efficient solution for extended family accommodation or additional rental income.',
     num: '05',
@@ -1902,25 +1902,25 @@ const GALLERY_SECTIONS = [
   {
     label: 'Single Storey',
     images: [
-      '/gallery/single-story/ss_01.png',
-      '/gallery/single-story/ss_02.jpeg',
-      '/gallery/single-story/ss_03.png',
+      '/gallery/single-story/ss_01.webp',
+      '/gallery/single-story/ss_02.webp',
+      '/gallery/single-story/ss_03.webp',
       '/gallery/single-story/ss_04.webp',
       '/gallery/single-story/ss_05.webp',
       '/gallery/single-story/ss_06.webp',
       '/gallery/single-story/ss_07.webp',
       '/gallery/single-story/ss_08.webp',
-      '/gallery/single-story/ss_09.jpeg',
-      '/gallery/single-story/ss_10.jpeg',
-      '/gallery/single-story/ss_11.png',
-      '/gallery/single-story/ss_12.png',
-      '/gallery/single-story/ss_13.png',
-      '/gallery/single-story/ss_14.jpeg',
-      '/gallery/single-story/ss_15.jpeg',
-      '/gallery/single-story/ss_16.png',
-      '/gallery/single-story/ss_17.jpeg',
-      '/gallery/single-story/ss_18.jpeg',
-      '/gallery/single-story/ss_19.png',
+      '/gallery/single-story/ss_09.webp',
+      '/gallery/single-story/ss_10.webp',
+      '/gallery/single-story/ss_11.webp',
+      '/gallery/single-story/ss_12.webp',
+      '/gallery/single-story/ss_13.webp',
+      '/gallery/single-story/ss_14.webp',
+      '/gallery/single-story/ss_15.webp',
+      '/gallery/single-story/ss_16.webp',
+      '/gallery/single-story/ss_17.webp',
+      '/gallery/single-story/ss_18.webp',
+      '/gallery/single-story/ss_19.webp',
       '/gallery/single-story/ss_20.webp',
       '/gallery/single-story/ss_21.webp',
     ],
@@ -1929,32 +1929,32 @@ const GALLERY_SECTIONS = [
     label: 'Double Storey',
     images: [
       '/gallery/double-story/ds_01.webp',
-      '/gallery/double-story/ds_02.png',
-      '/gallery/double-story/ds_03.jpeg',
-      '/gallery/double-story/ds_04.jpeg',
-      '/gallery/double-story/ds_05.png',
-      '/gallery/double-story/ds_06.jpeg',
-      '/gallery/double-story/ds_07.jpeg',
-      '/gallery/double-story/ds_08.jpeg',
-      '/gallery/double-story/ds_09.jpeg',
-      '/gallery/double-story/ds_10.jpeg',
-      '/gallery/double-story/ds_11.jpeg',
-      '/gallery/double-story/ds_12.jpeg',
-      '/gallery/double-story/ds_13.jpeg',
+      '/gallery/double-story/ds_02.webp',
+      '/gallery/double-story/ds_03.webp',
+      '/gallery/double-story/ds_04.webp',
+      '/gallery/double-story/ds_05.webp',
+      '/gallery/double-story/ds_06.webp',
+      '/gallery/double-story/ds_07.webp',
+      '/gallery/double-story/ds_08.webp',
+      '/gallery/double-story/ds_09.webp',
+      '/gallery/double-story/ds_10.webp',
+      '/gallery/double-story/ds_11.webp',
+      '/gallery/double-story/ds_12.webp',
+      '/gallery/double-story/ds_13.webp',
     ],
   },
   {
     label: 'Developments',
     images: [
-      '/gallery/developments/dev_01.jpeg',
-      '/gallery/developments/dev_02.png',
-      '/gallery/developments/dev_03.png',
-      '/gallery/developments/dev_04.jpeg',
-      '/gallery/developments/dev_05.jpeg',
-      '/gallery/developments/dev_06.jpeg',
-      '/gallery/developments/dev_07.jpeg',
-      '/gallery/developments/dev_08.jpeg',
-      '/gallery/developments/dev_09.jpeg',
+      '/gallery/developments/dev_01.webp',
+      '/gallery/developments/dev_02.webp',
+      '/gallery/developments/dev_03.webp',
+      '/gallery/developments/dev_04.webp',
+      '/gallery/developments/dev_05.webp',
+      '/gallery/developments/dev_06.webp',
+      '/gallery/developments/dev_07.webp',
+      '/gallery/developments/dev_08.webp',
+      '/gallery/developments/dev_09.webp',
       '/gallery/developments/dev_10.webp',
     ],
   },
@@ -1963,39 +1963,39 @@ const GALLERY_SECTIONS = [
     images: [
       '/gallery/renovations/ren_01.webp',
       '/gallery/renovations/ren_02.webp',
-      '/gallery/renovations/ren_03.png',
-      '/gallery/renovations/ren_04.png',
-      '/gallery/renovations/ren_05.jpeg',
-      '/gallery/renovations/ren_06.jpeg',
+      '/gallery/renovations/ren_03.webp',
+      '/gallery/renovations/ren_04.webp',
+      '/gallery/renovations/ren_05.webp',
+      '/gallery/renovations/ren_06.webp',
     ],
   },
   {
     label: 'Granny Flats',
     images: [
       '/gallery/granny-flats/gf_01.webp',
-      '/gallery/granny-flats/gf_02.jpeg',
-      '/gallery/granny-flats/gf_03.jpeg',
-      '/gallery/granny-flats/gf_04.png',
-      '/gallery/granny-flats/gf_05.png',
+      '/gallery/granny-flats/gf_02.webp',
+      '/gallery/granny-flats/gf_03.webp',
+      '/gallery/granny-flats/gf_04.webp',
+      '/gallery/granny-flats/gf_05.webp',
     ],
   },
   {
     label: 'Carports, Alfrescos & Sheds',
     images: [
       '/gallery/cafs/cafs_01.webp',
-      '/gallery/cafs/cafs_02.jpeg',
-      '/gallery/cafs/cafs_03.jpeg',
-      '/gallery/cafs/cafs_04.jpeg',
-      '/gallery/cafs/cafs_05.png',
-      '/gallery/cafs/cafs_06.png',
-      '/gallery/cafs/cafs_07.jpeg',
-      '/gallery/cafs/cafs_08.jpeg',
-      '/gallery/cafs/cafs_09.jpeg',
-      '/gallery/cafs/cafs_10.png',
-      '/gallery/cafs/cafs_11.jpeg',
-      '/gallery/cafs/cafs_12.jpeg',
-      '/gallery/cafs/cafs_13.jpeg',
-      '/gallery/cafs/cafs_14.jpeg',
+      '/gallery/cafs/cafs_02.webp',
+      '/gallery/cafs/cafs_03.webp',
+      '/gallery/cafs/cafs_04.webp',
+      '/gallery/cafs/cafs_05.webp',
+      '/gallery/cafs/cafs_06.webp',
+      '/gallery/cafs/cafs_07.webp',
+      '/gallery/cafs/cafs_08.webp',
+      '/gallery/cafs/cafs_09.webp',
+      '/gallery/cafs/cafs_10.webp',
+      '/gallery/cafs/cafs_11.webp',
+      '/gallery/cafs/cafs_12.webp',
+      '/gallery/cafs/cafs_13.webp',
+      '/gallery/cafs/cafs_14.webp',
     ],
   },
 ];
@@ -2511,13 +2511,13 @@ export default function App() {
       <div id="scroll-progress" ref={progressRef} />
       {/* Loader */}
       <div id="pdr-loader" className={loaded ? 'hidden' : ''}>
-        <img src="/logo-dark.png" alt="WA Building Design" className="loader-logo" />
+        <img src="/logo-dark.webp" alt="WA Building Design" className="loader-logo" />
       </div>
       {/* Navigation */}
       <nav id="pdr-nav" className={scrolled ? 'scrolled' : ''}>
         <div className="nav-wordmark">
           <img
-            src={scrolled ? '/logo-dark.png' : '/logo-white.png'}
+            src={scrolled ? '/logo-dark.webp' : '/logo-white.webp'}
             alt="WA Building Design"
             style={{ width: 'auto', display: 'block' }}
             className="nav-logo-img"
@@ -2562,7 +2562,7 @@ export default function App() {
         <img
           id="hero-bg"
           ref={heroBgRef as React.RefObject<HTMLImageElement & HTMLElement>}
-          src="/hero-image.jpg"
+          src="/hero-image.webp"
           alt="Patrick De Rossi consulting with clients over architectural plans"
         />
         <div id="hero-overlay" />
@@ -2776,7 +2776,7 @@ export default function App() {
             <div className="about-img-wrap reveal-right">
               <div className="about-img-frame">
                 <img
-                  src="/patrick.jpg"
+                  src="/patrick.webp"
                   alt="Patrick De Rossi"
                   loading="lazy"
                 />
@@ -2806,7 +2806,7 @@ export default function App() {
           <div className="team-grid">
             {[
               {
-                img: '/team/patrick.png',
+                img: '/team/patrick.webp',
                 name: 'Patrick De Rossi',
                 role: 'Founder & Principal Building Designer',
                 bio: 'Patrick is the founder and Principal Building Designer of WA Building Design, bringing over 17 years of experience in residential design, drafting, and construction. With a Diploma in Building Design & Technology and a strong background in planning approvals, working drawings, and development projects, he has helped hundreds of homeowners, builders, owner-builders, and property developers bring their ideas to life. As a registered builder and experienced designer, Patrick combines creative design thinking with practical construction knowledge to deliver homes that are both functional and buildable.',
@@ -2814,7 +2814,7 @@ export default function App() {
                 containerStyle: {},
               },
               {
-                img: '/team/roy.png',
+                img: '/team/roy.webp',
                 name: 'Roy Gabata',
                 role: 'Senior Architectural Designer',
                 bio: 'Roy brings over 10 years of experience in residential design, construction documentation, and 3D visualisation. Specialising in ArchiCAD and Australian drafting standards, he transforms concepts into accurate, buildable, and compliant designs — known for his meticulous attention to detail and clear documentation that keeps every project moving from concept through to construction.',
@@ -2822,7 +2822,7 @@ export default function App() {
                 containerStyle: {},
               },
               {
-                img: '/team/kenneth.png',
+                img: '/team/kenneth.webp',
                 name: 'Kenneth Herman',
                 role: 'Senior Architectural Designer',
                 bio: 'Kenneth brings extensive experience in residential design, planning, and construction documentation — from granny flats and custom homes to multi-unit developments. Specialising in concept design, DA documentation, and detailed working drawings, he is known for a strong eye for detail and a practical approach that delivers accurate, compliant, and buildable design solutions.',
@@ -3218,7 +3218,7 @@ export default function App() {
         <div className="container">
           <div className="footer-grid">
             <div>
-              <img src="/logo-white.png" alt="WA Building Design" style={{ height: '104px', width: 'auto', display: 'block', marginBottom: '1.25rem' }} />
+              <img src="/logo-white.webp" alt="WA Building Design" style={{ height: '104px', width: 'auto', display: 'block', marginBottom: '1.25rem' }} />
               <p className="footer-brand-tag">
                 Perth's trusted residential design and drafting practice. 17+ years, 500+ happy clients, and counting.
               </p>

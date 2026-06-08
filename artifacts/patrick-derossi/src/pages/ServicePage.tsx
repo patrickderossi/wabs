@@ -576,7 +576,7 @@ export default function ServicePage({ params }: ServicePageProps) {
           <ArrowLeft size={13} /><span>All Services</span>
         </a>
         <a href="/" className="sp-nav-logo">
-          <img src="/logo-dark.png" alt="WA Building Design" />
+          <img src="/logo-dark.webp" alt="WA Building Design" />
         </a>
         <a href="/#contact" className="sp-nav-cta">
           <Phone size={12} /><span>Get a Quote</span>
