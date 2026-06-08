@@ -1265,6 +1265,82 @@ const CSS = `
     100% { transform: scale(1.8); opacity: 0; }
   }
 
+  /* ── Team ── */
+  #team { padding: 8rem 0; background: #fff; }
+  .team-header { text-align: center; max-width: 560px; margin: 0 auto 5rem; }
+  .team-header .section-title { margin-top: 1rem; }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+  @media (max-width: 900px) { .team-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+  @media (max-width: 600px) { .team-grid { gap: 2rem; } }
+  .team-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .team-card-img {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: var(--dark2);
+  }
+  .team-card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center top;
+    display: block;
+    filter: grayscale(30%);
+    transition: filter 0.5s ease, transform 0.6s ease;
+  }
+  .team-card:hover .team-card-img img {
+    filter: grayscale(0%);
+    transform: scale(1.03);
+  }
+  .team-card-img::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(28,24,18,0.35), transparent);
+    pointer-events: none;
+  }
+  .team-card-body {
+    padding: 1.5rem 0 0;
+    border-top: 2px solid var(--gold);
+    margin-top: 0;
+    flex: 1;
+  }
+  .team-card-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #1c1812;
+    margin-bottom: 0.3rem;
+  }
+  .team-card-role {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .team-card-bio {
+    font-size: 0.88rem;
+    color: var(--gray);
+    line-height: 1.85;
+    font-weight: 300;
+  }
+  .team-card-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--dark2);
+  }
+  .team-card-placeholder svg {
+    opacity: 0.18;
+  }
+
   /* ── Testimonials ── */
   #testimonials { padding: 8rem 0; background: var(--dark2); overflow: hidden; }
 
@@ -2720,6 +2796,58 @@ export default function App() {
           </div>
         </div>
       </section>
+      {/* ── TEAM ── */}
+      <section id="team">
+        <div className="container">
+          <div className="team-header reveal">
+            <span className="section-eyebrow">The People Behind the Plans</span>
+            <h2 className="section-title" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)' }}>Meet the Team</h2>
+          </div>
+          <div className="team-grid">
+            {[
+              {
+                img: null,
+                name: 'Team Member One',
+                role: 'Role / Title',
+                bio: 'A short bio about this person will go here — their background, experience, and what they bring to the team.',
+              },
+              {
+                img: null,
+                name: 'Team Member Two',
+                role: 'Role / Title',
+                bio: 'A short bio about this person will go here — their background, experience, and what they bring to the team.',
+              },
+              {
+                img: null,
+                name: 'Team Member Three',
+                role: 'Role / Title',
+                bio: 'A short bio about this person will go here — their background, experience, and what they bring to the team.',
+              },
+            ].map((member, i) => (
+              <div key={i} className="team-card reveal" style={{ transitionDelay: `${i * 0.12}s` }}>
+                <div className="team-card-img">
+                  {member.img ? (
+                    <img src={member.img} alt={member.name} loading="lazy" />
+                  ) : (
+                    <div className="team-card-placeholder">
+                      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#1c1812" strokeWidth="1">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <div className="team-card-body">
+                  <div className="team-card-name">{member.name}</div>
+                  <div className="team-card-role">{member.role}</div>
+                  <p className="team-card-bio">{member.bio}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── TESTIMONIALS ── */}
       <section id="testimonials">
         <div className="container">
