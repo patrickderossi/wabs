@@ -2810,24 +2810,27 @@ export default function App() {
                 name: 'Team Member One',
                 role: 'Role / Title',
                 bio: 'A short bio about this person will go here — their background, experience, and what they bring to the team.',
+                imgStyle: {},
               },
               {
                 img: '/team/roy.png',
                 name: 'Roy Gabata',
                 role: 'Senior Architectural Draftsperson',
                 bio: 'Roy brings over 10 years of experience in residential design, construction documentation, and 3D visualisation. Specialising in ArchiCAD and Australian drafting standards, he transforms concepts into accurate, buildable, and compliant designs — known for his meticulous attention to detail and clear documentation that keeps every project moving from concept through to construction.',
+                imgStyle: { transform: 'scale(1.45)', transformOrigin: 'center 20%' },
               },
               {
                 img: '/team/kenneth.png',
                 name: 'Kenneth Herman',
                 role: 'Senior Architectural Designer',
                 bio: 'Kenneth brings extensive experience in residential design, planning, and construction documentation — from granny flats and custom homes to multi-unit developments. Specialising in concept design, DA documentation, and detailed working drawings, he is known for a strong eye for detail and a practical approach that delivers accurate, compliant, and buildable design solutions.',
+                imgStyle: {},
               },
             ].map((member, i) => (
               <div key={i} className="team-card reveal" style={{ transitionDelay: `${i * 0.12}s` }}>
                 <div className="team-card-img">
                   {member.img ? (
-                    <img src={member.img} alt={member.name} loading="lazy" />
+                    <img src={member.img} alt={member.name} loading="lazy" style={member.imgStyle} />
                   ) : (
                     <div className="team-card-placeholder">
                       <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#1c1812" strokeWidth="1">
