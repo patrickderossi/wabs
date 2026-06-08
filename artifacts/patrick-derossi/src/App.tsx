@@ -2818,10 +2818,10 @@ export default function App() {
                 bio: 'Roy brings over 10 years of experience in residential design, construction documentation, and 3D visualisation. Specialising in ArchiCAD and Australian drafting standards, he transforms concepts into accurate, buildable, and compliant designs — known for his meticulous attention to detail and clear documentation that keeps every project moving from concept through to construction.',
               },
               {
-                img: null,
-                name: 'Team Member Three',
-                role: 'Role / Title',
-                bio: 'A short bio about this person will go here — their background, experience, and what they bring to the team.',
+                img: '/team/kenneth.png',
+                name: 'Kenneth Herman',
+                role: 'Senior Architectural Designer',
+                bio: 'Kenneth brings extensive experience in residential design, planning, and construction documentation — from granny flats and custom homes to multi-unit developments. Specialising in concept design, DA documentation, and detailed working drawings, he is known for a strong eye for detail and a practical approach that delivers accurate, compliant, and buildable design solutions.',
               },
             ].map((member, i) => (
               <div key={i} className="team-card reveal" style={{ transitionDelay: `${i * 0.12}s` }}>
