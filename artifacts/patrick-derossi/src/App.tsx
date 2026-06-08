@@ -2811,6 +2811,7 @@ export default function App() {
                 role: 'Founder & Principal Building Designer',
                 bio: 'Patrick is the founder and Principal Building Designer of WA Building Design, bringing over 17 years of experience in residential design, drafting, and construction. With a Diploma in Building Design & Technology and a strong background in planning approvals, working drawings, and development projects, he has helped hundreds of homeowners, builders, owner-builders, and property developers bring their ideas to life. As a registered builder and experienced designer, Patrick combines creative design thinking with practical construction knowledge to deliver homes that are both functional and buildable.',
                 imgStyle: { transform: 'scale(1.2)', transformOrigin: 'center 20%' },
+                containerStyle: {},
               },
               {
                 img: '/team/roy.png',
@@ -2818,17 +2819,19 @@ export default function App() {
                 role: 'Senior Architectural Designer',
                 bio: 'Roy brings over 10 years of experience in residential design, construction documentation, and 3D visualisation. Specialising in ArchiCAD and Australian drafting standards, he transforms concepts into accurate, buildable, and compliant designs — known for his meticulous attention to detail and clear documentation that keeps every project moving from concept through to construction.',
                 imgStyle: { transform: 'scale(1.01)', transformOrigin: 'center 20%' },
+                containerStyle: {},
               },
               {
                 img: '/team/kenneth.png',
                 name: 'Kenneth Herman',
                 role: 'Senior Architectural Designer',
                 bio: 'Kenneth brings extensive experience in residential design, planning, and construction documentation — from granny flats and custom homes to multi-unit developments. Specialising in concept design, DA documentation, and detailed working drawings, he is known for a strong eye for detail and a practical approach that delivers accurate, compliant, and buildable design solutions.',
-                imgStyle: { transform: 'scale(1.0)', transformOrigin: 'center 20%' },
+                imgStyle: { transform: 'scale(0.95)', transformOrigin: 'center 20%' },
+                containerStyle: { backgroundColor: '#0c0c0c' },
               },
             ].map((member, i) => (
               <div key={i} className="team-card reveal" style={{ transitionDelay: `${i * 0.12}s` }}>
-                <div className="team-card-img">
+                <div className="team-card-img" style={member.containerStyle}>
                   {member.img ? (
                     <img src={member.img} alt={member.name} loading="lazy" style={member.imgStyle} />
                   ) : (
