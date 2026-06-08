@@ -20,6 +20,7 @@ runButton = "Project"
 [agent]
 stack = "PNPM_WORKSPACE"
 expertMode = true
+integrations = ["github:1.0.0"]
 
 [postMerge]
 path = "scripts/post-merge.sh"
@@ -31,3 +32,6 @@ timeoutMs = 20000
 VITE_EMAILJS_SERVICE_ID = "service_cujyy6r"
 VITE_EMAILJS_TEMPLATE_ID = "template_57o8gkg"
 VITE_EMAILJS_PUBLIC_KEY = "3dxL3OVRi-k_q79Me"
+
+[nix]
+channel = "stable-25_05"
