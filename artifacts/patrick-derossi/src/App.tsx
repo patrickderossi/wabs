@@ -2810,7 +2810,7 @@ export default function App() {
                 name: 'Patrick De Rossi',
                 role: 'Founder & Principal Building Designer',
                 bio: 'Patrick is the founder and Principal Building Designer of WA Building Design, bringing over 17 years of experience in residential design, drafting, and construction. With a Diploma in Building Design & Technology and a strong background in planning approvals, working drawings, and development projects, he has helped hundreds of homeowners, builders, owner-builders, and property developers bring their ideas to life. As a registered builder and experienced designer, Patrick combines creative design thinking with practical construction knowledge to deliver homes that are both functional and buildable.',
-                imgStyle: {},
+                imgStyle: { transform: 'scale(1.2)', transformOrigin: 'center 20%' },
               },
               {
                 img: '/team/roy.png',
