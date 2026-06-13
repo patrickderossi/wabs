@@ -1518,7 +1518,7 @@ const CSS = `
     font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1.1;
-    color: var(--dark);
+    color: #1c1812;
     margin: 0 0 1.25rem;
   }
   .video-guide-desc {
