@@ -1473,6 +1473,98 @@ const CSS = `
   }
 
   /* ── Pricing ── */
+  #video-guide {
+    background: var(--dark2);
+    padding: 7rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  #video-guide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .video-guide-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .video-guide-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+  .video-guide-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+  }
+  .video-guide-label::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1.5px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .video-guide-heading {
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--dark);
+    margin: 0 0 1.25rem;
+  }
+  .video-guide-desc {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: rgba(26,27,30,0.65);
+    margin: 0 0 2rem;
+  }
+  .video-guide-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .video-guide-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.82rem;
+    color: rgba(26,27,30,0.7);
+    line-height: 1.5;
+  }
+  .video-guide-points li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-top: 0.45rem;
+  }
+  .video-guide-player {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--gold-border);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.35);
+    background: #000;
+  }
+  .video-guide-player video {
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+  }
   #pricing { background: #fff; padding: 7rem 0; }
   .pricing-notice {
     display: inline-flex;
@@ -2983,6 +3075,38 @@ export default function App() {
 
           <div className="pricing-disclaimer">
             <strong>Important:</strong> The prices shown above are indicative estimates based on typical projects of similar scope and are provided as a general guide only. They are <strong>not fixed quotes or guaranteed pricing</strong>. Final fees depend on a range of factors including design complexity, site constraints, council requirements, number of design revisions, and project-specific documentation needs. All fees are subject to a formal written proposal. Prices exclude GST, council lodgement fees, surveying, engineering, and any other third-party costs. Contact us for an obligation-free discussion and tailored fee estimate.
+          </div>
+        </div>
+      </section>
+
+      {/* ── VIDEO GUIDE ── */}
+      <section id="video-guide">
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <div className="video-guide-inner reveal">
+            <div>
+              <span className="video-guide-label">Free Resource</span>
+              <h2 className="video-guide-heading">The WA Pre-Construction Guide</h2>
+              <p className="video-guide-desc">
+                Before you commit to a builder or sign anything, watch this. Patrick walks you through everything you need to know about the pre-construction phase — from concept to permit — so you can move forward with confidence and avoid costly mistakes.
+              </p>
+              <ul className="video-guide-points">
+                <li>What approvals you actually need before construction starts</li>
+                <li>How to read and understand your building plans</li>
+                <li>Common mistakes owner-builders and first-timers make</li>
+                <li>How to choose the right designer for your project</li>
+                <li>What a complete documentation set should include</li>
+              </ul>
+            </div>
+            <div className="video-guide-player">
+              <video
+                controls
+                preload="none"
+                playsInline
+                style={{ aspectRatio: '16/9' }}
+              >
+                <source src="/preconstruction-guide.mp4" type="video/mp4" />
+              </video>
+            </div>
           </div>
         </div>
       </section>
